@@ -14,7 +14,7 @@ def checkdb(id):
         cur.execute("select * from player;")
         table = cur.fetchall()
         id_numbers = [f_tuple[0] for f_tuple in table]
-        print(id_numbers)
+        #print(id_numbers)
         if isinstance(id, int):
             if id in id_numbers:
                 id_exists = True
@@ -27,7 +27,7 @@ def checkdb(id):
             cur.close()
             conn.close()
             print("Connection to DB is closed")
-            return(id_exists)
+            #return(id_exists)
 
 def retrieveCode(id):
     try:
@@ -51,7 +51,7 @@ def retrieveCode(id):
             cur.close()
             conn.close()
             print("Connection to DB is closed")
-            return(result)
+            #return(result)
 
 def addRecord(record):
     try:
@@ -65,9 +65,8 @@ def addRecord(record):
         cur = conn.cursor()
         insert_query = """ Insert into player (id,first_name, last_name, codename) values (%s,'None','None',%s)"""
         cur.execute(insert_query, record)
-
         conn.commit()
-        print("Record Successfully Added")
+        #print("Record Successfully Added")
     except (Exception, Error) as error:
         print("Error while connecting to DB", error)
     finally:
@@ -75,14 +74,3 @@ def addRecord(record):
             cur.close()
             conn.close()
             print("Connection to DB is closed")
-
-if checkdb(1):
-    result = retrieveCode(1)
-    print(result)
-
-record = ('2','pipestock')
-addRecord(record)
-
-if checkdb(2):
-    result = retrieveCode(2)
-    print(result)
