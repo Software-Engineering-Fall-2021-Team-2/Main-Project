@@ -1,8 +1,12 @@
+#
+#       Heroku Linkage Software
+#       Author: Stephen Coyne
+#
+
 import psycopg2
 from psycopg2 import Error
 
 def checkdb(id):
-    print(type(id))
     try:
         #Connect to database
         conn = psycopg2.connect(user="fyvfgbrmzsdxqv",
@@ -16,7 +20,6 @@ def checkdb(id):
         cur.execute("select * from player;")
         table = cur.fetchall()
         id_numbers = [f_tuple[0] for f_tuple in table]
-        #print(id_numbers)
         if isinstance(id, int):
             if id in id_numbers:
                 id_exists = True
