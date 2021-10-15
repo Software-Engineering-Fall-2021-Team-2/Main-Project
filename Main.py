@@ -29,14 +29,18 @@ def player_entry():
         self.insert('0', text)
 
     def Send_data():
-         for i in range(15):
+        for i in range(15):
             id = int(r_id[i].get())
             name = red[i].get()
-            if(dbconnect.checkdb(id)):
-                num = dbconnect.retrieveCode(id)
-            else:
+            if not(dbconnect.checkdb(id)):
                 record = (id,name)
                 dbconnect.addRecord(record)
+        for i in range(15):
+           id = int(g_id[i].get())
+           name = g[i].get()
+           if not(dbconnect.checkdb(id)):
+               record = (id,name)
+               dbconnect.addRecord(record)
 
     def pullNames():
         for i in range(len(r_id)):
