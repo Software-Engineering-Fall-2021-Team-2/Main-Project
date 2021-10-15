@@ -43,28 +43,31 @@ def player_entry():
 
     def Send_data():
         for i in range(15):
-            id = convertToInt(r_id[i].get())
-            name = red[i].get()
-            if not(dbconnect.checkdb(id)):
-                record = (id,name)
-                dbconnect.addRecord(record)
+            if len(r_id[i].get()) != 0:
+                id = convertToInt(r_id[i].get())
+                name = red[i].get()
+                if not(dbconnect.checkdb(id)):
+                    record = (id,name)
+                    dbconnect.addRecord(record)
         for i in range(15):
-           id = convertToInt(g_id[i].get())
-           name = g[i].get()
-           if not(dbconnect.checkdb(id)):
-               record = (id,name)
-               dbconnect.addRecord(record)
+            if len(g_id[i].get()) != 0:
+                id = convertToInt(g_id[i].get())
+                name = g[i].get()
+                if not(dbconnect.checkdb(id)):
+                    record = (id,name)
+                    dbconnect.addRecord(record)
 
     def pullNames(event):
         for i in range(15):
-            red_id = convertToInt(r_id[i].get())
-            if(dbconnect.checkdb(red_id)):
-                setName(red[i], dbconnect.retrieveCode(red_id))
+            if len(r_id[i].get()) != 0:
+                red_id = convertToInt(r_id[i].get())
+                if(dbconnect.checkdb(red_id)):
+                    setName(red[i], dbconnect.retrieveCode(red_id))
         for i in range(15):
-            print(g_id[i].get())
-            green_id = convertToInt(g_id[i].get())
-            if(dbconnect.checkdb(green_id)):
-                setName(g[i], dbconnect.retrieveCode(green_id))
+            if len(g_id[i].get()) != 0:
+                green_id = convertToInt(g_id[i].get())
+                if(dbconnect.checkdb(green_id)):
+                    setName(g[i], dbconnect.retrieveCode(green_id))
 
     def clearData():
         for i in range(15):
@@ -93,7 +96,7 @@ def player_entry():
     my_canvas.create_text(x_mid, 50, text="Edit Current Game", font=("Times New Roman",50), fill="Blue")
     my_canvas.create_text(red_offset, 200, text="Red Team", font=("Times New Roman", 25), fill="Red" )
     my_canvas.create_text(green_offset, 200, text="Green Team", font=("Times New Roman", 25), fill="Green")
-    my_canvas.create_text(x_mid, 125, text="Press enter to get your code name if you have played before, otherwise, Submit your team before playing (Takes awhile, so wait until everyone has been added)", font=("Times New Roman", 15), fill="White")
+    my_canvas.create_text(x_mid, 125, text="Press enter to get your code name if you have played before, otherwise, Submit your team before playing", font=("Times New Roman", 15), fill="White")
 
     #Red Names
     red = []
