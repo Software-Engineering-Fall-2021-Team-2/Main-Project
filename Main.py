@@ -21,6 +21,14 @@ splash_root.overrideredirect(True)
 splash_label = Label(splash_root, image=img)
 splash_label.place(x=0, y=0, relwidth=1, relheight=1)
 
+def convertToInt(string):
+    num = 0
+    try:
+        num = int(string)
+    except:
+        pass
+    return num
+
 def player_entry():
     splash_root.destroy()
 
@@ -30,13 +38,13 @@ def player_entry():
 
     def Send_data():
         for i in range(15):
-            id = int(r_id[i].get())
+            id = convertToInt(r_id[i].get())
             name = red[i].get()
             if not(dbconnect.checkdb(id)):
                 record = (id,name)
                 dbconnect.addRecord(record)
         for i in range(15):
-           id = int(g_id[i].get())
+           id = convertToInt(g_id[i].get())
            name = g[i].get()
            if not(dbconnect.checkdb(id)):
                record = (id,name)
@@ -44,11 +52,12 @@ def player_entry():
 
     def pullNames():
         for i in range(len(r_id)):
-            red_id = int(r_id[i].get())
+            red_id = convertToInt(r_id[i].get())
             if(dbconnect.checkdb(red_id)):
                 setName(red[i], dbconnect.retrieveCode(red_id))
         for i in range(len(g_id)):
-            green_id = int(g_id[i].get())
+            print(g_id[i].get())
+            green_id = convertToInt(g_id[i].get())
             if(dbconnect.checkdb(green_id)):
                 setName(g[i], dbconnect.retrieveCode(green_id))
 
