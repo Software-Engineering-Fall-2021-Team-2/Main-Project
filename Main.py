@@ -24,6 +24,10 @@ splash_label.place(x=0, y=0, relwidth=1, relheight=1)
 def player_entry():
     splash_root.destroy()
 
+    def setName(self, text):
+        self.delete('0', 'end')
+        self.insert('0', text)
+
     def Send_data():
          for i in range(15):
             id = int(r_id[i].get())
@@ -34,9 +38,15 @@ def player_entry():
                 record = (id,name)
                 dbconnect.addRecord(record)
 
-    def setName(self,text):
-        self.delete('0','end')
-        self.insert('0', text)
+    def pullNames():
+        for i in range(len(r_id)):
+            red_id = int(r_id[i].get())
+            if(dbconnect.checkdb(red_id)):
+                setName(red[i], dbconnect.retrieveCode(red_id))
+        for i in range(len(g_id)):
+            green_id = int(g_id[i].get())
+            if(dbconnect.checkdb(green_id)):
+                setName(g[i], dbconnect.retrieveCode(green_id))
 
     root = Tk()
     root.title(' Entry Terminal')
@@ -157,9 +167,13 @@ def player_entry():
     s_btn.configure(width=10)
     btn_window = my_canvas.create_window(green_offset, sheight - 150, window=s_btn)
 
-    c_btn = Button(root, text='Clear', font=("Times New Roman", 12), width=10, height=2, bd='3')
-    s_btn.configure(width=10)
-    btn_window = my_canvas.create_window(red_offset, sheight - 150, window=c_btn)
+    #c_btn = Button(root, text='Clear', font=("Times New Roman", 12), width=10, height=2, bd='3')
+    #c_btn.configure(width=10)
+    #btn_window = my_canvas.create_window(red_offset, sheight - 150, window=c_btn)
+
+    p_btn = Button(root, text='Pull', font=("Times New Roman", 12), width=10, height=2, bd='3', command=pullNames)
+    p_btn.configure(width=10)
+    btn_window = my_canvas.create_window(red_offset, sheight - 150, window=p_btn)
 
 splash_root.after(3000, player_entry)
 # Execute tkinter
