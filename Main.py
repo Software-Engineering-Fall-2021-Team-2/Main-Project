@@ -50,16 +50,23 @@ def player_entry():
                record = (id,name)
                dbconnect.addRecord(record)
 
-    def pullNames():
-        for i in range(len(r_id)):
+    def pullNames(event):
+        for i in range(15):
             red_id = convertToInt(r_id[i].get())
             if(dbconnect.checkdb(red_id)):
                 setName(red[i], dbconnect.retrieveCode(red_id))
-        for i in range(len(g_id)):
+        for i in range(15):
             print(g_id[i].get())
             green_id = convertToInt(g_id[i].get())
             if(dbconnect.checkdb(green_id)):
                 setName(g[i], dbconnect.retrieveCode(green_id))
+
+    def clearData():
+        for i in range(15):
+            red[i].delete(0, 'end')
+            r_id[i].delete(0, 'end')
+            g[i].delete(0, 'end')
+            g_id[i].delete(0, 'end')
 
     root = Tk()
     root.title(' Entry Terminal')
@@ -81,6 +88,7 @@ def player_entry():
     my_canvas.create_text(x_mid, 50, text="Edit Current Game", font=("Times New Roman",50), fill="Blue")
     my_canvas.create_text(red_offset, 200, text="Red Team", font=("Times New Roman", 25), fill="Red" )
     my_canvas.create_text(green_offset, 200, text="Green Team", font=("Times New Roman", 25), fill="Green")
+    my_canvas.create_text(x_mid, 125, text="Press enter to get your code name if you have played before, otherwise, Submit your team before playing", font=("Times New Roman", 15), fill="White")
 
     #Red Names
     red = []
@@ -180,13 +188,12 @@ def player_entry():
     s_btn.configure(width=10)
     btn_window = my_canvas.create_window(green_offset, sheight - 150, window=s_btn)
 
-    #c_btn = Button(root, text='Clear', font=("Times New Roman", 12), width=10, height=2, bd='3')
-    #c_btn.configure(width=10)
-    #btn_window = my_canvas.create_window(red_offset, sheight - 150, window=c_btn)
+    c_btn = Button(root, text='Clear', font=("Times New Roman", 12), width=10, height=2, bd='3', command=clearData)
+    c_btn.configure(width=10)
+    btn_window = my_canvas.create_window(red_offset, sheight - 150, window=c_btn)
 
-    p_btn = Button(root, text='Pull', font=("Times New Roman", 12), width=10, height=2, bd='3', command=pullNames)
-    p_btn.configure(width=10)
-    btn_window = my_canvas.create_window(red_offset, sheight - 150, window=p_btn)
+    #Pull names when enter is pressed
+    root.bind('<Return>', pullNames)
 
 splash_root.after(3000, player_entry)
 # Execute tkinter
