@@ -1,6 +1,7 @@
 #
 #       Player-Entry & Splash Screen
 #       Authors: Gage Underwood, Stephen Coyne
+#       Version: 1.1  ---  Added F5 key functionality
 #
 
 # Import module
@@ -26,6 +27,7 @@ splash_root.overrideredirect(True)
 splash_label = Label(splash_root, image=img)
 splash_label.place(x=0, y=0, relwidth=1, relheight=1)
 
+#Converts strings to ints (fixes ValueError)
 def convertToInt(string):
     num = 0
     try:
@@ -37,10 +39,12 @@ def convertToInt(string):
 def player_entry():
     splash_root.destroy()
 
+    #Put code names from database into entries
     def setName(self, text):
         self.delete('0', 'end')
         self.insert('0', text)
 
+    #Sends data to database for checking and adding
     def Send_data():
         for i in range(15):
             if len(r_id[i].get()) != 0:
@@ -57,6 +61,7 @@ def player_entry():
                     record = (id,name)
                     dbconnect.addRecord(record)
 
+    #Pulls code names from database given that the id exists
     def pullNames(event):
         for i in range(15):
             if len(r_id[i].get()) != 0:
@@ -69,6 +74,7 @@ def player_entry():
                 if(dbconnect.checkdb(green_id)):
                     setName(g[i], dbconnect.retrieveCode(green_id))
 
+    #Clears all data from boxes
     def clearData():
         for i in range(15):
             red[i].delete(0, 'end')
@@ -202,6 +208,8 @@ def player_entry():
 
     #Pull names when enter is pressed
     root.bind('<Return>', pullNames)
+    #Go to player action screen
+    root.bind('<KeyPress-F5>',)
 
 splash_root.after(3000, player_entry)
 # Execute tkinter
