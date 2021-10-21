@@ -1,7 +1,6 @@
 #
 #       Player-Entry & Splash Screen
 #       Authors: Gage Underwood, Stephen Coyne
-#       Version: 1.1  ---  Added F5 key functionality
 #
 
 # Import module
@@ -27,7 +26,6 @@ splash_root.overrideredirect(True)
 splash_label = Label(splash_root, image=img)
 splash_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-#Converts strings to ints (fixes ValueError)
 def convertToInt(string):
     num = 0
     try:
@@ -39,12 +37,10 @@ def convertToInt(string):
 def player_entry():
     splash_root.destroy()
 
-    #Put code names from database into entries
     def setName(self, text):
         self.delete('0', 'end')
         self.insert('0', text)
 
-    #Sends data to database for checking and adding
     def Send_data():
         for i in range(15):
             if len(r_id[i].get()) != 0:
@@ -61,7 +57,6 @@ def player_entry():
                     record = (id,name)
                     dbconnect.addRecord(record)
 
-    #Pulls code names from database given that the id exists
     def pullNames(event):
         for i in range(15):
             if len(r_id[i].get()) != 0:
@@ -74,7 +69,6 @@ def player_entry():
                 if(dbconnect.checkdb(green_id)):
                     setName(g[i], dbconnect.retrieveCode(green_id))
 
-    #Clears all data from boxes
     def clearData():
         for i in range(15):
             red[i].delete(0, 'end')
@@ -193,6 +187,26 @@ def player_entry():
     input_window = my_canvas.create_window(green_offset - 150, 705, window=g_id[13])
     input_window = my_canvas.create_window(green_offset - 150, 740, window=g_id[14])
 
+    #action screen
+    def action_screen(event):
+        actionS = Tk()
+        actionS.title(' Action Screen ')
+
+        swidth = actionS.winfo_screenwidth()
+        sheight = actionS.winfo_screenheight()
+        x_mid = int(actionS.winfo_screenwidth() / 2)
+        y_mid = int(actionS.winfo_screenheight() / 2)
+        red_offset = x_mid - 300
+        green_offset = x_mid + 300
+        actionS.geometry("%dx%d" % (swidth, sheight))
+
+        my_canvas = Canvas(actionS, width=swidth, height=swidth, background="black")
+        my_canvas.pack(fill="both", expand=True)
+
+        my_canvas.create_text(x_mid, 50, text="Current Scores", font=("Times New Roman", 50), fill="White")
+        my_canvas.create_text(red_offset, 200, text="Red Team", font=("Times New Roman", 25), fill="Red")
+        my_canvas.create_text(green_offset, 200, text="Green Team", font=("Times New Roman", 25), fill="Green")
+
     #buttons
     btn = Button(root, text='Submit Teams', font=("Times New Roman", 12), width=10, height=2, bd='3', command=Send_data)
     btn.configure(width=10)
@@ -208,9 +222,11 @@ def player_entry():
 
     #Pull names when enter is pressed
     root.bind('<Return>', pullNames)
-    #Go to player action screen
-    root.bind('<KeyPress-F5>',)
+    #Action screen keypress
+    root.bind('<KeyPress-F5>', action_screen)
+
 
 splash_root.after(3000, player_entry)
+
 # Execute tkinter
 mainloop()
