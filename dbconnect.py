@@ -1,6 +1,7 @@
 #
 #       Heroku Linkage Software
 #       Author: Stephen Coyne
+#       Version: 1.0 --- Inital Functionality
 #
 
 import psycopg2
@@ -75,7 +76,6 @@ def addRecord(record):
         insert_query = """ Insert into player (id,first_name, last_name, codename) values (%s,'None','None',%s)"""
         cur.execute(insert_query, record)
         conn.commit()
-        #print("Record Successfully Added")
     except (Exception, Error) as error:
         print("Error while connecting to DB", error)
     finally:
