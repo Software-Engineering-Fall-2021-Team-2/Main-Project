@@ -97,6 +97,7 @@ def player_entry():
     my_canvas.create_text(red_offset, 200, text="Red Team", font=("Times New Roman", 25), fill="Red" )
     my_canvas.create_text(green_offset, 200, text="Green Team", font=("Times New Roman", 25), fill="Green")
     my_canvas.create_text(x_mid, 125, text="Press enter to get your code name if you have played before, otherwise, Submit your team before playing", font=("Times New Roman", 15), fill="White")
+    my_canvas.create_text(x_mid, sheight - 300, text="Press F5 to start game!", font=("Times New Roman", 30), fill="White")
 
     #Red Names
     red = []
@@ -206,15 +207,13 @@ def player_entry():
         my_canvas.create_text(x_mid, 50, text="Current Scores", font=("Times New Roman", 50), fill="White")
         my_canvas.create_text(red_offset, 200, text="Red Team", font=("Times New Roman", 25), fill="Red")
         my_canvas.create_text(green_offset, 200, text="Green Team", font=("Times New Roman", 25), fill="Green")
+        my_canvas.create_text(red_offset, 250, text="Score = 0", font=("Times New Roman", 18), fill="White")
+        my_canvas.create_text(green_offset, 250, text="Score = 0", font=("Times New Roman", 18), fill="White")
 
     #buttons
     btn = Button(root, text='Submit Teams', font=("Times New Roman", 12), width=10, height=2, bd='3', command=Send_data)
     btn.configure(width=10)
-    btn_window = my_canvas.create_window(x_mid, sheight-150, window=btn)
-
-    s_btn = Button(root, text='Start', font=("Times New Roman", 12), width=10, height=2, bd='3')
-    s_btn.configure(width=10)
-    btn_window = my_canvas.create_window(green_offset, sheight - 150, window=s_btn)
+    btn_window = my_canvas.create_window(green_offset, sheight-150, window=btn)
 
     c_btn = Button(root, text='Clear', font=("Times New Roman", 12), width=10, height=2, bd='3', command=clearData)
     c_btn.configure(width=10)
