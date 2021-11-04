@@ -1,3 +1,9 @@
+#
+#       Heroku Linkage Software
+#       Author: Stephen Coyne
+#       Version: 1.0 --- Inital Functionality
+#
+
 import psycopg2
 from psycopg2 import Error
 
@@ -15,7 +21,6 @@ def checkdb(id):
         cur.execute("select * from player;")
         table = cur.fetchall()
         id_numbers = [f_tuple[0] for f_tuple in table]
-        #print(id_numbers)
         if isinstance(id, int):
             if id in id_numbers:
                 id_exists = True
@@ -71,7 +76,6 @@ def addRecord(record):
         insert_query = """ Insert into player (id,first_name, last_name, codename) values (%s,'None','None',%s)"""
         cur.execute(insert_query, record)
         conn.commit()
-        #print("Record Successfully Added")
     except (Exception, Error) as error:
         print("Error while connecting to DB", error)
     finally:
