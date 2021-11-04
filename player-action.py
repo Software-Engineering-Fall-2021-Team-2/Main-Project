@@ -12,8 +12,9 @@ def killScreen(event):
 
 actionS = Tk()
 actionS.title(' Action Screen ')
+actionS.attributes('-fullscreen', True)
 
-#Intial Calculations for window
+#Intial Calculations for window\
 swidth = actionS.winfo_screenwidth()
 sheight = actionS.winfo_screenheight()
 x_mid = int(actionS.winfo_screenwidth() / 2)
@@ -22,7 +23,7 @@ red_offset = x_mid - 300
 green_offset = x_mid + 300
 actionS.geometry("%dx%d" % (swidth, sheight))
 
-my_canvas = Canvas(actionS, width=swidth, height=swidth, background="black")
+my_canvas = Canvas(actionS, bg="black", highlightthickness=0)
 my_canvas.pack(fill="both", expand=True)
 
 #Create Headers

@@ -24,7 +24,7 @@ img = PhotoImage(file="logo.png")
 splash_root.overrideredirect(True)
 
 splash_label = Label(splash_root, image=img)
-splash_label.place(x=0, y=0, relwidth=1, relheight=1)
+splash_label.place(relx = 0.5, rely = 0.5, anchor=CENTER)
 
 splash_root.after(3000, killScreen)
 

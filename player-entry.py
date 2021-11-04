@@ -72,6 +72,7 @@ def writeInfo():
 
 root = Tk()
 root.title(' Entry Terminal')
+root.attributes('-fullscreen', True)
 
 #Initial Calculations
 swidth = root.winfo_screenwidth()
@@ -83,7 +84,7 @@ green_offset = x_mid + 300
 root.geometry("%dx%d" % (swidth, sheight))
 
 #Creates Canvas
-my_canvas = Canvas(root, width=swidth, height=swidth, background="black")
+my_canvas = Canvas(root, bg="black", highlightthickness=0)
 my_canvas.pack(fill="both", expand=True)
 
 #Important Functions for Switching to player action
