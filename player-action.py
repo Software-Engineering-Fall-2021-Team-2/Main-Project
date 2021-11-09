@@ -10,18 +10,29 @@ import json
 def killScreen(event):
     actionS.destroy()
 
+def countdown():
+    sec = StringVar()
+    def countdownTimer():
+        seconds = 360
+        while seconds > -1:
+            sec.set(seconds)
+            actionS.update()
+            time.sleep(1)
+            seconds -= 1
+
+    timer = Label(my_canvas, textvariable=sec, font='Times 50', fg='Purple', bg='Black')
+    timer.place(relx=1.0, rely=1.0, x=0, y=0, anchor=SE)
+
+
 actionS = Tk()
 actionS.title(' Action Screen ')
 actionS.attributes('-fullscreen', True)
 
 #Intial Calculations for window\
-swidth = actionS.winfo_screenwidth()
-sheight = actionS.winfo_screenheight()
 x_mid = int(actionS.winfo_screenwidth() / 2)
 y_mid = int(actionS.winfo_screenheight() / 2)
 red_offset = x_mid - 300
 green_offset = x_mid + 300
-actionS.geometry("%dx%d" % (swidth, sheight))
 
 my_canvas = Canvas(actionS, bg="black", highlightthickness=0)
 my_canvas.pack(fill="both", expand=True)

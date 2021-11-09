@@ -75,13 +75,10 @@ root.title(' Entry Terminal')
 root.attributes('-fullscreen', True)
 
 #Initial Calculations
-swidth = root.winfo_screenwidth()
-sheight = root.winfo_screenheight()
 x_mid = int(root.winfo_screenwidth() / 2)
 y_mid = int(root.winfo_screenheight() / 2)
 red_offset = x_mid - 300
 green_offset = x_mid + 300
-root.geometry("%dx%d" % (swidth, sheight))
 
 #Creates Canvas
 my_canvas = Canvas(root, bg="black", highlightthickness=0)
@@ -113,7 +110,7 @@ my_canvas.create_text(x_mid, 50, text="Edit Current Game", font=("Times New Roma
 my_canvas.create_text(red_offset, 200, text="Red Team", font=("Times New Roman", 25), fill="Red" )
 my_canvas.create_text(green_offset, 200, text="Green Team", font=("Times New Roman", 25), fill="Green")
 my_canvas.create_text(x_mid, 125, text="Press enter to get your code name if you have played before, otherwise, Submit your team before playing", font=("Times New Roman", 15), fill="White")
-my_canvas.create_text(x_mid, sheight - 300, text="Press F5 to start game!", font=("Times New Roman", 30), fill="White")
+my_canvas.create_text(x_mid, 145, text="Press F5 to start game once teams have been submitted", font='Times 15', fill='White')
 
 #Red Names
 red = []
@@ -207,15 +204,16 @@ input_window = my_canvas.create_window(green_offset - 150, 740, window=g_id[14])
 #buttons
 btn = Button(root, text='Submit Teams', font=("Times New Roman", 12), width=10, height=2, bd='3', command=Send_data)
 btn.configure(width=10)
-btn_window = my_canvas.create_window(green_offset, sheight-150, window=btn)
+btn_window = my_canvas.create_window(green_offset, 1000, window=btn)
 
 c_btn = Button(root, text='Clear', font=("Times New Roman", 12), width=10, height=2, bd='3', command=clearData)
 c_btn.configure(width=10)
-btn_window = my_canvas.create_window(red_offset, sheight - 150, window=c_btn)
+btn_window = my_canvas.create_window(red_offset, 1000, window=c_btn)
 
 #Pull names when enter is pressed
 root.bind('<Return>', pullNames)
 #Action screen keypress
 root.bind('<KeyPress-F5>', countdown)
+root.bind('<KeyPress-F1>', killScreen)
 
 root.mainloop()
