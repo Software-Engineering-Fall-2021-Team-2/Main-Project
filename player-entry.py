@@ -2,12 +2,21 @@
 #           Name: player-entry.py
 #           Author: Stephen Coyne & Gage Underwood
 #
+# A todo list
+# TODO (FRAME): Convert to frame based architecture
+# TODO (RESTRUCT): Restructure for easier reading
+# TODO (TABLE): Convert to tkinter tables
+# TODO (SNAKE): Standardise snake case
 
 from tkinter import *
 import dbconnect
 import json
 import time
 
+
+
+# DEL: Why me
+# WHAT: why is this used rather that the int() wrapper?
 def convertToInt(string):
     num = 0
     try:
@@ -16,38 +25,45 @@ def convertToInt(string):
         pass
     return num
 
+# WHAT: What does this do?
 def setName(self, text):
     self.delete('0', 'end')
     self.insert('0', text)
 
+# TODO (SNAKE)
 def Send_data():
     for i in range(15):
         if len(r_id[i].get()) != 0:
-            id = convertToInt(r_id[i].get())
+            # * Changed from convertToInt to int() wrapper, test if this works            
+            id = int(r_id[i].get())
             name = red[i].get()
             if not(dbconnect.checkdb(id)):
                 record = (id,name)
                 dbconnect.addRecord(record)
     for i in range(15):
         if len(g_id[i].get()) != 0:
-            id = convertToInt(g_id[i].get())
+            # * Changed from convertToInt to int() wrapper, test if this works
+            id = int(g_id[i].get())
             name = g[i].get()
             if not(dbconnect.checkdb(id)):
                 record = (id,name)
                 dbconnect.addRecord(record)
 
+# TODO (SNAKE)
 def pullNames(event):
     for i in range(15):
         if len(r_id[i].get()) != 0:
-            red_id = convertToInt(r_id[i].get())
+            # * Changed from convertToInt to int() wrapper, test if this works
+            red_id = int(r_id[i].get())
             if(dbconnect.checkdb(red_id)):
                 setName(red[i], dbconnect.retrieveCode(red_id))
     for i in range(15):
         if len(g_id[i].get()) != 0:
+            # TODO : will change from convetToInt to int() wrapper, currently testing
             green_id = convertToInt(g_id[i].get())
             if(dbconnect.checkdb(green_id)):
                 setName(g[i], dbconnect.retrieveCode(green_id))
-
+# TODO (SNAKE)
 def clearData():
     for i in range(15):
         red[i].delete(0, 'end')
@@ -55,6 +71,7 @@ def clearData():
         g[i].delete(0, 'end')
         g_id[i].delete(0, 'end')
 
+# TODO (SNAKE)
 def writeInfo():
     redTeam = []
     greenTeam = []
@@ -70,25 +87,31 @@ def writeInfo():
     with open('greenTeam.txt', 'w') as file:
         file.write(json.dumps(greenTeam))
 
+# TODO (RESTRUCT): Move to top of file
 root = Tk()
 root.title(' Entry Terminal')
-root.attributes('-fullscreen', True)
 
+# TODO: Make this a window, not fulscreen
+root.attributes('-fullscreen', False)
 #Initial Calculations
 x_mid = int(root.winfo_screenwidth() / 2)
 y_mid = int(root.winfo_screenheight() / 2)
 red_offset = x_mid - 300
 green_offset = x_mid + 300
 
+# TODO (FRAME)
 #Creates Canvas
 my_canvas = Canvas(root, bg="black", highlightthickness=0)
 my_canvas.pack(fill="both", expand=True)
 
+# TODO (SNAKE)
+# WHAT: Why do we writeInfo() in this function?
 #Important Functions for Switching to player action
 def killScreen():
     writeInfo()
     root.destroy()
 
+# TODO (SNAKE)
 def countdown(event):
     my_canvas.delete('all')
 
@@ -112,16 +135,19 @@ my_canvas.create_text(green_offset, 200, text="Green Team", font=("Times New Rom
 my_canvas.create_text(x_mid, 125, text="Press enter to get your code name if you have played before, otherwise, Submit your team before playing", font=("Times New Roman", 15), fill="White")
 my_canvas.create_text(x_mid, 145, text="Press F5 to start game once teams have been submitted", font='Times 15', fill='White')
 
+# TODO (SNAKE)
 #Red Names
 red = []
 for i in range(15):
     red.append(Entry(my_canvas, width=30))
 
+# TODO (SNAKE)
 #Red Id
 r_id = []
 for i in range(15):
     r_id.append(Entry(my_canvas, width=3))
 
+# TODO (TABLE)
 #placement
 input_window = my_canvas.create_window(red_offset, 250, window=red[0])
 input_window = my_canvas.create_window(red_offset, 285, window=red[1])
@@ -156,12 +182,13 @@ input_window = my_canvas.create_window(red_offset - 150, 670, window=r_id[12])
 input_window = my_canvas.create_window(red_offset - 150, 705, window=r_id[13])
 input_window = my_canvas.create_window(red_offset - 150, 740, window=r_id[14])
 
-
+# TODO (SNAKE)
 #green team names
 g = []
 for i in range(15):
     g.append(Entry(my_canvas, width=30))
 
+# TODO (SNAKE)
 # green team id
 g_id = []
 for i in range(15):
