@@ -14,6 +14,24 @@ import json
 import time
 
 
+
+# TODO (RESTRUCT): Move to top of file
+root = Tk()
+root.title(' Entry Terminal')
+
+# TODO: Make this a window, not fulscreen
+root.attributes('-fullscreen', False)
+# Initial Calculations
+x_mid = int(root.winfo_screenwidth() / 2)
+y_mid = int(root.winfo_screenheight() / 2)
+red_offset = x_mid - 300
+green_offset = x_mid + 300
+
+# TODO (FRAME)
+# Creates Canvas
+my_canvas = Canvas(root, bg="black", highlightthickness=0)
+my_canvas.pack(fill="both", expand=True)
+
 # DEL: Why me
 # WHAT: why is this used rather that the int() wrapper?
 def string_to_int(string):
@@ -30,7 +48,6 @@ def string_to_int(string):
 def set_name(self, text):
     self.delete('0', 'end')
     self.insert('0', text)
-
 
 
 def send_data():
@@ -52,7 +69,6 @@ def send_data():
                 dbconnect.addRecord(record)
 
 
-
 def pull_names(event):
     for i in range(15):
         if len(red_ids[i].get()) != 0:
@@ -68,15 +84,12 @@ def pull_names(event):
                 set_name(green_names[i], dbconnect.retrieveCode(green_id))
 
 
-
 def clear_data():
     for i in range(15):
         red_names[i].delete(0, 'end')
         red_ids[i].delete(0, 'end')
         green_names[i].delete(0, 'end')
         green_ids[i].delete(0, 'end')
-
-
 
 
 def write_info():
@@ -95,29 +108,14 @@ def write_info():
         file.write(json.dumps(greenTeam))
 
 
-# TODO (RESTRUCT): Move to top of file
-root = Tk()
-root.title(' Entry Terminal')
 
-# TODO: Make this a window, not fulscreen
-root.attributes('-fullscreen', False)
-# Initial Calculations
-x_mid = int(root.winfo_screenwidth() / 2)
-y_mid = int(root.winfo_screenheight() / 2)
-red_offset = x_mid - 300
-green_offset = x_mid + 300
-
-# TODO (FRAME)
-# Creates Canvas
-my_canvas = Canvas(root, bg="black", highlightthickness=0)
-my_canvas.pack(fill="both", expand=True)
 
 # WHAT: Why do we writeInfo() in this function?
 # Important Functions for Switching to player action
 
 
 def kill_screen():
-    writeInfo()
+    write_info()
     root.destroy()
 
 
@@ -184,20 +182,34 @@ input_window = my_canvas.create_window(red_offset, 740, window=red_names[14])
 
 # id placement
 input_window = my_canvas.create_window(red_offset-150, 250, window=red_ids[0])
-input_window = my_canvas.create_window(red_offset - 150, 285, window=red_ids[1])
-input_window = my_canvas.create_window(red_offset - 150, 320, window=red_ids[2])
-input_window = my_canvas.create_window(red_offset - 150, 355, window=red_ids[3])
-input_window = my_canvas.create_window(red_offset - 150, 390, window=red_ids[4])
-input_window = my_canvas.create_window(red_offset - 150, 425, window=red_ids[5])
-input_window = my_canvas.create_window(red_offset - 150, 460, window=red_ids[6])
-input_window = my_canvas.create_window(red_offset - 150, 495, window=red_ids[7])
-input_window = my_canvas.create_window(red_offset - 150, 530, window=red_ids[8])
-input_window = my_canvas.create_window(red_offset - 150, 565, window=red_ids[9])
-input_window = my_canvas.create_window(red_offset - 150, 600, window=red_ids[10])
-input_window = my_canvas.create_window(red_offset - 150, 635, window=red_ids[11])
-input_window = my_canvas.create_window(red_offset - 150, 670, window=red_ids[12])
-input_window = my_canvas.create_window(red_offset - 150, 705, window=red_ids[13])
-input_window = my_canvas.create_window(red_offset - 150, 740, window=red_ids[14])
+input_window = my_canvas.create_window(
+    red_offset - 150, 285, window=red_ids[1])
+input_window = my_canvas.create_window(
+    red_offset - 150, 320, window=red_ids[2])
+input_window = my_canvas.create_window(
+    red_offset - 150, 355, window=red_ids[3])
+input_window = my_canvas.create_window(
+    red_offset - 150, 390, window=red_ids[4])
+input_window = my_canvas.create_window(
+    red_offset - 150, 425, window=red_ids[5])
+input_window = my_canvas.create_window(
+    red_offset - 150, 460, window=red_ids[6])
+input_window = my_canvas.create_window(
+    red_offset - 150, 495, window=red_ids[7])
+input_window = my_canvas.create_window(
+    red_offset - 150, 530, window=red_ids[8])
+input_window = my_canvas.create_window(
+    red_offset - 150, 565, window=red_ids[9])
+input_window = my_canvas.create_window(
+    red_offset - 150, 600, window=red_ids[10])
+input_window = my_canvas.create_window(
+    red_offset - 150, 635, window=red_ids[11])
+input_window = my_canvas.create_window(
+    red_offset - 150, 670, window=red_ids[12])
+input_window = my_canvas.create_window(
+    red_offset - 150, 705, window=red_ids[13])
+input_window = my_canvas.create_window(
+    red_offset - 150, 740, window=red_ids[14])
 
 
 # green team names
@@ -212,33 +224,58 @@ for i in range(15):
     green_ids.append(Entry(my_canvas, width=3))
 
 # placement
-input_window = my_canvas.create_window(green_offset, 250, window=green_names[0])
-input_window = my_canvas.create_window(green_offset, 285, window=green_names[1])
-input_window = my_canvas.create_window(green_offset, 320, window=green_names[2])
-input_window = my_canvas.create_window(green_offset, 355, window=green_names[3])
-input_window = my_canvas.create_window(green_offset, 390, window=green_names[4])
-input_window = my_canvas.create_window(green_offset, 425, window=green_names[5])
-input_window = my_canvas.create_window(green_offset, 460, window=green_names[6])
-input_window = my_canvas.create_window(green_offset, 495, window=green_names[7])
-input_window = my_canvas.create_window(green_offset, 530, window=green_names[8])
-input_window = my_canvas.create_window(green_offset, 565, window=green_names[9])
-input_window = my_canvas.create_window(green_offset, 600, window=green_names[10])
-input_window = my_canvas.create_window(green_offset, 635, window=green_names[11])
-input_window = my_canvas.create_window(green_offset, 670, window=green_names[12])
-input_window = my_canvas.create_window(green_offset, 705, window=green_names[13])
-input_window = my_canvas.create_window(green_offset, 740, window=green_names[14])
+input_window = my_canvas.create_window(
+    green_offset, 250, window=green_names[0])
+input_window = my_canvas.create_window(
+    green_offset, 285, window=green_names[1])
+input_window = my_canvas.create_window(
+    green_offset, 320, window=green_names[2])
+input_window = my_canvas.create_window(
+    green_offset, 355, window=green_names[3])
+input_window = my_canvas.create_window(
+    green_offset, 390, window=green_names[4])
+input_window = my_canvas.create_window(
+    green_offset, 425, window=green_names[5])
+input_window = my_canvas.create_window(
+    green_offset, 460, window=green_names[6])
+input_window = my_canvas.create_window(
+    green_offset, 495, window=green_names[7])
+input_window = my_canvas.create_window(
+    green_offset, 530, window=green_names[8])
+input_window = my_canvas.create_window(
+    green_offset, 565, window=green_names[9])
+input_window = my_canvas.create_window(
+    green_offset, 600, window=green_names[10])
+input_window = my_canvas.create_window(
+    green_offset, 635, window=green_names[11])
+input_window = my_canvas.create_window(
+    green_offset, 670, window=green_names[12])
+input_window = my_canvas.create_window(
+    green_offset, 705, window=green_names[13])
+input_window = my_canvas.create_window(
+    green_offset, 740, window=green_names[14])
 
 # placement id
-input_window = my_canvas.create_window(green_offset - 150, 250, window=green_ids[0])
-input_window = my_canvas.create_window(green_offset - 150, 285, window=green_ids[1])
-input_window = my_canvas.create_window(green_offset - 150, 320, window=green_ids[2])
-input_window = my_canvas.create_window(green_offset - 150, 355, window=green_ids[3])
-input_window = my_canvas.create_window(green_offset - 150, 390, window=green_ids[4])
-input_window = my_canvas.create_window(green_offset - 150, 425, window=green_ids[5])
-input_window = my_canvas.create_window(green_offset - 150, 460, window=green_ids[6])
-input_window = my_canvas.create_window(green_offset - 150, 495, window=green_ids[7])
-input_window = my_canvas.create_window(green_offset - 150, 530, window=green_ids[8])
-input_window = my_canvas.create_window(green_offset - 150, 565, window=green_ids[9])
+input_window = my_canvas.create_window(
+    green_offset - 150, 250, window=green_ids[0])
+input_window = my_canvas.create_window(
+    green_offset - 150, 285, window=green_ids[1])
+input_window = my_canvas.create_window(
+    green_offset - 150, 320, window=green_ids[2])
+input_window = my_canvas.create_window(
+    green_offset - 150, 355, window=green_ids[3])
+input_window = my_canvas.create_window(
+    green_offset - 150, 390, window=green_ids[4])
+input_window = my_canvas.create_window(
+    green_offset - 150, 425, window=green_ids[5])
+input_window = my_canvas.create_window(
+    green_offset - 150, 460, window=green_ids[6])
+input_window = my_canvas.create_window(
+    green_offset - 150, 495, window=green_ids[7])
+input_window = my_canvas.create_window(
+    green_offset - 150, 530, window=green_ids[8])
+input_window = my_canvas.create_window(
+    green_offset - 150, 565, window=green_ids[9])
 input_window = my_canvas.create_window(
     green_offset - 150, 600, window=green_ids[10])
 input_window = my_canvas.create_window(
@@ -251,20 +288,21 @@ input_window = my_canvas.create_window(
     green_offset - 150, 740, window=green_ids[14])
 
 # buttons
-btn = Button(root, text='Submit Teams', font=("Times New Roman",
-             12), width=10, height=2, bd='3', command=Send_data)
-btn.configure(width=10)
-btn_window = my_canvas.create_window(green_offset, 1000, window=btn)
+submit_teams_button = Button(root, text='Submit Teams', font=("Times New Roman",
+             12), width=10, height=2, bd='3', command=send_data)
+submit_teams_button.configure(width=10)
+btn_window = my_canvas.create_window(green_offset, 1000, window=submit_teams_button)
 
-c_btn = Button(root, text='Clear', font=("Times New Roman", 12),
-               width=10, height=2, bd='3', command=clearData)
-c_btn.configure(width=10)
-btn_window = my_canvas.create_window(red_offset, 1000, window=c_btn)
+clear_button = Button(root, text='Clear', font=("Times New Roman", 12),
+               width=10, height=2, bd='3', command=clear_data)
+clear_button.configure(width=10)
+btn_window = my_canvas.create_window(red_offset, 1000, window=clear_button)
 
 # Pull names when enter is pressed
 root.bind('<Return>', pull_names)
+
 # Action screen keypress
 root.bind('<KeyPress-F5>', countdown)
-root.bind('<KeyPress-F1>', killScreen)
+root.bind('<KeyPress-F1>', kill_screen)
 
 root.mainloop()
