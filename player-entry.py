@@ -3,6 +3,7 @@
 #           Author: Stephen Coyne & Gage Underwood
 #
 
+import sys
 from tkinter import *
 import dbconnect
 import json
@@ -85,9 +86,13 @@ my_canvas = Canvas(root, bg="black", highlightthickness=0)
 my_canvas.pack(fill="both", expand=True)
 
 #Important Functions for Switching to player action
-def killScreen():
-    writeInfo()
+def killScreen(event):
+    #writeInfo()
+    # Erases the temporary redTeam and greenTeam files
+    open('redTeam.txt', 'w').close()
+    open('greenTeam.txt', 'w').close()
     root.destroy()
+    sys.exit("Closed in player-entry or countdown")
 
 def countdown(event):
     my_canvas.delete('all')

@@ -3,6 +3,7 @@
 #           Authors: Stephen Coyne & Gage Underwood
 #
 
+import sys
 from tkinter import *
 import json
 import datetime
@@ -12,6 +13,11 @@ import datetime
 
 def killScreen(event):
     actionS.destroy()
+    # Erases the temporary redTeam and greenTeam files
+    open('redTeam.txt', 'w').close()
+    open('greenTeam.txt', 'w').close()
+    actionS.destroy()
+    sys.exit("Closed in player-action")
 
 
 actionS = Tk()
