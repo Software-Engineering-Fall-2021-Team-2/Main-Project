@@ -94,7 +94,7 @@ def countdown(event):
 
     sec = StringVar()
     def countdownTimer():
-        seconds = 2
+        seconds = 30
         while seconds > -1:
             sec.set(seconds)
             root.update()

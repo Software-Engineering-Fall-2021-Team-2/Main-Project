@@ -20,8 +20,8 @@ splash_root.geometry("+{}+{}".format(x_left, y_top))
 # define img
 img = PhotoImage(file="logo.png")
 
-# hide title bar
-splash_root.overrideredirect(True)
+# NOTE: removed because it causes issues with mac and some Unix platforms
+#splash_root.overrideredirect(True)
 
 splash_label = Label(splash_root, image=img)
 splash_label.place(relx = 0.5, rely = 0.5, anchor=CENTER)
