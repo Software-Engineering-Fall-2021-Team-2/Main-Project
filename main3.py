@@ -200,17 +200,62 @@ class Countdown(Frame):
 
 
 class PlayerAction(Frame):
+
+    red_names = []
+    green_names = []
     
     def __init__(self, parent, controller):
         Frame.__init__(self, parent, bg="black")
+
+        # Table Setup
+        self.columnconfigure(tuple(range(5)), weight=1)
+        self.rowconfigure(tuple(range(30)), weight = 1)
+
+        # Title and label setup
+        title = Label(self, bg= "black", font=LARGE_FONT, fg="purple", text="Play Screen", borderwidth=0)
+        title.grid(row=0, column=0, sticky="NSEW", columnspan=5, rowspan=3)
+
+        red_team = Label(self, bg= "black", font=MEDIUM_FONT, fg="red", text="Red Team", borderwidth=0)
+        red_team.grid(row=3, column=0, sticky="NSEW", columnspan=1, rowspan=2)
+
+        red_team_scores = Label(self, bg= "black", font=MEDIUM_FONT, fg="red", text="Scores", borderwidth=0)
+        red_team_scores.grid(row=3, column=1, sticky="NSEW", columnspan=1, rowspan=2)
+
+        green_team = Label(self, bg= "black", font=MEDIUM_FONT, fg="green", text="Green Team", borderwidth=0)
+        green_team.grid(row=3, column=2, sticky="NSEW", columnspan=1, rowspan=2)
+
+        green_team_scores = Label(self, bg= "black", font=MEDIUM_FONT, fg="green", text="Scores", borderwidth=0)
+        green_team_scores.grid(row=3, column=3, sticky="NSEW", columnspan=1, rowspan=2)
+
+        # Get CodeNames from file
+        self.get_names()
+
+        """# Setup Table
+        for i in range(4, 20):
+            red_name = Label(self, bg= "black", font=MEDIUM_FONT, fg="red", text=self.red_names[i-4], borderwidth=0)
+            red_name.grid(row=i, column=0, sticky="NSEW", columnspan=1, rowspan=1)
+
+            green_name = Label(self, bg= "black", font=MEDIUM_FONT, fg="green", text=self.green_names[i-4], borderwidth=0)
+            green_name.grid(row=i, column=2, sticky="NSEW", columnspan=1, rowspan=1)"""
+
+        # Timer setup
         self.sec = StringVar()
 
         self.timer = Label(self, textvariable=self.sec,
                       font='Times 300', fg='Purple', bg='Black')
-        self.timer.pack()
+        self.timer.grid()
+
+    def get_names(self):
+        with open('redTeam.txt', 'r') as file:
+            p = json.load(file)
+            for i in p:
+                self.red_names.append(i)
+        with open('greenTeam.txt', 'r') as file:
+            p = json.load(file)
+            for i in p:
+                self.green_names.append(i)
         
 
-        
     def start_timer(self):
         seconds = 30
         while seconds > -1:
@@ -218,6 +263,7 @@ class PlayerAction(Frame):
             self.timer.update()
             time.sleep(1)
             seconds -= 1
+
 
 
 
