@@ -11,10 +11,12 @@ SCREEN_HEIGHT = 586
 SCREEN_WIDTH = 919
 SPLASHSCREEN_LENGTH = 1  # in seconds
 
+# TODO: Divide class into individual files
+
 # Inherits from the Tk tkinter class
 
 
-class ContainerFrame(Tk):
+class Container(Tk):
 
     def __init__(self, *args, **kwargs,):
 
@@ -127,8 +129,8 @@ class PlayerEntry(Frame):
             self.green_names.append(green_name)
 
         controller.bind('<Return>', lambda event: self.pull_names(event))
-        controller.bind('<a>',
-                      lambda event = NONE: controller.start_countdown(Countdown))
+        controller.bind('<a>', lambda event = NONE: controller.start_countdown(Countdown))
+                      #"""lambda event = NONE:""" controller.start_countdown(Countdown))
 
     # pull names from db using ID entered
     def pull_names(self, event):
@@ -188,14 +190,16 @@ class Countdown(Frame):
                       font='Times 300', fg='Purple', bg='Black')
         self.timer.pack()
 
+    # BUG: 30 is not displayed properly on the screen
     def start_timer(self):
-        seconds = 30
+        seconds = 5
         while seconds > -1:
             self.sec.set(seconds)
             self.timer.update()
             time.sleep(1)
             seconds -= 1
-        lambda: self.controller.start_countdown(PlayerAction)
+            #if seconds == 0:
+        lambda event = NONE: self.controller.start_countdown(PlayerAction)
         
 
 
@@ -268,7 +272,7 @@ class PlayerAction(Frame):
 
 
 
-root = ContainerFrame()
+root = Container()
 root.geometry("{}x{}".format(SCREEN_WIDTH, SCREEN_HEIGHT))
 
 root.mainloop()
