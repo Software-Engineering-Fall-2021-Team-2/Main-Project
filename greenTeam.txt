@@ -1,1 +1,1 @@
-[]
+["Giant", "bob", "Quiet"]
