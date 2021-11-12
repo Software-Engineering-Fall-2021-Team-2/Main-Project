@@ -7,6 +7,7 @@
 import psycopg2
 from psycopg2 import Error
 
+# TODO(RENAME): rename functions to be more descriptive and in snake_case
 def checkdb(id):
     try:
         #Connect to database

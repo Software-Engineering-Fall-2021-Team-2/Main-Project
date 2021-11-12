@@ -40,7 +40,7 @@ my_canvas.create_text(red_offset-200, 150, text="Red Team",
                       font=("Times New Roman", 25), fill="Red")
 my_canvas.create_text(x_mid+100, 150, text="Green Team",
                       font=("Times New Roman", 25), fill="Green")
-my_canvas.create_text(x_mid, 90, text="Game Action",
+my_canvas.create_text(x_mid, 102, text="Game Action",
                       font=("Times New Roman", 25), fill="Purple")
 my_canvas.create_text(x_mid-100, 150, text="Scores",
                       font=("Times New Roman", 25), fill="Red")

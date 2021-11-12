@@ -87,7 +87,6 @@ my_canvas.pack(fill="both", expand=True)
 
 #Important Functions for Switching to player action
 def killScreen(event):
-    #writeInfo()
     # Erases the temporary redTeam and greenTeam files
     open('redTeam.txt', 'w').close()
     open('greenTeam.txt', 'w').close()
@@ -98,18 +97,25 @@ def countdown(event):
     my_canvas.delete('all')
 
     sec = StringVar()
-    def countdownTimer():
-        seconds = 30
-        while seconds > -1:
-            sec.set(seconds)
-            root.update()
-            time.sleep(1)
-            seconds -= 1
-
     timer = Label(my_canvas, textvariable=sec, font='Times 300', fg='Purple', bg='Black')
     timer.place(relx=0.5, rely=0.5, anchor=CENTER)
-    countdownTimer()
-    killScreen()
+
+    #def countdownTimer():
+    seconds = 1
+    while seconds > -1:
+        sec.set(seconds)
+        try:
+            root.update()
+            timer.after(1000)
+            seconds -= 1
+        except TclError: 
+            print("Closed in countdown")
+            killScreen(event)
+            
+
+    #countdownTimer()
+    writeInfo()
+    root.destroy()
 
 my_canvas.create_text(x_mid, 50, text="Edit Current Game", font=("Times New Roman",50), fill="Blue")
 my_canvas.create_text(red_offset, 200, text="Red Team", font=("Times New Roman", 25), fill="Red" )
