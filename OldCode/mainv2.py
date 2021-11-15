@@ -71,6 +71,7 @@ class SplashScreen(Frame):
 
 
 class PlayerEntry(Frame):
+    
     red_ids, red_names, green_ids, green_names = ([] for i in range(4))
 
     def __init__(self, parent, controller):

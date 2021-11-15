@@ -1,10 +1,14 @@
+import tkinter as tk
+from tkinter import ttk
+from tkinter import font as tkfont
 
 
-class SplashScreen(Frame):
+class BaseFrame(tk.Frame):
 
-    def __init__(self, parent, controller):
-        Frame.__init__(self, parent, bg="black")
-
+    def __init__(self, controller, *args, **kwargs):
+        tk.Frame.__init__(self, controller, *args, **kwargs)
+        self.controller = controller
+        
         image_splash_screen = PhotoImage(file="logo.png")
 
         image_container_splash_screen = Label(
