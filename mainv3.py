@@ -16,16 +16,17 @@ class Container(tk):
                     toplevel=True, *args, **kwargs)
         self.GLOBAL_VAR_INIT()
 
+    
 
-        testing_SplashScreen = SplashScreen(self)
-        testing_SplashScreen.pack(fill="both", expand=True)
+        #testing_SplashScreen = SplashScreen(self)
+        #testing_SplashScreen.pack(fill="both", expand=True)
 
         # Base Frame Test
-        """
+        
         testing_frame = MyBaseFrame(
             self, "Replacing that Header", "replacing subheader")
         testing_frame.pack(fill="both", expand=True)
-        """
+        
 
 
     def GLOBAL_VAR_INIT(self):
