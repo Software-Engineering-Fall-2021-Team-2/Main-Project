@@ -1,19 +1,18 @@
-"""Instead of using basic tkinter, ttkthemes is used. It just looks prettier"""
-from ttkthemes import ThemedTk as tk
+
 from tkinter import *
 from tkinter import font as tkfont
 from BaseFrame import *
+from PlayerEntry import PlayerEntry
 from SplashScreen import *
 
 
-class Container(tk):
+class Container(Tk):
 
     # Main Class for the file
     # Sets up "global variables" for the file
     def __init__(self, *args, **kwargs) -> None:
 
-        tk.__init__(self, fonts=True, themebg=True,
-                    toplevel=True, *args, **kwargs)
+        Tk.__init__(self,  *args, **kwargs)
         self.GLOBAL_VAR_INIT()
 
     
@@ -23,15 +22,18 @@ class Container(tk):
 
         # Base Frame Test
         
-        testing_frame = MyBaseFrame(
+        """testing_frame = MyBaseFrame(
             self, "Replacing that Header", "replacing subheader")
-        testing_frame.pack(fill="both", expand=True)
+        testing_frame.pack(fill="both", expand=True)"""
+
+        testing_PlayerEntry = PlayerEntry(self)
+        testing_PlayerEntry.pack(fill="both", expand=True)
         
 
 
     def GLOBAL_VAR_INIT(self):
         """Method to define class variables that act as the global variables for the application"""
-        self.set_theme("equilux")
+        #self.set_theme("equilux")
 
         # Font setup
         # TODO: Setup colors
@@ -54,7 +56,7 @@ class Container(tk):
         self.PLAYERACTION_LENGTH = 60
 
         # Window title
-        tk.wm_title(self, "PHOTON")
+        Tk.wm_title(self, "PHOTON")
 
         # Basic grid set up
         self.grid_rowconfigure(0, weight=1)
