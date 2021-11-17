@@ -2,7 +2,7 @@
 from tkinter import *
 from tkinter import font as tkfont
 from BaseFrame import *
-from PlayerEntry import PlayerEntry
+from PlayerEntry import *
 from SplashScreen import *
 
 
@@ -21,13 +21,12 @@ class Container(Tk):
         #testing_SplashScreen.pack(fill="both", expand=True)
 
         # Base Frame Test
-        
-        """testing_frame = MyBaseFrame(
-            self, "Replacing that Header", "replacing subheader")
+        """
+        testing_frame = MyBaseFrame(self, self, "HEADER REPLACEMENT", "subheader replacement")
         testing_frame.pack(fill="both", expand=True)"""
 
-        testing_PlayerEntry = PlayerEntry(self)
-        testing_PlayerEntry.pack(fill="both", expand=True)
+        """testing_PlayerEntry = PlayerEntry(self)
+        testing_PlayerEntry.pack(fill="both", expand=True)"""
         
 
 
