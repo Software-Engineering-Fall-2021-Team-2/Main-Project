@@ -15,14 +15,16 @@ class SplashScreen(Frame):
 
         # Configuration
         self.config(bg='black')
+        self.rowconfigure(0, weight=1)
+        self.columnconfigure(0, weight=1)
 
         # Populate
         screen = ImageCanvas(self, controller, self.image)
 
         # Layout
         # TODO: figure out how to stretch the image to fill the frame
-        # image_container = Canvas(self)
-        # image_container.pack(expand="YES", fill="both")
+        image_container = Canvas(self)
+        image_container.pack(expand="YES", fill="both")
 
         """splash_image = PhotoImage(file="logo.png")
         image_container.create_image(
@@ -30,12 +32,6 @@ class SplashScreen(Frame):
         image_container.image = splash_image """
 
         # self.set_timer()
-
-    # TODO: make timer start player entry
-    # TODO: Move timer to BaseFrame
-    def set_timer(self):
-        self.after(self.controller.SPLASHSCREEN_LENGTH *
-                   1000, lambda: print("Passaged"))
 
 
 class ImageCanvas(Canvas):
@@ -49,8 +45,17 @@ class ImageCanvas(Canvas):
         # Configuration
 
         # Populate
-        self.create_image(self.controller.SCREEN_WIDTH/2,
-                          self.controller.SCREEN_HEIGHT/2, anchor=CENTER, image=self.image)
+        self.create_image(100, 100, anchor=CENTER, image=self.image)
 
         # Layout
         self.pack(expand="YES", fill="both")
+
+
+
+# TODO: make timer start player entry
+# TODO: Move timer to BaseFrame
+def set_timer(self):
+    self.after(self.controller.SPLASHSCREEN_LENGTH *1000, lambda: print("Passaged"))
+
+    """self.controller.SCREEN_WIDTH/2,
+                          self.controller.SCREEN_HEIGHT*2"""
