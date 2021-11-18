@@ -17,12 +17,12 @@ class Container(Tk):
 
     
 
-        #testing_SplashScreen = SplashScreen(self)
-        #testing_SplashScreen.pack(fill="both", expand=True)
+        testing_SplashScreen = SplashScreen(self, self)
+        testing_SplashScreen.pack(fill="both", expand=True)
 
         # Base Frame Test
-        """
-        testing_frame = MyBaseFrame(self, self, "HEADER REPLACEMENT", "subheader replacement")
+        
+        """testing_frame = MyBaseFrame(self, self, "HEADER REPLACEMENT", "subheader replacement")
         testing_frame.pack(fill="both", expand=True)"""
 
         """testing_PlayerEntry = PlayerEntry(self)
