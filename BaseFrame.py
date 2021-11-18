@@ -25,6 +25,8 @@ class MyBaseFrame(Frame):
         header_subheader = HeaderSubheader(
             self, controller, self.header_text, self.subheader_text)
 
+        #self.screen_setup_TESTING()        
+    
     # TODO: Remove when done 
     def screen_setup_TESTING(self):
         """Layout testing function"""

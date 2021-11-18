@@ -1,6 +1,7 @@
 
 from tkinter import *
 from BaseFrame import MyBaseFrame
+from PlayerEntry import PlayerEntry
 
 
 class SplashScreen(Frame):
@@ -22,16 +23,11 @@ class SplashScreen(Frame):
         screen = ImageCanvas(self, controller, self.image)
 
         # Layout
-        # TODO: figure out how to stretch the image to fill the frame
-        image_container = Canvas(self)
-        image_container.pack(expand="YES", fill="both")
+        self.set_timer()
 
-        """splash_image = PhotoImage(file="logo.png")
-        image_container.create_image(
-            self.controller.SCREEN_WIDTH/2, self.controller.SCREEN_HEIGHT/2, anchor=CENTER, image=splash_image)
-        image_container.image = splash_image """
-
-        # self.set_timer()
+    def set_timer(self):
+        self.after(self.controller.SPLASHSCREEN_LENGTH *
+                   1000, lambda: self.controller.switch_frame(PlayerEntry))
 
 
 class ImageCanvas(Canvas):
@@ -43,19 +39,12 @@ class ImageCanvas(Canvas):
         self.image = image
 
         # Configuration
+        self.config(bg='black')
 
         # Populate
-        self.create_image(100, 100, anchor=CENTER, image=self.image)
+        # TODO: figure out how to stretch the image to fill the frame
+        self.create_image(self.controller.SCREEN_WIDTH/2,
+                          self.controller.SCREEN_HEIGHT/2, anchor=CENTER, image=self.image)
 
         # Layout
         self.pack(expand="YES", fill="both")
-
-
-
-# TODO: make timer start player entry
-# TODO: Move timer to BaseFrame
-def set_timer(self):
-    self.after(self.controller.SPLASHSCREEN_LENGTH *1000, lambda: print("Passaged"))
-
-    """self.controller.SCREEN_WIDTH/2,
-                          self.controller.SCREEN_HEIGHT*2"""
