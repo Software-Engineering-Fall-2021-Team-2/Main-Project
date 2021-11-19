@@ -23,6 +23,6 @@ class Countdown(MyBaseFrame):
         while seconds > -1:
             self.sec.set(seconds)
             self.timer.update()
-            self.timer.after.(1000)
+            self.timer.after(1000)
             seconds -= 1
             # if seconds == 0:
