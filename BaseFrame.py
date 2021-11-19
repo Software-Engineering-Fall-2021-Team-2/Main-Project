@@ -25,9 +25,9 @@ class MyBaseFrame(Frame):
         header_subheader = HeaderSubheader(
             self, controller, self.header_text, self.subheader_text)
 
-        #self.screen_setup_TESTING()        
-    
-    # TODO: Remove when done 
+        # self.screen_setup_TESTING()
+
+    # TODO: Remove when done
     def screen_setup_TESTING(self):
         """Layout testing function"""
         label1 = Label(self, bg='red',)
@@ -37,7 +37,6 @@ class MyBaseFrame(Frame):
         label3 = Label(self, bg='red')
         label3.grid(row=2, column=2, sticky="NSEW")
 
-    
     def onClick(self, *event):
         print("fart3")
         self.controller.focus_set()

@@ -15,20 +15,11 @@ class Container(Tk):
         Tk.__init__(self,  *args, **kwargs)
         self.GLOBAL_VAR_INIT()
         self._frame = None
+
         self.switch_frame(SplashScreen)
 
+        self.bind('<a>', lambda event = None: self.destroy())
 
-        # Base Frame Test
-        #testing_frame = MyBaseFrame(self, self, "HEADER REPLACEMENT", "subheader replacement")
-        #testing_frame.pack(fill="both", expand=True)
-
-        # SplashScreen Test
-        #testing_SplashScreen = SplashScreen(self, self)
-        #testing_SplashScreen.pack(fill="both", expand=True)
-
-        # PlayerEntry Test
-        #testing_PlayerEntry = PlayerEntry(self, self)
-        #testing_PlayerEntry.pack(fill="both", expand=True)
         
 
 

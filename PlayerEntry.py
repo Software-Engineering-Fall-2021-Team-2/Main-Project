@@ -11,9 +11,9 @@ class PlayerEntry(MyBaseFrame):
     header_text = "Press enter to get your code name if you have played before, otherwise, submit your team before playing"
     subheader_text = "Press F5 to start game once teams have been submitted"
 
-    def __init__(self, parent, controller):
+    def __init__(self, parent, controller, *args, **kwargs):
         MyBaseFrame.__init__(self, parent, controller,
-                             self.header_text, self.subheader_text)
+                             self.header_text, self.subheader_text, *args, **kwargs)
         # Object Attributes
         self.parent = parent
         self.controller = controller
@@ -33,8 +33,8 @@ class PlayerEntry(MyBaseFrame):
 class EntryWidget(Frame):
     """Creates the action grid in the (1,1) cell that contains the table titles, as well as the player entry section"""
 
-    def __init__(self, parent, controller):
-        super().__init__(parent)
+    def __init__(self, parent, controller, *args, **kwargs):
+        super().__init__(parent,  *args, **kwargs)
         # Object Attributes
         self.parent = parent
         self.controller = controller
