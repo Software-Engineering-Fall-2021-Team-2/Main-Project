@@ -12,21 +12,20 @@ class Countdown(MyBaseFrame):
         self.parent = parent
         self.controller = controller
 
-        self.time_seconds = controller.COUNTDOWN_LENGTH
-        self.sec = StringVar()
-        self.timer = Label(self, textvariable=self.sec,
+        self._time_seconds = controller.COUNTDOWN_LENGTH
+        self._sec = StringVar()
+        self._timer = Label(self, textvariable=self._sec,
                            font='Times 300', fg='Purple', bg='Black')
-        self.timer.grid(row=0, column=0, rowspan=3, columnspan=3, sticky="NSEW" )
+        self._timer.grid(row=0, column=0, rowspan=3, columnspan=3, sticky="NSEW" )
 
-        self.update_clock()
+        self._update_clock()
 
-    # BUG: 30 is not displayed properly on the screen
-    def update_clock(self):
-        if self.time_seconds < 1:
+    def _update_clock(self):
+        if self._time_seconds < 1:
             # switch screen
             return
         # Set the sec var to contain the correct time
-        self.sec.set(self.time_seconds)
+        self._sec.set(self._time_seconds)
         self.update()
-        self.time_seconds -= 1
-        self.after(1000, self.update_clock)
+        self._time_seconds -= 1
+        self.after(1000, self._update_clock)

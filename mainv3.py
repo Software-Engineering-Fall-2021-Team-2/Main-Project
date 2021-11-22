@@ -5,6 +5,7 @@ from BaseFrame import *
 from Countdown import Countdown
 from PlayerEntry import *
 from splashscreen import *
+from PlayerAction import *
 
 
 class Container(Tk):
@@ -14,11 +15,17 @@ class Container(Tk):
     def __init__(self, *args, **kwargs) -> None:
 
         Tk.__init__(self,  *args, **kwargs)
+    
+        # Object Configuration
         self.GLOBAL_VAR_INIT()
+
+        # Private variable to hold a frame object
         self._frame = None
 
-        self.switch_frame(Countdown)
+        # Set the first frame
+        self.switch_frame(PlayerEntry)
 
+        # Close Keystroˇke
         self.bind('<a>', lambda event = None: self.destroy())
 
         
@@ -27,8 +34,7 @@ class Container(Tk):
     def GLOBAL_VAR_INIT(self):
         """Method to define class variables that act as the global variables for the application"""
         # Font setup
-        # TODO: Setup colors
-        # TODO: Make a config file?
+        # TODO: Setup colors, Make a config file?
         self.HEADER_FONT = tkfont.Font(
             family='Verdana', size=18, weight="bold")
         self.SUBHEADER_FONT = tkfont.Font(
@@ -52,16 +58,6 @@ class Container(Tk):
         # Basic grid set up
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
-
-
-
-    def start_frame(self, container):
-        # Pull up the correct frame, setting Container as the container
-        frame = self.frames[container]
-        # Packs the frame to the window correctly
-        frame.pack(side="top", fill="both", expand=True, ipadx=10, ipady=10)
-
-        frame.tkraise()
 
     def switch_frame(self, frame_class):
         """Destroys current frame and replaces it with a new one."""

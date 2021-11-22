@@ -39,7 +39,7 @@ green_offset = x_mid + 300
 # DEL: DEPRECIATED
 #canvas_splash_screen = Canvas(root, bg="black", highlightthickness=0)
 #canvas_splash_screen.pack(fill="both", expand=True)
-"""Splash screen creation"""
+# Splash screen creation
 frame_splash_screen = Frame(root)
 root.pack(frame_splash_screen)
 

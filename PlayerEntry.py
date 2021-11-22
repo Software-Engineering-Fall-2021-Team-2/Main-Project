@@ -7,6 +7,7 @@ import dbconnect
 class PlayerEntry(MyBaseFrame):
 
     # Lists to hold the information, replaces the need for file transfer
+    # TODO: move the lists to main3.py
     red_ids, red_names, green_ids, green_names = ([] for i in range(4))
     header_text = "Press enter to get your code name if you have played before, otherwise, submit your team before playing"
     subheader_text = "Press F5 to start game once teams have been submitted"
