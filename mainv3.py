@@ -2,8 +2,9 @@
 from tkinter import *
 from tkinter import font as tkfont
 from BaseFrame import *
+from Countdown import Countdown
 from PlayerEntry import *
-from SplashScreen import *
+from splashscreen import *
 
 
 class Container(Tk):
@@ -16,7 +17,7 @@ class Container(Tk):
         self.GLOBAL_VAR_INIT()
         self._frame = None
 
-        self.switch_frame(SplashScreen)
+        self.switch_frame(Countdown)
 
         self.bind('<a>', lambda event = None: self.destroy())
 
@@ -56,10 +57,8 @@ class Container(Tk):
 
     def start_frame(self, container):
         # Pull up the correct frame, setting Container as the container
-        # TODO: Make this initialize the frame rather than just raise it
-
         frame = self.frames[container]
-        # NOTE: Used to set the frame in the column correctly
+        # Packs the frame to the window correctly
         frame.pack(side="top", fill="both", expand=True, ipadx=10, ipady=10)
 
         frame.tkraise()

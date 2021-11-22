@@ -1,28 +1,32 @@
 
 from tkinter import *
 from BaseFrame import MyBaseFrame
+import datetime
 
 
 class Countdown(MyBaseFrame):
 
     def __init__(self, parent, controller, *args, **kwargs):
-        super().__init__(self, parent, controller, *args, **kwargs)
+        MyBaseFrame.__init__(self, parent, controller, *args, **kwargs)
         # Object Attributes
         self.parent = parent
         self.controller = controller
+
+        self.time_seconds = controller.COUNTDOWN_LENGTH
         self.sec = StringVar()
         self.timer = Label(self, textvariable=self.sec,
                            font='Times 300', fg='Purple', bg='Black')
         self.timer.grid(row=0, column=0, rowspan=3, columnspan=3, sticky="NSEW" )
 
-        self.start_timer()
+        self.update_clock()
 
     # BUG: 30 is not displayed properly on the screen
-    def start_timer(self):
-        seconds = 5
-        while seconds > -1:
-            self.sec.set(seconds)
-            self.timer.update()
-            self.timer.after(1000)
-            seconds -= 1
-            # if seconds == 0:
+    def update_clock(self):
+        if self.time_seconds < 1:
+            # switch screen
+            return
+        # Set the sec var to contain the correct time
+        self.sec.set(self.time_seconds)
+        self.update()
+        self.time_seconds -= 1
+        self.after(1000, self.update_clock)
