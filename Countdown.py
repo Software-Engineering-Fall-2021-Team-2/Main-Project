@@ -1,18 +1,16 @@
 
-from tkinter import *
-from BaseFrame import MyBaseFrame
+from BaseFrame import *
 import datetime
 
 
 class Countdown(MyBaseFrame):
 
-    def __init__(self, parent, controller, *args, **kwargs):
-        MyBaseFrame.__init__(self, parent, controller, *args, **kwargs)
+    def __init__(self, master):
+        MyBaseFrame.__init__(self, master)
         # Object Attributes
-        self.parent = parent
-        self.controller = controller
+        self.master = master
 
-        self._time_seconds = controller.COUNTDOWN_LENGTH
+        self._time_seconds = COUNTDOWN_LENGTH
         self._sec = StringVar()
         self._timer = Label(self, textvariable=self._sec,
                            font='Times 300', fg='Purple', bg='Black')

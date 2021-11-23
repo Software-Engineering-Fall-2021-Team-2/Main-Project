@@ -149,6 +149,18 @@ class PlayerEntry(Frame):
                 if(dbconnect.checkdb(green_id)):
                     self.set_name(
                         self.green_names[i], dbconnect.retrieveCode(green_id))
+                    
+    """def pullNames(event):
+        for i in range(15):
+            if len(r_id[i].get()) != 0:
+                red_id = convertToInt(r_id[i].get())
+                if(dbconnect.checkdb(red_id)):
+                    setName(red[i], dbconnect.retrieveCode(red_id))
+        for i in range(15):
+            if len(g_id[i].get()) != 0:
+                green_id = convertToInt(g_id[i].get())
+                if(dbconnect.checkdb(green_id)):
+                    setName(g[i], dbconnect.retrieveCode(green_id))"""
 
     # WHAT: What does this do?
     def set_name(self, name, text):
