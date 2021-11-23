@@ -4,14 +4,14 @@ from tkinter import font as tkfont
 
 class MyBaseFrame(Frame):
 
-    def __init__(self, parent: Tk, controller: Tk, header_text: str = "Header", subheader_text: str = "subheader", *args, **kwargs):
-        """ Basis for all frames - Uses a 3x3 grid to display widgets - 2x2 position used for main interactions
+    def __init__(self, parent: Tk, controller: Tk, header_text: str, subheader_text: str, *args, **kwargs):
+        """ Basis for all frames - Uses a 3x3 grid to display widgets - 2x2 position used for main interactions.
 
         Args:
-            parent (Container) : widget that is directly resposible for owning this widget
-            controller (Container) : top widget - passed down to every widget in order to maintain a heirarchy of widgets
-            header_text (str) : text to be used in the header position
-            subheader_text (str) : text to be used in the subheader position
+            parent (Container) : Widget that is directly resposible for owning this widget.
+            controller (Container) : Top widget - passed down to every widget in order to maintain a heirarchy of widgets.
+            header_text (str) : Text to be used in the header position. 
+            subheader_text (str) : Text to be used in the subheader position.
             *args : unused
             **kwargs : unused
         """
@@ -47,11 +47,11 @@ class MyBaseFrame(Frame):
 class HeaderSubheader(Frame):
 
     def __init__(self, parent: Frame, controller: Tk):
-        """Creates a label to hold a 1x2 grid within the (0,1) position in the MyBaseFrame grid
+        """Creates a label to hold a 1x2 grid within the (0,1) position in the MyBaseFrame grid.
 
         Args:
-            parent (Frame): widget that is directly resposible for owning this widget - contains text information
-            controller (Tk): top widget - passed down to every widget in order to maintain a heirarchy of widgets
+            parent (Frame): Widget that is directly resposible for owning this widget - contains text information.
+            controller (Tk): Top widget - passed down to every widget in order to maintain a heirarchy of widgets.
         """
         # Object Attributes
         super().__init__(parent)        
@@ -71,7 +71,14 @@ class HeaderSubheader(Frame):
 
 
 class Header(Label):
-    def __init__(self, parent, controller, header_text: str):
+    def __init__(self, parent: HeaderSubheader, controller: Tk, header_text: str = "Header"):
+        """Header text label.
+
+        Args:
+            parent (HeaderSubheader): HeaderSubheader frame - (0,1) - top center of screen.
+            controller (Tk): Top widget - passed down to every widget in order to maintain a heirarchy of widgets.
+            header_text (str): Text to be displayed. Defaults to "Header".
+        """
         # Object Attributes
         super().__init__(parent)
         self.controller = controller
@@ -85,7 +92,14 @@ class Header(Label):
 
 
 class SubHeader(Label):
-    def __init__(self, parent, controller, subheader_text: str):
+    def __init__(self, parent: HeaderSubheader, controller: Tk, subheader_text: str = "subheader"):
+        """Subheader text label.
+
+        Args:
+            parent (HeaderSubheader) : HeaderSubheader frame - (0,1) - top center of screen.
+            controller (Tk): Top widget - passed down to every widget in order to maintain a heirarchy of widgets.
+            subheader_text (str): Text to be displayed. Defaults to "subheader".
+        """
         # Object Attributes
         super().__init__(parent)
         self.controller = controller
