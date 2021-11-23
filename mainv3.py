@@ -2,10 +2,10 @@
 from tkinter import *
 from tkinter import font as tkfont
 from BaseFrame import *
-from Countdown import Countdown
-from PlayerEntry import *
+#from Countdown import Countdown
+#from PlayerEntry import *
 from splashscreen import *
-from PlayerAction import *
+#from PlayerAction import *
 
 
 class Container(Tk):

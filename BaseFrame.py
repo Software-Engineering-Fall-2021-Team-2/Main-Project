@@ -4,7 +4,7 @@ from tkinter import font as tkfont
 
 class MyBaseFrame(Frame):
 
-    def __init__(self, parent: Tk, controller: Tk, header_text: str = "", subheader_text: str = "", *args, **kwargs):
+    def __init__(self, parent, controller, header_text: str = "", subheader_text: str = "", *args, **kwargs):
         """ Basis for all frames - Uses a 3x3 grid to display widgets - 2x2 position used for main interactions.
 
         Args:
@@ -31,7 +31,7 @@ class MyBaseFrame(Frame):
         # Populate Header
         header_subheader = HeaderSubheader(self, controller)
 
-        # self.screen_setup_TESTING()
+        self.screen_setup_TESTING()
 
     # TODO: Remove before submission
     def screen_setup_TESTING(self):
@@ -46,7 +46,7 @@ class MyBaseFrame(Frame):
 
 class HeaderSubheader(Frame):
 
-    def __init__(self, parent: MyBaseFrame, controller: Tk):
+    def __init__(self, parent, controller):
         """Creates a label to hold a 1x2 grid within the (0,1) position in the MyBaseFrame grid.
 
         Args:
@@ -71,7 +71,7 @@ class HeaderSubheader(Frame):
 
 
 class Header(Label):
-    def __init__(self, parent: HeaderSubheader, controller: Tk, header_text: str):
+    def __init__(self, parent, controller, header_text: str):
         """Header text label.
 
         Args:
@@ -92,7 +92,7 @@ class Header(Label):
 
 
 class SubHeader(Label):
-    def __init__(self, parent: HeaderSubheader, controller: Tk, subheader_text: str):
+    def __init__(self, parent, controller, subheader_text: str):
         """Subheader text label.
 
         Args:
