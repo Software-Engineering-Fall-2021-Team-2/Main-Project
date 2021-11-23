@@ -2,10 +2,10 @@
 from tkinter import *
 from tkinter import font as tkfont
 from BaseFrame import *
-#from Countdown import Countdown
-#from PlayerEntry import *
+from Countdown import Countdown
+from PlayerEntry import *
 from splashscreen import *
-#from PlayerAction import *
+from PlayerAction import *
 
 
 class Container(Tk):
@@ -20,7 +20,7 @@ class Container(Tk):
     def __init__(self):
 
         Tk.__init__(self)
-    
+
         # Object Configuration
         self.GLOBAL_VAR_INIT()
 
@@ -31,19 +31,18 @@ class Container(Tk):
         self.switch_frame(MyBaseFrame)
 
         # Close Keystroke
-        self.bind('<a>', lambda event = None: self.destroy())
-        
+        self.bind('<a>', lambda event=None: self.destroy())
+
         # Exit Entry Box Keystroke
-        self.bind("<Escape>", lambda event = None: self.focus_set())
+        self.bind("<Escape>", lambda event=None: self.focus_set())
 
     def switch_frame(self, frame_class):
         """Destroys current frame and replaces it with a new one."""
-        new_frame = frame_class(self,self)
+        new_frame = frame_class(self, self)
         if self._frame is not None:
             self._frame.destroy()
         self._frame = new_frame
         self._frame.pack(fill="both", expand=True)
-
 
     def GLOBAL_VAR_INIT(self):
         """Method to define class variables that act as the global variables for the application"""
@@ -72,7 +71,6 @@ class Container(Tk):
         # Basic grid set up
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
-
 
 
 if __name__ == "__main__":

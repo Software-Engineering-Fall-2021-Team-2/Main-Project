@@ -1,1 +1,5 @@
 .vscode/settings.json
+__pycache__/BaseFrame.cpython-38.pyc
+__pycache__/dbconnect.cpython-38.pyc
+__pycache__/PlayerEntry.cpython-38.pyc
+__pycache__/splashscreen.cpython-38.pyc

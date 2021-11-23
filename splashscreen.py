@@ -1,6 +1,6 @@
 
 from tkinter import *
-from BaseFrame import MyBaseFrame
+from BaseFrame import *
 from OldCode.mainv2 import Container
 from PlayerEntry import PlayerEntry
 
