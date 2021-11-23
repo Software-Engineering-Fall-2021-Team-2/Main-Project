@@ -36,7 +36,13 @@ class Container(Tk):
         # Exit Entry Box Keystroke
         self.bind("<Escape>", lambda event = None: self.focus_set())
 
-        
+    def switch_frame(self, frame_class):
+        """Destroys current frame and replaces it with a new one."""
+        new_frame = frame_class(self,self)
+        if self._frame is not None:
+            self._frame.destroy()
+        self._frame = new_frame
+        self._frame.pack(fill="both", expand=True)
 
 
     def GLOBAL_VAR_INIT(self):
@@ -67,13 +73,7 @@ class Container(Tk):
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
 
-    def switch_frame(self, frame_class):
-        """Destroys current frame and replaces it with a new one."""
-        new_frame = frame_class(self,self)
-        if self._frame is not None:
-            self._frame.destroy()
-        self._frame = new_frame
-        self._frame.pack(fill="both", expand=True)
+
 
 if __name__ == "__main__":
     root = Container()

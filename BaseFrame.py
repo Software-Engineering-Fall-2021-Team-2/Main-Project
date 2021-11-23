@@ -46,11 +46,11 @@ class MyBaseFrame(Frame):
 
 class HeaderSubheader(Frame):
 
-    def __init__(self, parent: Frame, controller: Tk):
+    def __init__(self, parent: MyBaseFrame, controller: Tk):
         """Creates a label to hold a 1x2 grid within the (0,1) position in the MyBaseFrame grid.
 
         Args:
-            parent (Frame): Widget that is directly resposible for owning this widget - contains text information.
+            parent (MyBaseFrame): Widget that is directly resposible for owning this widget - contains text information.
             controller (Tk): Top widget - passed down to every widget in order to maintain a heirarchy of widgets.
         """
         # Object Attributes

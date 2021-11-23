@@ -5,7 +5,6 @@ import dbconnect
 
 
 class PlayerEntry(MyBaseFrame):
-    
 
     # Lists to hold the information, replaces the need for file transfer
     # TODO: move the lists to main3.py
@@ -15,7 +14,7 @@ class PlayerEntry(MyBaseFrame):
     subheader_text = "Press F5 to start game once teams have been submitted"
 
     def __init__(self, parent, controller, *args, **kwargs):
-        MyBaseFrame.__init__(self, parent, controller,
+        super().__init__(parent, controller,
                             self.header_text, self.subheader_text, *args, **kwargs)
 
         # Layout
