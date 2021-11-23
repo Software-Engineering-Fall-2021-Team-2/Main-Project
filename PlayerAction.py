@@ -20,61 +20,42 @@ class PlayerAction(MyBaseFrame):
         self.parent = parent
         self.controller = controller
 
-        self._time_seconds = controller.PLAYERACTION_LENGTH
-        self._time_mmss = StringVar()
-
+        self.time_seconds = controller.PLAYERACTION_LENGTH
+        self.time_mmss = StringVar()
 
         # Layout
-        #timer = MyTimer(self, self.controller)
-        self._timer = Label(self, textvariable=self._time_mmss,
-                           font='Times 50', fg='yellow', bg='Black')
-        self._timer.grid(row=0, column=2, rowspan=1, columnspan=1, sticky="NSEW" )
-
-        self._update_timer()
-
-    def _update_timer(self):
-        if self._time_seconds < 1:
-            # switch screen
-            return
-        tmp = str(datetime.timedelta(seconds=self._time_seconds))
-
-        self._time_mmss.set(tmp[2:])
-        self.update()
-        self._time_seconds -= 1
-        self.after(1000, self._update_timer)
+        timer = MyTimer(self, self.controller)
 
 
-
-
-"""
 class MyTimer(Label):
 
     def __init__(self, parent, controller, *args, **kwargs):
-        Label.__init__(self, *args, **kwargs)
-        self._parent = parent
-        self._controller = controller
-        self._time_seconds = controller.PLAYERACTION_LENGTH
-        self._time_mmss = StringVar()
+        super().__init__(parent, *args, **kwargs)
+        self.parent = parent
+        self.controller = controller
+
+        self.grid(row=0, column=2, sticky="NSEW")
+
+        self.time_seconds = controller.PLAYERACTION_LENGTH
+        self.time_mmss = StringVar()
 
         # Config
         self.config(font='Times 50', fg='yellow',
-                    bg='black', textvariable=self._time_mmss)
+                    bg='black', textvariable=self.time_mmss)
 
         # Layout
-        self.grid(row=0, column=0, sticky="NSEW")
 
         # Update
-        self._update_timer()
+        self.update_timer()
 
-    def _update_timer(self):
-        if self._time_seconds < 1:
+    def update_timer(self):
+        if self.time_seconds < 1:
             # switch screen
             return
 
-        tmp = str(datetime.timedelta(seconds=self._time_seconds))
+        tmp = str(datetime.timedelta(seconds=self.time_seconds))
 
-        self._time_mmss.set(tmp[2:])
+        self.time_mmss.set(tmp[2:])
         self.update()
-        self._time_seconds -= 1
-        self.after(1000, self._update_timer)
-"""
+        self.time_seconds -= 1
+        self.after(1000, self.update_timer)

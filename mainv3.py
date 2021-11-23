@@ -30,7 +30,7 @@ class Container(Tk):
         # Set the first frame
         self.switch_frame(PlayerAction)
 
-        # Close Keystroˇke
+        # Close Keystroke
         self.bind('<a>', lambda event = None: self.destroy())
 
         
