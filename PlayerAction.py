@@ -1,7 +1,8 @@
-from tkinter import *
-from BaseFrame import MyBaseFrame
-import dbconnect
 import datetime
+from tkinter import *
+
+import dbconnect
+from BaseFrame import MyBaseFrame
 
 
 class PlayerAction(MyBaseFrame):
@@ -10,33 +11,29 @@ class PlayerAction(MyBaseFrame):
     Args:
         MyBaseFrame ([type]): [description]
     """
-    _header_text = "Play Screen"
-    _subheader_text = "Game Action"
+    header_text = "Play Screen"
+    subheader_text = "Game Action"
 
     def __init__(self, parent, controller, *args, **kwargs):
         MyBaseFrame.__init__(self, parent, controller,
-                             self._header_text, self._subheader_text, *args, **kwargs)
+                             self.header_text, self.subheader_text, *args, **kwargs)
         # Object Attributes
-        self.parent = parent
-        self.controller = controller
-
         self.time_seconds = controller.PLAYERACTION_LENGTH
-        self.time_mmss = StringVar()
 
         # Layout
-        timer = MyTimer(self, self.controller)
+        timer = MyTimer(self, self.controller, time_seconds = self.time_seconds)
 
 
 class MyTimer(Label):
 
     def __init__(self, parent, controller, *args, **kwargs):
-        super().__init__(parent, *args, **kwargs)
+        Label.__init__(self, parent)
         self.parent = parent
         self.controller = controller
 
         self.grid(row=0, column=2, sticky="NSEW")
 
-        self.time_seconds = controller.PLAYERACTION_LENGTH
+        self.time_seconds = kwargs.get('time_seconds')
         self.time_mmss = StringVar()
 
         # Config

@@ -19,7 +19,7 @@ class Container(Tk):
     # Sets up "global variables" for the file
     def __init__(self, *args, **kwargs) -> None:
 
-        Tk.__init__(self,  *args, **kwargs)
+        Tk.__init__(self)
     
         # Object Configuration
         self.GLOBAL_VAR_INIT()

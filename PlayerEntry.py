@@ -35,7 +35,7 @@ class EntryWidget(Frame):
     """Creates the action grid in the (1,1) cell that contains the table titles, as well as the player entry section"""
 
     def __init__(self, parent, controller, *args, **kwargs):
-        super().__init__(parent,  *args, **kwargs)
+        super().__init__(parent)
         # Object Attributes
         self.parent = parent
         self.controller = controller

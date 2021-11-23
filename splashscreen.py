@@ -7,7 +7,7 @@ from PlayerEntry import PlayerEntry
 class SplashScreen(Frame):
 
     def __init__(self, parent, controller, *args, **kwargs):
-        Frame.__init__(self, parent, *args, **kwargs)
+        Frame.__init__(self, parent)
 
         # Object Attributes
         self.parent = parent
