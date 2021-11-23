@@ -9,6 +9,11 @@ from PlayerAction import *
 
 
 class Container(Tk):
+    """[summary]
+
+    Args:
+        Tk ([type]): [description]
+    """
 
     # Main Class for the file
     # Sets up "global variables" for the file
@@ -23,7 +28,7 @@ class Container(Tk):
         self._frame = None
 
         # Set the first frame
-        self.switch_frame(PlayerEntry)
+        self.switch_frame(PlayerAction)
 
         # Close Keystroˇke
         self.bind('<a>', lambda event = None: self.destroy())
