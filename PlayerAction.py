@@ -11,6 +11,7 @@ class PlayerAction(MyBaseFrame):
     Args:
         MyBaseFrame ([type]): [description]
     """
+
     header_text = "Play Screen"
     subheader_text = "Game Action"
 
@@ -21,17 +22,16 @@ class PlayerAction(MyBaseFrame):
         self.time_seconds = controller.PLAYERACTION_LENGTH
 
         # Layout
-        timer = MyTimer(self, self.controller, time_seconds = self.time_seconds)
+        timer = MyTimer(self, self.controller, time_seconds=self.time_seconds)
 
 
 class MyTimer(Label):
 
     def __init__(self, parent, controller, *args, **kwargs):
         Label.__init__(self, parent)
+        # Object Attributes
         self.parent = parent
         self.controller = controller
-
-        self.grid(row=0, column=2, sticky="NSEW")
 
         self.time_seconds = kwargs.get('time_seconds')
         self.time_mmss = StringVar()
@@ -41,8 +41,8 @@ class MyTimer(Label):
                     bg='black', textvariable=self.time_mmss)
 
         # Layout
-
-        # Update
+        self.grid(row=0, column=2, sticky="NSEW")
+        # Run
         self.update_timer()
 
     def update_timer(self):

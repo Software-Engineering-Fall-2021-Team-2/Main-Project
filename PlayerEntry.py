@@ -5,30 +5,21 @@ import dbconnect
 
 
 class PlayerEntry(MyBaseFrame):
+    
 
     # Lists to hold the information, replaces the need for file transfer
     # TODO: move the lists to main3.py
     red_ids, red_names, green_ids, green_names = ([] for i in range(4))
+    
     header_text = "Press enter to get your code name if you have played before, otherwise, submit your team before playing"
     subheader_text = "Press F5 to start game once teams have been submitted"
 
     def __init__(self, parent, controller, *args, **kwargs):
         MyBaseFrame.__init__(self, parent, controller,
-                             self.header_text, self.subheader_text, *args, **kwargs)
-        # Object Attributes
-        self.parent = parent
-        self.controller = controller
-
-        # Configuration
-        # - binds the escape key to remove focus from the entry boxes
-        self.bind_all("<Escape>", lambda event: self.esc_hit())
+                            self.header_text, self.subheader_text, *args, **kwargs)
 
         # Layout
-        entry_widget = EntryWidget(self, self.controller)
-
-    def esc_hit(self, *event):
-        """An on click event that sets the focus to the controller - used for exiting the entry boxes"""
-        self.controller.focus_set()
+        entry_widget = EntryWidget(self, self.controller)  
 
 
 class EntryWidget(Frame):

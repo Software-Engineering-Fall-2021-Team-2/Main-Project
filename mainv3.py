@@ -17,7 +17,7 @@ class Container(Tk):
 
     # Main Class for the file
     # Sets up "global variables" for the file
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self) -> None:
 
         Tk.__init__(self)
     
@@ -28,10 +28,13 @@ class Container(Tk):
         self._frame = None
 
         # Set the first frame
-        self.switch_frame(PlayerAction)
+        self.switch_frame(MyBaseFrame)
 
         # Close Keystroke
         self.bind('<a>', lambda event = None: self.destroy())
+        
+        # Exit Entry Box Keystroke
+        self.bind("<Escape>", lambda event = None: self.focus_set())
 
         
 
