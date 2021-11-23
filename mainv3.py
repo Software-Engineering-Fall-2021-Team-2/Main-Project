@@ -17,7 +17,7 @@ class Container(Tk):
 
     # Main Class for the file
     # Sets up "global variables" for the file
-    def __init__(self) -> None:
+    def __init__(self):
 
         Tk.__init__(self)
     
