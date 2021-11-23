@@ -4,8 +4,6 @@ import dbconnect
 
 
 class PlayerEntry(MyBaseFrame):
-
-    # Lists to hold the information, replaces the need for file transfer
     # TODO: move the lists to main3.py or Container or a different class ?
     red_ids, red_names, green_ids, green_names = ([] for i in range(4))
 
@@ -27,6 +25,7 @@ class PlayerEntry(MyBaseFrame):
 
         # Populate
         entry_widget = EntryWidget(self)
+
 
 class EntryWidget(Frame):
 
@@ -52,25 +51,34 @@ class EntryWidget(Frame):
         # Populate
         self.create_headers()
 
-        # for i in range(1, 16):
-        #red_ids = Entry(self, bg="grey", fg="black",width=3)
-        #red_ids = EntryBox(self, ).grid(row=i, column=0, sticky="NSEW")
-        # self.master.red_ids.append(red_ids)
+        self.create_entry_fields()
 
-        """for i in range(1, 16):
-            red_name = Entry(self, bg="grey", fg="black").grid(
-                row=i, column=1, sticky="NSEW")
+    def create_headers(self):
+        red_ids_label = TableHeaderLabel(self, 'IDS', 'red').grid(
+            row=0, column=0, sticky="NSEW")
+        red_team_label = TableHeaderLabel(self, 'RED TEAM', 'red').grid(
+            row=0, column=1, sticky="NSEW")
+        green_ids_label = TableHeaderLabel(self, 'IDS', 'green').grid(
+            row=0, column=3, sticky="NSEW")
+        green_team_label = TableHeaderLabel(self, 'GREEN TEAM', 'green').grid(
+            row=0, column=4, sticky="NSEW")
+
+    def create_entry_fields(self):
+        for i in range(1, 16):
+            red_ids = EntryBox(self, 3).grid(row=i, column=0, sticky="NSEW")
+            self.master.red_ids.append(red_ids)
+
+        for i in range(1, 16):
+            red_name = EntryBox(self, 1).grid(row=i, column=1, sticky="NSEW")
             self.master.red_names.append(red_name)
 
         for i in range(1, 16):
-            green_id = Entry(self, bg="grey", fg="black",
-                             width=3).grid(row=i, column=3, sticky="NSEW")
+            green_id = EntryBox(self, 3).grid(row=i, column=3, sticky="NSEW")
             self.master.green_ids.append(green_id)
 
         for i in range(1, 16):
-            green_name = Entry(self, bg="grey", fg="black").grid(
-                row=i, column=4, sticky="NSEW")
-            self.master.green_names.append(green_name)"""
+            green_name = EntryBox(self, 1).grid(row=i, column=4, sticky="NSEW")
+            self.master.green_names.append(green_name)
 
     # pull names from db using ID entered
     def pull_names(self, event):
@@ -90,17 +98,8 @@ class EntryWidget(Frame):
                     self.set_name(
                         self.green_names[i], dbconnect.retrieveCode(green_id))
 
-    def create_headers(self):
-        red_ids_label = TableHeaderLabel(self, 'IDS', 'red').grid(
-            row=0, column=0, sticky="NSEW")
-        red_team_label = TableHeaderLabel(self, 'RED TEAM', 'red').grid(
-            row=0, column=1, sticky="NSEW")
-        green_ids_label = TableHeaderLabel(self, 'IDS', 'green').grid(
-            row=0, column=3, sticky="NSEW")
-        green_team_label = TableHeaderLabel(self, 'GREEN TEAM', 'green').grid(
-            row=0, column=4, sticky="NSEW")
-
     # WHAT: What does this do? - Alters the database somehow
+
     def set_name(self, name, text):
         name.delete('0', 'end')
         name.insert('0', text)
@@ -149,14 +148,16 @@ class TableHeaderLabel(Label):
 
 class EntryBox(Entry):
 
-    def __init__(self, master: Frame):
+    def __init__(self, master: Frame, width: int = 1):
         """Entry box class
 
         Args:
             master (Frame): Frame widget thats directly owns this.
+            width (int, optional): [description]. Defaults to 1.
         """
         # Set Object Attributes
         super().__init__(master)
+        self.width = width
 
         # Configure
-        self.config(bg='grey', fg='black')
+        self.config(bg='grey', fg='black', width=self.width)
