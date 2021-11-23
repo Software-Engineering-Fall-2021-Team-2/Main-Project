@@ -28,11 +28,11 @@ class PlayerAction(MyBaseFrame):
         #timer = MyTimer(self, self.controller)
         self._timer = Label(self, textvariable=self._time_mmss,
                            font='Times 50', fg='yellow', bg='Black')
-        self._timer.grid(row=2, column=2, rowspan=0, columnspan=0, sticky="NSEW" )
+        self._timer.grid(row=0, column=2, rowspan=1, columnspan=1, sticky="NSEW" )
 
-        self._update_clock()
+        self._update_timer()
 
-    def _update_clock(self):
+    def _update_timer(self):
         if self._time_seconds < 1:
             # switch screen
             return
