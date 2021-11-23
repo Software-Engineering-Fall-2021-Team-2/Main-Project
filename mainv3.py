@@ -16,19 +16,16 @@ class Container(Tk):
     # Main Class for the file
     # Sets up "global variables" for the file
     def __init__(self):
-
         Tk.__init__(self)
 
         # Object Configuration
         self.GLOBAL_VAR_INIT()
 
         # Private variable to hold a frame object
-        #self._frame = SplashScreen(self, self)
-        #self._frame.pack(fill = 'both', expand = True)
-
         self._frame = None
+        
         # Set the first frame
-        self.switch_frame(SplashScreen)
+        self.switch_frame(PlayerAction)
 
         # Close Keystroke
         self.bind('<a>', lambda event=None: self.destroy())
@@ -53,17 +50,17 @@ class Container(Tk):
         self.SUBHEADER_FONT = tkfont.Font(
             family='Verdana', size=12, weight="bold")
 
-        self.NUM_PLAYERS = 15
+        self.NUM_PLAYERS: int = 15
 
         # Screen size in px
-        self.SCREEN_HEIGHT = 600
-        self.SCREEN_WIDTH = 1000
+        self.SCREEN_HEIGHT: int = 600
+        self.SCREEN_WIDTH: int = 1000
         self.geometry("{}x{}".format(self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
 
         # Time lengths in seconds
-        self.SPLASHSCREEN_LENGTH = 5
-        self.COUNTDOWN_LENGTH = 10
-        self.PLAYERACTION_LENGTH = 60
+        self.SPLASHSCREEN_LENGTH: int = 5
+        self.COUNTDOWN_LENGTH: int = 10
+        self.PLAYERACTION_LENGTH: int = 60
 
         # Window title
         Tk.wm_title(self, "PHOTON")
