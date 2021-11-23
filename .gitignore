@@ -3,3 +3,7 @@ __pycache__/BaseFrame.cpython-38.pyc
 __pycache__/dbconnect.cpython-38.pyc
 __pycache__/PlayerEntry.cpython-38.pyc
 __pycache__/splashscreen.cpython-38.pyc
+__pycache__/PlayerAction.cpython-38.pyc
+__pycache__/SplashSceen.cpython-38.pyc
+__pycache__/Config.cpython-38.pyc
+__pycache__/Container.cpython-38.pyc
