@@ -1,5 +1,8 @@
+
 from tkinter import *
 from tkinter import font as tkfont
+import datetime
+import dbconnect
 
 
 class MyBaseFrame(Frame):
@@ -54,7 +57,7 @@ class HeaderSubheader(Frame):
             controller (Tk): Top widget - passed down to every widget in order to maintain a heirarchy of widgets.
         """
         # Object Attributes
-        super().__init__(parent)        
+        super().__init__(parent)
         self.controller = controller
 
         # Configuration
@@ -82,7 +85,7 @@ class Header(Label):
         # Object Attributes
         super().__init__(parent)
         self.controller = controller
-        
+
         # Configuration
         self.config(text=header_text, font=self.controller.HEADER_FONT,
                     wraplength=750, justify="center")

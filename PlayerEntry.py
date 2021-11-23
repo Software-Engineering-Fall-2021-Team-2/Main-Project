@@ -1,7 +1,5 @@
 
-from tkinter import *
-from BaseFrame import MyBaseFrame
-import dbconnect
+from BaseFrame import *
 
 
 class PlayerEntry(MyBaseFrame):
@@ -9,16 +7,16 @@ class PlayerEntry(MyBaseFrame):
     # Lists to hold the information, replaces the need for file transfer
     # TODO: move the lists to main3.py
     red_ids, red_names, green_ids, green_names = ([] for i in range(4))
-    
+
     header_text = "Press enter to get your code name if you have played before, otherwise, submit your team before playing"
     subheader_text = "Press F5 to start game once teams have been submitted"
 
     def __init__(self, parent, controller, *args, **kwargs):
         super().__init__(parent, controller,
-                            self.header_text, self.subheader_text, *args, **kwargs)
+                         self.header_text, self.subheader_text, *args, **kwargs)
 
         # Layout
-        entry_widget = EntryWidget(self, self.controller)  
+        entry_widget = EntryWidget(self, self.controller)
 
 
 class EntryWidget(Frame):

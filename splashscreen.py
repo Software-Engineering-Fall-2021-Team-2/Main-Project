@@ -1,8 +1,5 @@
 
-from tkinter import *
 from BaseFrame import *
-from OldCode.mainv2 import Container
-from PlayerEntry import PlayerEntry
 
 
 class SplashScreen(MyBaseFrame):
@@ -26,14 +23,16 @@ class SplashScreen(MyBaseFrame):
         # Populate
         splash = ImageCanvas(self, controller, self.image)
 
+
         # Countdown
-        #self.set_timer()
+        # self.set_timer()
 """
     def set_timer(self):
         # Switches the screen after x seconds - denoted in main
         self.after(self.controller.SPLASHSCREEN_LENGTH *
                    1000, lambda: self.controller.switch_frame(PlayerEntry))
 """
+
 
 class ImageCanvas(Canvas):
     def __init__(self, parent: SplashScreen, controller: Tk, image: PhotoImage):

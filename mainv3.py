@@ -1,11 +1,10 @@
 
-from tkinter import *
-from tkinter import font as tkfont
-from BaseFrame import *
-from Countdown import Countdown
-from PlayerEntry import *
+# All major imports are done in BaseFame.py
+#from BaseFrame import *
+#from Countdown import Countdown
+#from PlayerEntry import *
 from splashscreen import *
-from PlayerAction import *
+#from PlayerAction import *
 
 
 class Container(Tk):
@@ -25,10 +24,11 @@ class Container(Tk):
         self.GLOBAL_VAR_INIT()
 
         # Private variable to hold a frame object
-        self._frame = None
+        self._frame = SplashScreen(self, self)
+        self._frame.pack(fill = 'both', expand = True)
 
         # Set the first frame
-        self.switch_frame(MyBaseFrame)
+        #self.switch_frame(MyBaseFrame)
 
         # Close Keystroke
         self.bind('<a>', lambda event=None: self.destroy())

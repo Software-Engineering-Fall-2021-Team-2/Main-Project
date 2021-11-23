@@ -1,8 +1,5 @@
-import datetime
-from tkinter import *
 
-import dbconnect
-from BaseFrame import MyBaseFrame
+from BaseFrame import *
 
 
 class PlayerAction(MyBaseFrame):
