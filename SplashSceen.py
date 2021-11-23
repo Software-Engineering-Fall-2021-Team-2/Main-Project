@@ -1,5 +1,6 @@
 
 from BaseFrame import *
+from PlayerEntry import PlayerEntry
 
 
 class SplashScreen(MyBaseFrame):
@@ -25,13 +26,13 @@ class SplashScreen(MyBaseFrame):
 
 
         # Countdown
-        # self.set_timer()
-"""
+        self.set_timer()
+
     def set_timer(self):
         # Switches the screen after x seconds - denoted in main
         self.after(self.controller.SPLASHSCREEN_LENGTH *
                    1000, lambda: self.controller.switch_frame(PlayerEntry))
-"""
+
 
 
 class ImageCanvas(Canvas):
