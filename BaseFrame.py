@@ -4,14 +4,14 @@ from tkinter import font as tkfont
 
 class MyBaseFrame(Frame):
 
-    def __init__(self, parent: Tk, controller: Tk, header_text: str, subheader_text: str, *args, **kwargs):
+    def __init__(self, parent: Tk, controller: Tk, header_text: str = "", subheader_text: str = "", *args, **kwargs):
         """ Basis for all frames - Uses a 3x3 grid to display widgets - 2x2 position used for main interactions.
 
         Args:
-            parent (Container) : Widget that is directly resposible for owning this widget.
-            controller (Container) : Top widget - passed down to every widget in order to maintain a heirarchy of widgets.
-            header_text (str) : Text to be used in the header position. 
-            subheader_text (str) : Text to be used in the subheader position.
+            parent (Tk) : Widget that is directly resposible for owning this widget - always Container. 
+            controller (Tk) : Top widget - passed down to every widget in order to maintain a heirarchy of widgets - always Container.
+            header_text (str, optional) : Text to be used in the header position. 
+            subheader_text (str, optional) : Text to be used in the subheader position.
             *args : unused
             **kwargs : unused
         """
@@ -71,13 +71,13 @@ class HeaderSubheader(Frame):
 
 
 class Header(Label):
-    def __init__(self, parent: HeaderSubheader, controller: Tk, header_text: str = "Header"):
+    def __init__(self, parent: HeaderSubheader, controller: Tk, header_text: str):
         """Header text label.
 
         Args:
             parent (HeaderSubheader): HeaderSubheader frame - (0,1) - top center of screen.
             controller (Tk): Top widget - passed down to every widget in order to maintain a heirarchy of widgets.
-            header_text (str): Text to be displayed. Defaults to "Header".
+            header_text (str): Text to be displayed.
         """
         # Object Attributes
         super().__init__(parent)
@@ -92,13 +92,13 @@ class Header(Label):
 
 
 class SubHeader(Label):
-    def __init__(self, parent: HeaderSubheader, controller: Tk, subheader_text: str = "subheader"):
+    def __init__(self, parent: HeaderSubheader, controller: Tk, subheader_text: str):
         """Subheader text label.
 
         Args:
             parent (HeaderSubheader) : HeaderSubheader frame - (0,1) - top center of screen.
             controller (Tk): Top widget - passed down to every widget in order to maintain a heirarchy of widgets.
-            subheader_text (str): Text to be displayed. Defaults to "subheader".
+            subheader_text (str): Text to be displayed.
         """
         # Object Attributes
         super().__init__(parent)

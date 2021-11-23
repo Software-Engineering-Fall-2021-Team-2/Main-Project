@@ -1,20 +1,24 @@
 
 from tkinter import *
 from BaseFrame import MyBaseFrame
+from OldCode.mainv2 import Container
 from PlayerEntry import PlayerEntry
 
 
-class SplashScreen(Frame):
+class SplashScreen(MyBaseFrame):
 
-    def __init__(self, parent, controller, *args, **kwargs):
-        Frame.__init__(self, parent)
+    def __init__(self, parent: Tk, controller: Tk, *args, **kwargs):
+        """Splash screen frame - shows for x number of seconds - denoted in main
 
-        # Object Attributes
-        self.parent = parent
-        self.controller = controller
+        Args:
+            parent (Tk): Widget that is directly resposible for owning this widget - always Container.
+            controller (Tk): Top widget - passed down to every widget in order to maintain a heirarchy of widgets - always Container.
+        """
+        # Set Object Attributes
+        super().__init__(parent, controller)
         self.image = PhotoImage(file="logo.png")
 
-        # Configuration
+        # Configure
         self.config(bg='black')
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
@@ -22,29 +26,35 @@ class SplashScreen(Frame):
         # Populate
         screen = ImageCanvas(self, controller, self.image)
 
-        # Layout
+        # Countdown
         self.set_timer()
 
     def set_timer(self):
+        # Switches the screen after x seconds - denoted in main
         self.after(self.controller.SPLASHSCREEN_LENGTH *
                    1000, lambda: self.controller.switch_frame(PlayerEntry))
 
 
 class ImageCanvas(Canvas):
-    def __init__(self, parent, controller, image, *args, **kwargs):
-        Canvas.__init__(self, parent, *args, **kwargs)
-        # Object Attributes
-        self.parent = parent
+    def __init__(self, parent: SplashScreen, controller: Tk, image: PhotoImage):
+        """Canvas for holding the the splash screen image - needed because tkinter requires images be held in a canvas
+
+        Args:
+            parent (SplashScreen): Widget that is directly resposible for owning this widget.
+            controller (Tk): Top widget - passed down to every widget in order to maintain a heirarchy of widgets - always Container.
+            image (PhotoImage): Photo to be displayed
+        """        
+        # Set Object Attributes
+        super().__init__(parent)
         self.controller = controller
         self.image = image
 
-        # Configuration
-        self.config(bg='black')
-
-        # Populate
+        # Configure
         # TODO: figure out how to stretch the image to fill the frame
+
+        self.config(bg='black')
         self.create_image(self.controller.SCREEN_WIDTH/2,
                           self.controller.SCREEN_HEIGHT/2, anchor=CENTER, image=self.image)
 
-        # Layout
+        # Populate
         self.pack(expand="YES", fill="both")
