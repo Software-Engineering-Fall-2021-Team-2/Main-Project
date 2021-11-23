@@ -5,24 +5,35 @@ from BaseFrame import *
 class PlayerEntry(MyBaseFrame):
 
     # Lists to hold the information, replaces the need for file transfer
-    # TODO: move the lists to main3.py
+    # TODO: move the lists to main3.py or controller class
     red_ids, red_names, green_ids, green_names = ([] for i in range(4))
 
     header_text = "Press enter to get your code name if you have played before, otherwise, submit your team before playing"
     subheader_text = "Press F5 to start game once teams have been submitted"
 
-    def __init__(self, parent, controller, *args, **kwargs):
-        super().__init__(parent, controller,
-                         self.header_text, self.subheader_text, *args, **kwargs)
+    def __init__(self, parent: Tk, controller: Tk):
+        """[summary]
 
+        Args:
+            parent (Tk): Widget that is directly resposible for owning this widget (Container)
+            controller (Tk): Top widget - passed down to every widget in order to maintain a heirarchy of widgets - always Container.
+
+        """
+        # Set Object Attributes
+        super().__init__(parent, controller, self.header_text, self.subheader_text)
+        
+        # Configure
+        
         # Layout
+        
+        # Populate
         entry_widget = EntryWidget(self, self.controller)
 
 
 class EntryWidget(Frame):
     """Creates the action grid in the (1,1) cell that contains the table titles, as well as the player entry section"""
 
-    def __init__(self, parent, controller, *args, **kwargs):
+    def __init__(self, parent: MyBaseFrame, controller: Tk):
         super().__init__(parent)
         # Object Attributes
         self.parent = parent

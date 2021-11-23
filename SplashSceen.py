@@ -1,11 +1,12 @@
 
 from BaseFrame import *
+# TODO: Figure out if this import is required here?
 from PlayerEntry import PlayerEntry
 
 
 class SplashScreen(MyBaseFrame):
 
-    def __init__(self, parent: Tk, controller: Tk, *args, **kwargs):
+    def __init__(self, parent: Tk, controller: Tk):
         """Splash screen frame - shows for x number of seconds - denoted in main
 
         Args:
@@ -22,25 +23,23 @@ class SplashScreen(MyBaseFrame):
         self.columnconfigure(0, weight=1)
 
         # Populate
-        splash = ImageCanvas(self, controller, self.image)
-
+        splash = FullScreenImageCanvas(self, controller, self.image)
 
         # Countdown
         self.set_timer()
 
     def set_timer(self):
-        # Switches the screen after x seconds - denoted in main
+        # Switches the screen after x seconds - denoted in main.py config
         self.after(self.controller.SPLASHSCREEN_LENGTH *
                    1000, lambda: self.controller.switch_frame(PlayerEntry))
 
 
-
-class ImageCanvas(Canvas):
-    def __init__(self, parent: SplashScreen, controller: Tk, image: PhotoImage):
+class FullScreenImageCanvas(Canvas):
+    def __init__(self, parent: MyBaseFrame, controller: Tk, image: PhotoImage):
         """Canvas for holding the the splash screen image - needed because tkinter requires images be held in a canvas
 
         Args:
-            parent (SplashScreen): Widget that is directly resposible for owning this widget.
+            parent (MyBaseFrame): Frame that is directly resposible for owning this widget.
             controller (Tk): Top widget - passed down to every widget in order to maintain a heirarchy of widgets - always Container.
             image (PhotoImage): Photo to be displayed
         """

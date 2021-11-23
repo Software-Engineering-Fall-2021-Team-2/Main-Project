@@ -7,7 +7,7 @@ import dbconnect
 
 class MyBaseFrame(Frame):
 
-    def __init__(self, parent, controller, header_text: str = "", subheader_text: str = "", *args, **kwargs):
+    def __init__(self, parent: Tk, controller: Tk, header_text: str = "", subheader_text: str = "", *args, **kwargs):
         """ Basis for all frames - Uses a 3x3 grid to display widgets - 2x2 position used for main interactions.
 
         Args:
@@ -18,22 +18,23 @@ class MyBaseFrame(Frame):
             *args : unused
             **kwargs : unused
         """
-        # Object Attributes
+        # Set Object Attributes
         super().__init__(parent)
         self.controller = controller
         self.header_text = header_text
         self.subheader_text = subheader_text
 
-        # Configuration
+        # Configure
         self.rowconfigure((0, 2), weight=1)
         self.rowconfigure(1, weight=20)
 
         self.columnconfigure((0, 2), weight=1, minsize=5)
         self.columnconfigure(1, weight=20)
 
-        # Populate Header
+        # Populate
         header_subheader = HeaderSubheader(self, controller)
 
+        # Testing 
         self.screen_setup_TESTING()
 
     # TODO: Remove before submission
@@ -49,18 +50,18 @@ class MyBaseFrame(Frame):
 
 class HeaderSubheader(Frame):
 
-    def __init__(self, parent, controller):
+    def __init__(self, parent: MyBaseFrame, controller: Tk):
         """Creates a label to hold a 1x2 grid within the (0,1) position in the MyBaseFrame grid.
 
         Args:
             parent (MyBaseFrame): Widget that is directly resposible for owning this widget - contains text information.
             controller (Tk): Top widget - passed down to every widget in order to maintain a heirarchy of widgets.
         """
-        # Object Attributes
+        # Set Object Attributes
         super().__init__(parent)
         self.controller = controller
 
-        # Configuration
+        # Configure
         self.config(borderwidth=0)
         self.rowconfigure((0, 1), weight=1)
         self.columnconfigure(0, weight=1)
@@ -74,7 +75,7 @@ class HeaderSubheader(Frame):
 
 
 class Header(Label):
-    def __init__(self, parent, controller, header_text: str):
+    def __init__(self, parent: HeaderSubheader, controller: Tk, header_text: str):
         """Header text label.
 
         Args:
@@ -82,11 +83,11 @@ class Header(Label):
             controller (Tk): Top widget - passed down to every widget in order to maintain a heirarchy of widgets.
             header_text (str): Text to be displayed.
         """
-        # Object Attributes
+        # Set Object Attributes
         super().__init__(parent)
         self.controller = controller
 
-        # Configuration
+        # Configure
         self.config(text=header_text, font=self.controller.HEADER_FONT,
                     wraplength=750, justify="center")
 
@@ -95,7 +96,7 @@ class Header(Label):
 
 
 class SubHeader(Label):
-    def __init__(self, parent, controller, subheader_text: str):
+    def __init__(self, parent: HeaderSubheader, controller: Tk, subheader_text: str):
         """Subheader text label.
 
         Args:
@@ -103,11 +104,11 @@ class SubHeader(Label):
             controller (Tk): Top widget - passed down to every widget in order to maintain a heirarchy of widgets.
             subheader_text (str): Text to be displayed.
         """
-        # Object Attributes
+        # Set Object Attributes
         super().__init__(parent)
         self.controller = controller
 
-        # Configuration
+        # Configure
         self.config(text=subheader_text, font=self.controller.SUBHEADER_FONT,
                     wraplength=750, justify="center")
 
