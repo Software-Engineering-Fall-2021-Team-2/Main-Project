@@ -18,7 +18,7 @@ class PlayerEntry(MyBaseFrame):
             master (Tk): Widget that is directly resposible for owning this widget (Container)
         """
         # Set Object Attributes
-        super().__init__(master, self.header_text, self.subheader_text)
+        super().__init__(master)
 
         # Configure
         # - Pull Names Keystroke
@@ -95,41 +95,40 @@ class EntryWidget(Frame):
         self.rowconfigure(tuple(range(1, 16)), weight=1)    # Entry Rows
 
         # Populate
-        self.create_headers()
+        red_ids_label = TableHeaderLabel(self, "IDS", 'red')
+        red_team_label = TableHeaderLabel(self, 'RED TEAM', 'red')
+        green_ids_label = TableHeaderLabel(self, "IDS", 'green')
+        green_team_label = TableHeaderLabel(self, "GREEN TEAM", 'green')
         self.create_entry_fields()
 
-        # Testing
-        # print(master.red_ids)
+        # Layout
+        red_ids_label.grid(row=0, column=0, sticky='NSEW')
+        red_team_label.grid(row=0, column=1, sticky='NSEW')
+        green_ids_label.grid(row=0, column=3, sticky='NSEW')
+        green_team_label.grid(row=0, column=4, sticky='NSEW')
 
-    def create_headers(self):
-        red_ids_label = TableHeaderLabel(self, 'IDS', 'red').grid(
-            row=0, column=0, sticky="NSEW")
-        red_team_label = TableHeaderLabel(self, 'RED TEAM', 'red').grid(
-            row=0, column=1, sticky="NSEW")
-        green_ids_label = TableHeaderLabel(self, 'IDS', 'green').grid(
-            row=0, column=3, sticky="NSEW")
-        green_team_label = TableHeaderLabel(self, 'GREEN TEAM', 'green').grid(
-            row=0, column=4, sticky="NS")
+        # Entry Fieds
+        self.create_entry_fields()
 
     def create_entry_fields(self):
         for i in range(1, 16):
             red_id = Entry(self, bg='grey', fg='black', width=3)
-            red_id.grid(row=i, column=0, sticky="NSEW")
+            red_id.grid(row=i, column=0, sticky='NSEW')
             self.master.red_ids.append(red_id)
 
         for i in range(1, 16):
             red_name = Entry(self, bg='grey', fg='black', width=1)
-            red_name.grid(row=i, column=1, sticky="NSEW")
+            red_name.grid(row=i, column=1, sticky='NSEW')
             self.master.red_names.append(red_name)
 
         for i in range(1, 16):
             green_id = Entry(self, bg='grey', fg='black', width=3)
-            green_id.grid(row=i, column=3, sticky="NSEW")
+            green_id.grid(row=i, column=3, sticky='NSEW')
             self.master.green_ids.append(green_id)
 
         for i in range(1, 16):
             green_name = Entry(self, bg='grey', fg='black', width=1)
-            green_name.grid(row=i, column=4, sticky="NSEW")
+            green_name.grid(row=i, column=4, sticky='NSEW')
             self.master.green_names.append(green_name)
 
 

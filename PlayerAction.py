@@ -8,17 +8,16 @@ class PlayerAction(MyBaseFrame):
     header_text = "Play Screen"
     subheader_text = "Game Action"
 
-    def __init__(self, parent: Tk, controller: Tk):
+    def __init__(self, master: Tk):
         """PlayerAction screen - updates with feed of whatever
         # TODO: Change the description of the PlayerAction screen
 
         Args:
-            parent (Tk): Widget that is directly resposible for owning this widget (Container)
-            controller (Tk): Top widget - passed down to every widget in order to maintain a heirarchy of widgets - always Container.
+            master (Tk): Widget that is directly resposible for owning this widget (Container)
         """
         # Set Object Attributes
-        super().__init__(parent, controller, self.header_text, self.subheader_text)
-        self.time_seconds = controller.PLAYERACTION_LENGTH
+        super().__init__(master)
+        self.time_seconds = PLAYERACTION_LENGTH
 
         # Populate
         timer = MyTimer(self, self.controller, self.time_seconds)
