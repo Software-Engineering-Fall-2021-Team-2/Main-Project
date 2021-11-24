@@ -99,7 +99,6 @@ class EntryWidget(Frame):
         red_team_label = TableHeaderLabel(self, 'RED TEAM', 'red')
         green_ids_label = TableHeaderLabel(self, "IDS", 'green')
         green_team_label = TableHeaderLabel(self, "GREEN TEAM", 'green')
-        self.create_entry_fields()
 
         # Layout
         red_ids_label.grid(row=0, column=0, sticky='NSEW')
