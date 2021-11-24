@@ -7,6 +7,33 @@
 import psycopg2
 from psycopg2 import Error
 
+def connect(records):
+    newRecords = []
+    try:
+        #Connect to database
+        conn = psycopg2.connect(user="fyvfgbrmzsdxqv",
+                                password="f9bd96ad063a4183904cc463789f189038c4a5fdab483a05001908ee40a36a30",
+                                host="ec2-18-214-214-252.compute-1.amazonaws.com",
+                                port="5432",
+                                database="d2shnh1e69v774")
+        for x in records:
+            i_record = x
+            id = i_record[0]
+            name = i_record[1]
+            if checkdb(id, conn):
+                name = retrieveCode(id, conn)
+            else:
+                addRecord(i_record, conn)
+            record = (id, name)
+            newRecords.append(record)
+    except (Exception, Error) as error:
+        print('Error', error)
+    finally:
+        if conn:
+            conn.close()
+            return(newRecords)
+        
+        
 def checkdb(id):
     try:
         #Connect to database

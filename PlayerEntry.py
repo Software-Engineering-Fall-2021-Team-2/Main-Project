@@ -29,12 +29,14 @@ class PlayerEntry(MyBaseFrame):
                       lambda event=NONE: self.master.switch_frame(Countdown))
 
         # Populate
+        header = Header(self, self.header_text, self.subheader_text)
         entry_widget = EntryWidget(self)
         button_holder = ButtonHolder(self)
 
         # Layout
+        header.grid(column=1, row=0, sticky='NSEW')
         entry_widget.grid(column=1, row=1, sticky='NSEW')
-        button_holder.grid(column=0, row=2, columnspan=3, sticky='NSEW')
+        button_holder.grid(column=1, row=2, sticky='NSEW')
 
     def pull_names(self, *event):
         for i in range(NUM_PLAYERS):
@@ -154,7 +156,11 @@ class TableHeaderLabel(Label):
 class ButtonHolder(Frame):
 
     def __init__(self, master: Frame):
+        """Frame to hold buttons.
 
+        Args:
+            master (Frame): Frame widget thats directly owns this.
+        """
         # Set Object Attributes
         super().__init__(master)
 
@@ -168,11 +174,11 @@ class ButtonHolder(Frame):
         exit_game_btn = Button(self, text="F1 - Exit Game", font=SUBHEADER_FONT,
                                width=10, height=2, bd='3', command=lambda: self.master.master.destroy())
         send_data_btn = Button(self, text="F3 - Submit Teams", font=SUBHEADER_FONT,
-                               width=10, height=2, bd='3', command=lambda:self.master.send_data())
+                               width=10, height=2, bd='3', command=lambda: self.master.send_data())
         pull_data_btn = Button(self, text="Return - Get Names", font=SUBHEADER_FONT,
-                               width=10, height=2, bd='3', command=lambda:self.master.pull_names())
+                               width=10, height=2, bd='3', command=lambda: self.master.pull_names())
         start_game_btn = Button(self, text="F5 - Start Game", font=SUBHEADER_FONT, width=10,
-                                height=2, bd='3', command=lambda:self.master.master.switch_frame(Countdown))
+                                height=2, bd='3', command=lambda: self.master.master.switch_frame(Countdown))
 
         # Layout
         exit_game_btn.grid(column=1, row=0, sticky='NSEW')
