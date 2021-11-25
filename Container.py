@@ -25,6 +25,8 @@ class Container(Tk):
         # Configure
         Tk.wm_title(self, "PHOTON")
         self.geometry("{}x{}".format(SCREEN_WIDTH, SCREEN_HEIGHT))
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure(0, weight=1)
 
         # - Close Keystroke
         self.bind('<a>', lambda event=None: self.destroy())
@@ -32,17 +34,13 @@ class Container(Tk):
         # - Exit Entry Box Keystroke
         self.bind("<Escape>", lambda event=None: self.focus_set())
 
-        # Layout
-        self.grid_rowconfigure(0, weight=1)
-        self.grid_columnconfigure(0, weight=1)
-
         # Populate
-
         # - Private variable to hold a frame object
         self._frame = None
 
+        # Layout
         # - Set the first frame
-        self.switch_frame(SplashScreen)
+        self.switch_frame(PlayerEntry)
 
     def switch_frame(self, frame_class: MyBaseFrame):
         """Destroys current frame and replaces it with a new one."

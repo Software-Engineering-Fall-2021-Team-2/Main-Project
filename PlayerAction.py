@@ -20,7 +20,7 @@ class PlayerAction(MyBaseFrame):
         self.time_seconds = PLAYERACTION_LENGTH
 
         # Populate
-        timer = MyTimer(self, self.controller, self.time_seconds)
+        timer = MyTimer(self, self.time_seconds)
 
         # Layout
         timer.grid(row=0, column=2, sticky='NSEW')

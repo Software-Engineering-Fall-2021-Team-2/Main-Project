@@ -3,7 +3,7 @@ from Config import *
 
 class MyBaseFrame(Frame):
 
-    def __init__(self, master: Tk, header_text: str = "", subheader_text: str = "", *args, **kwargs):
+    def __init__(self, master: Tk, *args, **kwargs):
         """Basis for all frames - Uses a 3x3 grid to display widgets - 2x2 position used for main interactions.
 
         Args:
@@ -15,8 +15,6 @@ class MyBaseFrame(Frame):
         """
         # Set Object Attributes
         super().__init__(master)
-        self.header_text = header_text
-        self.subheader_text = subheader_text
 
         # Configure
         self.config(bg='black')

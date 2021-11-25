@@ -30,13 +30,11 @@ class PlayerEntry(MyBaseFrame):
 
         # Populate
         header = Header(self, self.header_text, self.subheader_text)
-        entry_widget = EntryWidget(self)
-        button_holder = ButtonHolder(self)
+        master_widget = MasterWidget(self)
 
         # Layout
         header.grid(column=1, row=0, sticky='NSEW')
-        entry_widget.grid(column=1, row=1, sticky='NSEW')
-        button_holder.grid(column=1, row=2, sticky='NSEW')
+        master_widget.grid(column=1, row=1, sticky='NSEW')
 
     def pull_names(self, *event):
         for i in range(NUM_PLAYERS):
@@ -74,7 +72,7 @@ class PlayerEntry(MyBaseFrame):
         name.insert('0', text)
 
 
-class EntryWidget(Frame):
+class MasterWidget(Frame):
     def __init__(self, master: MyBaseFrame):
         """Creates the action grid in the (1,1) cell that contains the table titles,
         as well as the player entry section
@@ -93,18 +91,42 @@ class EntryWidget(Frame):
         self.columnconfigure([1, 4], weight=5, minsize=1)   # Team Cols
         self.rowconfigure(0, weight=2)                      # Title Row
         self.rowconfigure(tuple(range(1, 16)), weight=1)    # Entry Rows
+        self.rowconfigure(16, weight=3, minsize=15)          # Button Row
 
         # Populate
         red_ids_label = TableHeaderLabel(self, "IDS", 'red')
-        red_team_label = TableHeaderLabel(self, 'RED TEAM', 'red')
+        red_team_label = TableHeaderLabel(self, "RED TEAM", 'red')
         green_ids_label = TableHeaderLabel(self, "IDS", 'green')
         green_team_label = TableHeaderLabel(self, "GREEN TEAM", 'green')
+
+        # - Button Creation
+        left_button_frame = Frame(self, bg='black')
+        left_button_frame.columnconfigure([0, 1, 2], weight=2)
+        right_button_frame = Frame(self, bg='black')
+        right_button_frame.columnconfigure([0, 1, 2], weight=1)
+        exit_game_btn = Button(left_button_frame, text="<F1>\nExit Game", font=SUBHEADER_FONT,
+                               width=20, bd='3', command=lambda: self.master.master.destroy())
+        send_data_btn = Button(left_button_frame, text="<F3>\nSubmit Teams", font=SUBHEADER_FONT,
+                               width=20, bd='3', command=lambda: self.master.send_data())
+        pull_data_btn = Button(right_button_frame, text="<Return>\nGet Names", font=SUBHEADER_FONT,
+                               width=20, bd='3', command=lambda: self.master.pull_names())
+        start_game_btn = Button(right_button_frame, text="<F5>\nStart Game", font=SUBHEADER_FONT,
+                                width=20, bd='3', command=lambda: self.master.master.switch_frame(Countdown))
 
         # Layout
         red_ids_label.grid(row=0, column=0, sticky='NSEW')
         red_team_label.grid(row=0, column=1, sticky='NSEW')
         green_ids_label.grid(row=0, column=3, sticky='NSEW')
         green_team_label.grid(row=0, column=4, sticky='NSEW')
+
+        # - Button Alignmnet
+        left_button_frame.grid(row=17, column=0, columnspan=2, sticky='NSEW')
+        exit_game_btn.grid(row=0, column=0)
+        send_data_btn.grid(row=0, column=2)
+
+        right_button_frame.grid(row=17, column=3, columnspan=2, sticky='NSEW')
+        pull_data_btn.grid(row=0, column=0)
+        start_game_btn.grid(row=0, column=2)
 
         # Entry Fieds
         self.create_entry_fields()
@@ -154,7 +176,7 @@ class TableHeaderLabel(Label):
 class ButtonHolder(Frame):
 
     def __init__(self, master: Frame):
-        """Frame to hold buttons.
+        """Frame to hold buttons - contained in the MasterWidget
 
         Args:
             master (Frame): Frame widget thats directly owns this.
@@ -169,17 +191,17 @@ class ButtonHolder(Frame):
         self.columnconfigure(tuple(range(8)), weight=1, minsize=5)
 
         # Populate
-        exit_game_btn = Button(self, text="F1 - Exit Game", font=SUBHEADER_FONT,
-                               width=10, height=2, bd='3', command=lambda: self.master.master.destroy())
-        send_data_btn = Button(self, text="F3 - Submit Teams", font=SUBHEADER_FONT,
-                               width=10, height=2, bd='3', command=lambda: self.master.send_data())
-        pull_data_btn = Button(self, text="Return - Get Names", font=SUBHEADER_FONT,
-                               width=10, height=2, bd='3', command=lambda: self.master.pull_names())
-        start_game_btn = Button(self, text="F5 - Start Game", font=SUBHEADER_FONT, width=10,
-                                height=2, bd='3', command=lambda: self.master.master.switch_frame(Countdown))
+        exit_game_btn = Button(self, text="<F1> - Exit Game", font=SUBHEADER_FONT,
+                               width=10, height=2, bd='3', command=lambda: self.master.master.master.destroy())
+        send_data_btn = Button(self, text="<F3> - Submit Teams", font=SUBHEADER_FONT,
+                               width=10, height=2, bd='3', command=lambda: self.master.master.send_data())
+        pull_data_btn = Button(self, text="<Return> - Get Names", font=SUBHEADER_FONT,
+                               width=10, height=2, bd='3', command=lambda: self.master.master.pull_names())
+        start_game_btn = Button(self, text="<F5> - Start Game", font=SUBHEADER_FONT, width=10,
+                                height=2, bd='3', command=lambda: self.master.master.master.switch_frame(Countdown))
 
         # Layout
-        exit_game_btn.grid(column=1, row=0, sticky='NSEW')
+        exit_game_btn.grid(column=0, row=0, sticky='NSEW')
         send_data_btn.grid(column=3, row=0, sticky='NSEW')
         pull_data_btn.grid(column=5, row=0, sticky='NSEW')
         start_game_btn.grid(column=7, row=0, sticky='NSEW')
