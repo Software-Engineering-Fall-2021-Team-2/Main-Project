@@ -6,8 +6,8 @@ SCREEN_WIDTH: int = 1000
 
 
 # Screen display length in seconds
-SPLASHSCREEN_LENGTH: int = 5
-COUNTDOWN_LENGTH: int = 10
+SPLASHSCREEN_LENGTH: int = 1
+COUNTDOWN_LENGTH: int = 2
 PLAYERACTION_LENGTH: int = 60
 
 # Font setup

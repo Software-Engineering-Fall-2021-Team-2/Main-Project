@@ -61,10 +61,30 @@ class Header(Frame):
 
         # Populate
         header = Label(self, text=header_text, font=HEADER_FONT,
-                    wraplength=750, justify='center', fg='white', bg='black')
-        subheader = Label(self,text=subheader_text, font=SUBHEADER_FONT,
-                    wraplength=750, justify='center', fg='white', bg='black')
+                       wraplength=750, justify='center', fg='white', bg='black')
+        subheader = Label(self, text=subheader_text, font=SUBHEADER_FONT,
+                          wraplength=750, justify='center', fg='white', bg='black')
 
         # Layout
         header.grid(row=0, column=0, sticky='N')
-        subheader.grid(row=1,column=0, sticky='N')
+        subheader.grid(row=1, column=0, sticky='N')
+        
+        
+class TableHeaderLabel(Label):
+
+    def __init__(self, master: Frame, text: str, color: str):
+        """Table header label class.
+
+        Args:
+            master (Frame): Frame widget thats directly owns this.
+            text (str): Text to be dispalyed.
+            color(str): Team color to be used as text color
+        """
+        # Set Object Attributes
+        super().__init__(master)
+        self.text = text
+        self.color = color
+
+        # Configure
+        self.config(text=self.text, fg=self.color,
+                    font=SUBHEADER_FONT, bg='black', justify='center')

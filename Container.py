@@ -40,7 +40,7 @@ class Container(Tk):
 
         # Layout
         # - Set the first frame
-        self.switch_frame(PlayerEntry)
+        self.switch_frame(PlayerAction)
 
     def switch_frame(self, frame_class: MyBaseFrame):
         """Destroys current frame and replaces it with a new one."
