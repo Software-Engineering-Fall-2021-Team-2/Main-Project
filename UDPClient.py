@@ -1,6 +1,5 @@
 from socket import *
 import random
-import time
 
 serverPort = 7501
 serverName = 'localhost'
@@ -13,8 +12,6 @@ def UDPconnect(redID, greenID):
     else:
         message = str(random.choice(greenID))
 
-    print(message)
-
     #Encodes message into bytes and sends to server
     messageBytes = message.encode('utf-8')
     clientSocket.sendto(messageBytes, (serverName, serverPort))
@@ -24,7 +21,6 @@ def UDPconnect(redID, greenID):
 
     #Decodes message
     currentMessage = newMessage.decode('utf-8')
-    print(currentMessage)
 
     #Closes the socket
     clientSocket.close()

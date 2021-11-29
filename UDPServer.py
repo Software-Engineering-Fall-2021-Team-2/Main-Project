@@ -1,5 +1,6 @@
 from socket import *
 import random
+import json
 
 serverPort = 7501
 
@@ -16,24 +17,22 @@ print('Server is ready to recieve')
 #Continue listening forever
 while 1:
     message, clientAddress = serverSocket.recvfrom(2048)
-
+    decodedMessage = message.decode('utf-8')
     #Constantly read files due to changing teams from game to game
     IDs = []
     with open('redID.txt', 'r') as file:
         p = json.load(file)
         for i in p:
             IDs.append(i)
-    with open('green.txt', 'r') as file:
+    with open('greenID.txt', 'r') as file:
         p = json.load(file)
         for i in p:
             IDs.append(i)
 
     playerID = random.choice(IDs)
-    if int(message) != int(playerID):
-        newMessage = str(message) + ':' + str(playerID)
-    else:
+    while int(decodedMessage) == int(playerID):
         playerID = random.choice(IDs)
-        newMessage = str(message) + ':' + str(playerID)
-
+    newMessage = str(decodedMessage) + ':' + str(playerID)
+    print(newMessage)
     newMessageBytes = newMessage.encode('utf-8')
     serverSocket.sendto(newMessageBytes, clientAddress)
