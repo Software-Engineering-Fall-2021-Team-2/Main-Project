@@ -70,19 +70,29 @@ class PlayerEntry(MyBaseFrame):
         name.insert('0', text)
 
     def next_screen(self, *event):
-        red_team = []
+        redTeam = []
         greenTeam = []
+        redID = []
+        greenID = []
         for i in range(NUM_PLAYERS):
             if len(self.red_ids[i].get()) != 0:
                 name = self.red_names[i].get()
-                red_team.append(name)
+                id = self.red_ids[i].get()
+                redTeam.append(name)
+                redID.append(id)
             if len(self.green_ids[i].get()) != 0:
                 name = self.green_names[i].get()
+                id = self.green_ids[i].get()
                 greenTeam.append(name)
+                greenID.append(id)
         with open('redTeam.txt', 'w') as file:
-            file.write(json.dumps(red_team))
+            file.write(json.dumps(redTeam))
         with open('greenTeam.txt', 'w') as file:
             file.write(json.dumps(greenTeam))
+        with open('redID.txt', 'w') as file:
+            file.write(json.dumps(redID))
+        with open('greenID.txt', 'w') as file:
+            file.write(json.dumps(greenID))
 
         self.master.switch_frame(Countdown)
 

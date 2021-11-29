@@ -3,6 +3,8 @@ from tkinter import font
 from BaseFrame import *
 import datetime
 import json
+import UDPClient
+import random
 
 
 class PlayerAction(MyBaseFrame):
@@ -22,20 +24,31 @@ class PlayerAction(MyBaseFrame):
         self.time_seconds = PLAYERACTION_LENGTH
         self.red_names = []
         self.green_names = []
+        self.red_ids = []
+        self.green_ids = []
 
         with open('redTeam.txt', 'r') as file:
             p = json.load(file)
             for i in p:
                 self.red_names.append(i)
         self.red_team = {key: None for key in self.red_names}
-        
+
         with open('greenTeam.txt', 'r') as file:
             p = json.load(file)
             for i in p:
                 self.green_names.append(i)
         self.green_team = {key: None for key in self.green_names}
-        
-        
+
+        with open('redID.txt', 'r') as file:
+            p =json.load(file)
+            for i in p:
+                self.red_ids.append(i)
+
+        with open('greenID.txt', 'r') as file:
+            p = json.load(file)
+            for i in p:
+                self.green_ids.append(i)
+
         # Populate
         header = Header(self, self.header_text, self.subheader_text)
         master_widget = MasterWidget(self, self.red_names, self.green_names)
@@ -138,14 +151,14 @@ class RedInformation(Frame):
             score = Label(self, bg='black', fg='red',
                           text=tmp, font=SUBHEADER_FONT)
             score.grid(row=index, column=1, sticky='NSE')
-            
+
             # TODO: make UDP thing update this guy
-            self.master.master.red_team[value] = score  
-            
+            self.master.master.red_team[value] = score
+
             total = name = Label(self, bg='black', fg='red',
                          text=0, font=SUBHEADER_FONT)
             total.grid(row=15,column=1,sticky='NSE')
-            
+
 class GreenInformation(Frame):
     def __init__(self, master: Frame, players: list):
 
@@ -168,19 +181,19 @@ class GreenInformation(Frame):
             score = Label(self, bg='black', fg='green',
                           text=tmp, font=SUBHEADER_FONT)
             score.grid(row=index, column=1, sticky='NSE')
-            
+
             # TODO: make UDP thing update this guy
-            self.master.master.green_team[value] = score  
-            
+            self.master.master.green_team[value] = score
+
         total = name = Label(self, bg='black', fg='green',
                          text=0, font=SUBHEADER_FONT)
         total.grid(row=15,column=1,sticky='NSE')
-        
+
 class ActionScreen(Frame):
         def __init__(self, master: Frame):
-            
+
             # Set Object Attributes
             super().__init__(master)
-            
+
             # Configure
             self.config(bg='grey')
