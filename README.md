@@ -2,4 +2,4 @@
 
 Required components: psycopg2, tkinter
 
-Simply execute **main.py** with **Python 3.8** or later.
+Simply execute **mainv3.py** with **Python 3.8** or later.
