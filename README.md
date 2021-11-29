@@ -2,4 +2,8 @@
 
 Required components: psycopg2, tkinter
 
-Simply execute **mainv3.py** with **Python 3.8** or later.
+Steps to run:
+Execute UDPServer.py using command "python3 UDPServer.py"
+Then, execute mainv3.py using command "python3 mainv3.py"
+
+***MAKE SURE YOU ARE USING AT LEAST PYTHON 3.8 
