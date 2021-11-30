@@ -8,3 +8,4 @@ __pycache__/SplashSceen.cpython-38.pyc
 __pycache__/Config.cpython-38.pyc
 __pycache__/Container.cpython-38.pyc
 __pycache__/Countdown.cpython-38.pyc
+*.pyc
