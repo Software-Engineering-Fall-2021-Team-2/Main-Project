@@ -194,7 +194,7 @@ class GreenInformation(Frame):
         total.grid(row=15,column=1,sticky='NSE')
 
 class ActionScreen(Frame):
-        def __init__(self, master: Frame, redID: list, greenID: list, redName: list, greenName: list):
+        def __init__(self, master: MyBaseFrame, redID: list, greenID: list, redName: list, greenName: list):
 
             # Set Object Attributes
             super().__init__(master)
@@ -202,43 +202,53 @@ class ActionScreen(Frame):
             self.green_names = greenName
             self.red_ids = redID
             self.green_ids = greenID
+            self.counter = 0
 
             # Configure
             self.config(bg='grey')
             self.rowconfigure(tuple(range(5)), weight=1)
             self.columnconfigure(0, weight=8)
             self.columnconfigure(1, weight=2)
-            """
-            q = 0
-            def action(i):
-                message = UDPClient.UDPconnect(self.red_ids, self.green_ids)
-                ids = message.split(':')
-                if ids[0] in self.red_ids:
-                    index1 = self.red_ids.index(ids[0])
-                    player1 = self.red_names[index1]
-                    if ids[1] in self.green_ids:
-                        index2 = self.green_ids.index(ids[1])
-                        player2 = self.green_names[index2]
-                    elif ids[1] in self.red_ids:
-                        index2 = self.red_ids.index(ids[1])
-                        player2 = self.red_names[index2]
-                elif ids[0] in self.green_ids:
-                    index1 = self.green_ids.index(ids[0])
-                    player1 = self.green_names[index1]
-                    if ids[1] in self.green_ids:
-                        index2 = self.green_ids.index(ids[1])
-                        player2 = self.green_names[index2]
-                    elif ids[1] in self.red_ids:
-                        index2 = self.red_ids.index(ids[1])
-                        player2 = self.red_names[index2]
 
-                displayMessage = str(player1) + ' hit ' + str(player2)
-                name = Label(self, bg='gray', fg='black',
-                             text=displayMessage, font=SUBHEADER_FONT)
-                name.grid(row=i, column=0, sticky='NSW')
-                self.master.update()
-                i = i + 1
-                self.after(10000, action(i))
+            #Execute Game Action
+            self.action()
 
-            action(q)
-            """
+        def action(self):
+            if self.counter > 20:
+                return
+            message = UDPClient.UDPconnect(self.red_ids, self.green_ids)
+            ids = message.split(':')
+            if ids[0] in self.red_ids:
+                index1 = self.red_ids.index(ids[0])
+                player1 = self.red_names[index1]
+                print(player1)
+                if ids[1] in self.green_ids:
+                    index2 = self.green_ids.index(ids[1])
+                    player2 = self.green_names[index2]
+                    print(player2)
+                elif ids[1] in self.red_ids:
+                    index2 = self.red_ids.index(ids[1])
+                    player2 = self.red_names[index2]
+                    print(player2)
+            elif ids[0] in self.green_ids:
+                index1 = self.green_ids.index(ids[0])
+                player1 = self.green_names[index1]
+                print(player1)
+                if ids[1] in self.green_ids:
+                    index2 = self.green_ids.index(ids[1])
+                    player2 = self.green_names[index2]
+                    print(player2)
+                elif ids[1] in self.red_ids:
+                    index2 = self.red_ids.index(ids[1])
+                    player2 = self.red_names[index2]
+                    print(player2)
+
+            displayMessage = str(player1) + ' hit ' + str(player2)
+            print(displayMessage)
+            name = Label(self, bg='gray', fg='black',
+                         text=displayMessage, font=SUBHEADER_FONT)
+            name.grid(row=self.counter, column=0, sticky='NSW')
+            self.update()
+            self.counter += 1
+            t = random.randint(1,3) * 1000
+            self.after(t, self.action)
