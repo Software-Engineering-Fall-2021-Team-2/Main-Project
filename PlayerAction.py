@@ -66,7 +66,7 @@ class MasterWidget(Frame):
         """MasterWidget - displays team information, game action, and time
 
         Args:
-            master (MyBaseFrame): [description]
+            master (Tk): Widget that is directly resposible for owning this widget (Container)
         """
         # Set Object Attributes
         super().__init__(master)
@@ -135,7 +135,12 @@ class MyTimer(Label):
 
 class RedInformation(Frame):
     def __init__(self, master: Frame, players: list):
+        """[summary]
 
+        Args:
+            master (Frame): Frame that is directly resposible for owning this widget (Container)
+            players (list): List of Red team players
+        """
         # Set Object Attributes
         super().__init__(master)
         self.players = players
@@ -165,7 +170,12 @@ class RedInformation(Frame):
 
 class GreenInformation(Frame):
     def __init__(self, master: Frame, players: list):
+        """[summary]
 
+        Args:
+            master (Frame): Frame that is directly resposible for owning this widget (Container)
+            players (list): List of Green team players.
+        """
         # Set Object Attributes
         super().__init__(master)
         self.players = players
@@ -194,8 +204,16 @@ class GreenInformation(Frame):
         total.grid(row=15,column=1,sticky='NSE')
 
 class ActionScreen(Frame):
-        def __init__(self, master: MyBaseFrame, redID: list, greenID: list, redName: list, greenName: list):
+        def __init__(self, master: Frame, redID: list, greenID: list, redName: list, greenName: list):
+            """[summary]
 
+            Args:
+            master (Frame): Frame that is directly resposible for owning this widget (Container)
+                redID (list): [description]
+                greenID (list): [description]
+                redName (list): [description]
+                greenName (list): [description]
+            """
             # Set Object Attributes
             super().__init__(master)
             self.red_names = redName

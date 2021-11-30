@@ -11,10 +11,10 @@ from PlayerAction import PlayerAction
 
 class Container(Tk):
 
-    """[summary]
+    """The container widget that holds all of the frames. Only one exists.
 
     Args:
-        Tk ([type]): [description]
+        Tk (Tk): A base tkinter widget
     """
 
     # Main Class for the file
