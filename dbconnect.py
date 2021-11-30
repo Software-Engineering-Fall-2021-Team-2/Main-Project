@@ -1,7 +1,7 @@
 #
 #       Heroku Linkage Software
 #       Author: Stephen Coyne
-#       Version: 2.0 --- Faster Connectivity
+#       Version: 2.1 --- Faster Connectivity
 #
 
 import psycopg2
@@ -22,7 +22,7 @@ def connect(records):
             name = i_record[1]
             if checkdb(id, conn):
                 name = retrieveCode(id, conn)
-            else:
+            elif len(name) != 0:
                 addRecord(i_record, conn)
             record = (id, name)
             newRecords.append(record)
@@ -40,6 +40,7 @@ def checkdb(id, conn):
         cur.execute('select * from player;')
         table = cur.fetchall()
         id_numbers = [f_tuple[0] for f_tuple in table]
+        print(id_numbers)
         if isinstance(id, int):
             if id in id_numbers:
                 id_exists = True
