@@ -8,6 +8,7 @@ serverName = 'localhost'
 def UDPconnect(redID, greenID):
     clientSocket = socket(AF_INET, SOCK_DGRAM)
 
+    # WHAT: Why is this random?
     if random.randint(1, 2) == 1:
         message = str(random.choice(redID))
     else:
@@ -18,6 +19,7 @@ def UDPconnect(redID, greenID):
     clientSocket.sendto(messageBytes, (serverName, serverPort))
 
     # Receives from server
+    # WHAT: is serverAddress needed?
     newMessage, serverAddress = clientSocket.recvfrom(2048)
 
     # Decodes message

@@ -235,10 +235,16 @@ class ActionScreen(Frame):
         self.action()
 
     def action(self):
+        # TODO: should this be tied to the timer?
+        # Catching ending up front
         if self.counter > 20:
             return
+
+        # TODO: Should UDPClient.UDPconnect return both red and green ids?
         message = UDPClient.UDPconnect(self.red_ids, self.green_ids)
+
         ids = message.split(':')
+
         if ids[0] in self.red_ids:
             index1 = self.red_ids.index(ids[0])
             player1 = self.red_names[index1]
@@ -264,12 +270,17 @@ class ActionScreen(Frame):
                 player2 = self.red_names[index2]
                 print(player2)
 
+        # TODO: Make this update the correct widget in the class - I think it should add a label and pack it in
         displayMessage = str(player1) + ' hit ' + str(player2)
         print(displayMessage)
+
         name = Label(self, bg='gray', fg='black',
                      text=displayMessage, font=SUBHEADER_FONT)
         name.grid(row=self.counter, column=0, sticky='NSW')
+
         self.update()
         self.counter += 1
+
+        # WHAT: why is this random?
         t = random.randint(1, 3) * 1000
         self.after(t, self.action)
