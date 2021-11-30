@@ -14,11 +14,10 @@ class PlayerAction(MyBaseFrame):
     subheader_text = "Game Action"
 
     def __init__(self, master: Tk):
-        """PlayerAction screen - updates with feed of whatever
-        # TODO: Change the description of the PlayerAction screen
+        """PlayerAction screen - contains team scores and feed of who hits who.
 
         Args:
-            master (Tk): Widget that is directly resposible for owning this widget (Container)
+            master (Tk): Widget that is directly resposible for owning this widget (Container).
         """
         # Set Object Attributes
         super().__init__(master)
@@ -65,10 +64,10 @@ class PlayerAction(MyBaseFrame):
 
 class MasterWidget(Frame):
     def __init__(self, master: MyBaseFrame, red_team: list, green_team: list, redID: list, greenID: list):
-        """MasterWidget - displays team information, game action, and time
+        """MasterWidget - displays team information, game action, and time.
 
         Args:
-            master (Tk): Widget that is directly resposible for owning this widget (Container)
+            master (Tk): Widget that is directly resposible for owning this widget (Container).
         """
         # Set Object Attributes
         super().__init__(master)
@@ -109,8 +108,8 @@ class MyTimer(Label):
         """MM:SS style timer.
 
         Args:
-            master (MyBaseFrame): Frame that is directly resposible for owning this widget
-            time (int): Time in seconds - derrived from main.py config method
+            master (MyBaseFrame): Frame that is directly resposible for owning this widget.
+            time (int): Time in seconds - derrived from main.py config method.
         """
         # Set Object Attributes
         super().__init__(master)
@@ -140,8 +139,8 @@ class RedInformation(Frame):
         """[summary]
 
         Args:
-            master (Frame): Frame that is directly resposible for owning this widget (Container)
-            players (list): List of Red team players
+            master (Frame): Frame that is directly resposible for owning this widget (Container).
+            players (list): List of Red team players.
         """
         # Set Object Attributes
         super().__init__(master)
@@ -176,7 +175,7 @@ class GreenInformation(Frame):
         """[summary]
 
         Args:
-            master (Frame): Frame that is directly resposible for owning this widget (Container)
+            master (Frame): Frame that is directly resposible for owning this widget (Container).
             players (list): List of Green team players.
         """
         # Set Object Attributes
@@ -209,14 +208,14 @@ class GreenInformation(Frame):
 
 class ActionScreen(Frame):
     def __init__(self, master: Frame, redID: list, greenID: list, redName: list, greenName: list):
-        """[summary]
+        """Frame that contains the 'action' - feed of who hits who.
 
         Args:
-        master (Frame): Frame that is directly resposible for owning this widget (Container)
-            redID (list): [description]
-            greenID (list): [description]
-            redName (list): [description]
-            greenName (list): [description]
+            master (Frame): Frame that is directly resposible for owning this widget (Container).
+            redID (list): List of Red team IDs.
+            greenID (list): List of Green team IDs.
+            redName (list): List of Red team names.
+            greenName (list): List of Green team names.
         """
         # Set Object Attributes
         super().__init__(master)
