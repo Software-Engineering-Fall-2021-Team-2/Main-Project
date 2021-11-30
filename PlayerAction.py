@@ -225,15 +225,24 @@ class ActionScreen(Frame):
         self.green_ids = greenID
         self.counter = 0
 
+
+
+
         # Configure
         self.config(bg='grey')
         # TODO: make scrollable
         # creating and placing scrollbar
-        sb = Scrollbar(
-            self,
-            orient=VERTICAL
-        )
-        sb.pack()
+        self.canvas = Canvas(self, borderwidth=0, background="#ffffff")
+        self.frame = Frame(self.canvas, background="#ffffff")
+        self.vsb = Scrollbar(self, orient="vertical", command=self.canvas.yview)
+        self.canvas.configure(yscrollcommand=self.vsb.set)
+
+        self.vsb.pack(side="right", fill="y")
+        self.canvas.pack(side="left", fill="both", expand=True)
+        self.canvas.create_window((4,4), window=self.frame, anchor="nw",
+                                  tags="self.frame")
+
+        self.canvas.configure(scrollregion=self.canvas.bbox("all"))
 
 
         # binding scrollbar with other widget (Text, Listbox, Frame, etc)
@@ -287,7 +296,7 @@ class ActionScreen(Frame):
         print(displayMessage)
 
         # Does this work?
-        name = Label(self, bg='gray', fg='black',
+        name = Label(self.frame, bg='gray', fg='black',
                      text=displayMessage, font=SUBHEADER_FONT)
         name.pack(anchor='nw')
         #name.grid(row=self.counter, column=0, sticky='NSW')
