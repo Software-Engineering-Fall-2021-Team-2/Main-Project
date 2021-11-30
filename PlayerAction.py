@@ -247,12 +247,12 @@ class ActionScreen(Frame):
         self.action()
 
     def action(self):
-        # TODO: should this be tied to the timer?
+        # TODO: should this be tied to the timer?    (Unsure, could be)
         # Catching ending up front
         if self.counter > 20:
             return
 
-        # TODO: Should UDPClient.UDPconnect return both red and green ids?
+        # TODO: Should UDPClient.UDPconnect return both red and green ids?   (No, it shouldn't. It returns the tagger and tagged players, which is the requirement)
         message = UDPClient.UDPconnect(self.red_ids, self.green_ids)
 
         ids = message.split(':')
@@ -282,11 +282,11 @@ class ActionScreen(Frame):
                 player2 = self.red_names[index2]
                 print(player2)
 
-        # TODO: Make this update the correct widget in the class - I think it should add a label and pack it in
+        # TODO: Make this update the correct widget in the class - I think it should add a label and pack it in      (Do what you need to do, it just needs to say this)
         displayMessage = str(player1) + ' hit ' + str(player2)
         print(displayMessage)
 
-        # Does this work?
+        # Does this work? (Yes, but was guessing lol)
         name = Label(self, bg='gray', fg='black',
                      text=displayMessage, font=SUBHEADER_FONT)
         name.pack(anchor='nw')
@@ -295,7 +295,7 @@ class ActionScreen(Frame):
         self.update()
         self.counter += 1
 
-        # DEBUGING
+        # Allows Randomization for events      ***DO NOT REMOVE***
         t = random.randint(1, 3) * 1000
         
         # Recursive
