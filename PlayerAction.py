@@ -227,9 +227,21 @@ class ActionScreen(Frame):
 
         # Configure
         self.config(bg='grey')
-        self.rowconfigure(tuple(range(5)), weight=1)
-        self.columnconfigure(0, weight=8)
-        self.columnconfigure(1, weight=2)
+        # TODO: make scrollable
+        # creating and placing scrollbar
+        sb = Scrollbar(
+            self,
+            orient=VERTICAL
+        )
+        sb.pack()
+
+
+        # binding scrollbar with other widget (Text, Listbox, Frame, etc)
+
+        #self.config(yscrollcommand=sb.set)
+        #sb.config(command=self.yview)
+        #self.rowconfigure(tuple(range(5)), weight=1)
+        #self.columnconfigure(0, weight=1)
 
         # Execute Game Action
         self.action()
@@ -277,11 +289,14 @@ class ActionScreen(Frame):
         # Does this work?
         name = Label(self, bg='gray', fg='black',
                      text=displayMessage, font=SUBHEADER_FONT)
-        name.grid(row=self.counter, column=0, sticky='NSW')
+        name.pack(anchor='nw')
+        #name.grid(row=self.counter, column=0, sticky='NSW')
 
         self.update()
         self.counter += 1
 
-        # WHAT: why is this random?
+        # DEBUGING
         t = random.randint(1, 3) * 1000
+        
+        # Recursive
         self.after(t, self.action)
