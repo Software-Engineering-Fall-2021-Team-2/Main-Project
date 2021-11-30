@@ -274,6 +274,7 @@ class ActionScreen(Frame):
         displayMessage = str(player1) + ' hit ' + str(player2)
         print(displayMessage)
 
+        # Does this work?
         name = Label(self, bg='gray', fg='black',
                      text=displayMessage, font=SUBHEADER_FONT)
         name.grid(row=self.counter, column=0, sticky='NSW')
