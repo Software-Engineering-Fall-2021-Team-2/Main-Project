@@ -41,7 +41,7 @@ class PlayerAction(MyBaseFrame):
         self.green_team = {key: None for key in self.green_names}
 
         with open('redID.txt', 'r') as file:
-            p =json.load(file)
+            p = json.load(file)
             for i in p:
                 self.red_ids.append(i)
 
@@ -52,14 +52,16 @@ class PlayerAction(MyBaseFrame):
 
         # Populate
         header = Header(self, self.header_text, self.subheader_text)
-        master_widget = MasterWidget(self, self.red_names, self.green_names, self.red_ids, self.green_ids)
+        master_widget = MasterWidget(
+            self, self.red_names, self.green_names, self.red_ids, self.green_ids)
 
         # Layout
         header.grid(row=0, column=1, sticky='NSEW')
         master_widget.grid(row=1, column=1, sticky='NSEW')
 
         # Debug
-        #print(self.red_team)
+        # print(self.red_team)
+
 
 class MasterWidget(Frame):
     def __init__(self, master: MyBaseFrame, red_team: list, green_team: list, redID: list, greenID: list):
@@ -90,7 +92,7 @@ class MasterWidget(Frame):
         red_info = RedInformation(self, self.red_names)
         green_info = GreenInformation(self, self.green_names)
         action_screen = ActionScreen(self, self.red_ids, self.green_ids, self.red_names,
-        self.green_names)
+                                     self.green_names)
 
         # Layout
         red_team_label.grid(row=0, column=0, sticky='NSEW')
@@ -98,7 +100,7 @@ class MasterWidget(Frame):
         timer.grid(row=4, column=2, columnspan=2, sticky='SE')
         red_info.grid(row=1, column=0, sticky='NSEW')
         green_info.grid(row=1, column=2, sticky='NSEW')
-        action_screen.grid(row=2,column=0, columnspan=3, sticky='NSEW')
+        action_screen.grid(row=2, column=0, columnspan=3, sticky='NSEW')
 
 
 class MyTimer(Label):
@@ -165,8 +167,9 @@ class RedInformation(Frame):
             self.master.master.red_team[value] = score
 
             total = name = Label(self, bg='black', fg='red',
-                         text=0, font=SUBHEADER_FONT)
-            total.grid(row=15,column=1,sticky='NSE')
+                                 text=0, font=SUBHEADER_FONT)
+            total.grid(row=15, column=1, sticky='NSE')
+
 
 class GreenInformation(Frame):
     def __init__(self, master: Frame, players: list):
@@ -200,73 +203,74 @@ class GreenInformation(Frame):
             self.master.master.green_team[value] = score
 
         total = name = Label(self, bg='black', fg='green',
-                         text=0, font=SUBHEADER_FONT)
-        total.grid(row=15,column=1,sticky='NSE')
+                             text=0, font=SUBHEADER_FONT)
+        total.grid(row=15, column=1, sticky='NSE')
+
 
 class ActionScreen(Frame):
-        def __init__(self, master: Frame, redID: list, greenID: list, redName: list, greenName: list):
-            """[summary]
+    def __init__(self, master: Frame, redID: list, greenID: list, redName: list, greenName: list):
+        """[summary]
 
-            Args:
-            master (Frame): Frame that is directly resposible for owning this widget (Container)
-                redID (list): [description]
-                greenID (list): [description]
-                redName (list): [description]
-                greenName (list): [description]
-            """
-            # Set Object Attributes
-            super().__init__(master)
-            self.red_names = redName
-            self.green_names = greenName
-            self.red_ids = redID
-            self.green_ids = greenID
-            self.counter = 0
+        Args:
+        master (Frame): Frame that is directly resposible for owning this widget (Container)
+            redID (list): [description]
+            greenID (list): [description]
+            redName (list): [description]
+            greenName (list): [description]
+        """
+        # Set Object Attributes
+        super().__init__(master)
+        self.red_names = redName
+        self.green_names = greenName
+        self.red_ids = redID
+        self.green_ids = greenID
+        self.counter = 0
 
-            # Configure
-            self.config(bg='grey')
-            self.rowconfigure(tuple(range(5)), weight=1)
-            self.columnconfigure(0, weight=8)
-            self.columnconfigure(1, weight=2)
+        # Configure
+        self.config(bg='grey')
+        self.rowconfigure(tuple(range(5)), weight=1)
+        self.columnconfigure(0, weight=8)
+        self.columnconfigure(1, weight=2)
 
-            #Execute Game Action
-            self.action()
+        # Execute Game Action
+        self.action()
 
-        def action(self):
-            if self.counter > 20:
-                return
-            message = UDPClient.UDPconnect(self.red_ids, self.green_ids)
-            ids = message.split(':')
-            if ids[0] in self.red_ids:
-                index1 = self.red_ids.index(ids[0])
-                player1 = self.red_names[index1]
-                print(player1)
-                if ids[1] in self.green_ids:
-                    index2 = self.green_ids.index(ids[1])
-                    player2 = self.green_names[index2]
-                    print(player2)
-                elif ids[1] in self.red_ids:
-                    index2 = self.red_ids.index(ids[1])
-                    player2 = self.red_names[index2]
-                    print(player2)
-            elif ids[0] in self.green_ids:
-                index1 = self.green_ids.index(ids[0])
-                player1 = self.green_names[index1]
-                print(player1)
-                if ids[1] in self.green_ids:
-                    index2 = self.green_ids.index(ids[1])
-                    player2 = self.green_names[index2]
-                    print(player2)
-                elif ids[1] in self.red_ids:
-                    index2 = self.red_ids.index(ids[1])
-                    player2 = self.red_names[index2]
-                    print(player2)
+    def action(self):
+        if self.counter > 20:
+            return
+        message = UDPClient.UDPconnect(self.red_ids, self.green_ids)
+        ids = message.split(':')
+        if ids[0] in self.red_ids:
+            index1 = self.red_ids.index(ids[0])
+            player1 = self.red_names[index1]
+            print(player1)
+            if ids[1] in self.green_ids:
+                index2 = self.green_ids.index(ids[1])
+                player2 = self.green_names[index2]
+                print(player2)
+            elif ids[1] in self.red_ids:
+                index2 = self.red_ids.index(ids[1])
+                player2 = self.red_names[index2]
+                print(player2)
+        elif ids[0] in self.green_ids:
+            index1 = self.green_ids.index(ids[0])
+            player1 = self.green_names[index1]
+            print(player1)
+            if ids[1] in self.green_ids:
+                index2 = self.green_ids.index(ids[1])
+                player2 = self.green_names[index2]
+                print(player2)
+            elif ids[1] in self.red_ids:
+                index2 = self.red_ids.index(ids[1])
+                player2 = self.red_names[index2]
+                print(player2)
 
-            displayMessage = str(player1) + ' hit ' + str(player2)
-            print(displayMessage)
-            name = Label(self, bg='gray', fg='black',
-                         text=displayMessage, font=SUBHEADER_FONT)
-            name.grid(row=self.counter, column=0, sticky='NSW')
-            self.update()
-            self.counter += 1
-            t = random.randint(1,3) * 1000
-            self.after(t, self.action)
+        displayMessage = str(player1) + ' hit ' + str(player2)
+        print(displayMessage)
+        name = Label(self, bg='gray', fg='black',
+                     text=displayMessage, font=SUBHEADER_FONT)
+        name.grid(row=self.counter, column=0, sticky='NSW')
+        self.update()
+        self.counter += 1
+        t = random.randint(1, 3) * 1000
+        self.after(t, self.action)

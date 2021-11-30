@@ -4,21 +4,21 @@ import json
 
 serverPort = 7501
 
-#Create socket
+# Create socket
 serverSocket = socket(AF_INET, SOCK_DGRAM)
 
-#Command to reuse same socket over and over again
+# Command to reuse same socket over and over again
 serverSocket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
 
-#Start listening
+# Start listening
 serverSocket.bind(('', serverPort))
 print('Server is ready to recieve')
 
-#Continue listening forever
+# Continue listening forever
 while 1:
     message, clientAddress = serverSocket.recvfrom(2048)
     decodedMessage = message.decode('utf-8')
-    #Constantly read files due to changing teams from game to game
+    # Constantly read files due to changing teams from game to game
     IDs = []
     with open('redID.txt', 'r') as file:
         p = json.load(file)
