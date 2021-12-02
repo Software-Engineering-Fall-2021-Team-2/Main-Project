@@ -195,25 +195,32 @@ class GreenInformation(Frame):
         self.columnconfigure(1, weight=2)
 
         for index, value in enumerate(players):
-            tmp = 0
+            # Set all of the scores to 0
             self.master.master.green_scores[index] = 0
+            
+            # Place the team name labels
             name = Label(self, bg='black', fg='green',
                          text=value, font=SUBHEADER_FONT)
             name.grid(row=index, column=0, sticky='NSW')
 
+            # Place the individual score labels
             score = Label(self, bg='black', fg='green',
                           text=self.master.master.green_scores[index], font=SUBHEADER_FONT)
             score.grid(row=index, column=1, sticky='NSE')
 
             self.master.master.green_team[value] = score
 
+        # Place the total label
+        self.total_name = Label(self, bg='black', fg='green',
+                                text="Green Total Score", font=SUBHEADER_FONT)
+        self.total_name.grid(row=15, column=0, sticky='NSE')
+        
+        # Place the total score
         self.total = Label(self, bg='black', fg='green',
                            text=0, font=SUBHEADER_FONT)
         self.total.grid(row=15, column=1, sticky='NSE')
 
-        self.total_name = Label(self, bg='black', fg='green',
-                                text="Green Total Score", font=SUBHEADER_FONT)
-        self.total_name.grid(row=15, column=0, sticky='NSE')
+
 
 
 class ActionScreen(Frame):
