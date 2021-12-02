@@ -2,7 +2,6 @@
 # All library imports are done in Config.py
 from Config import *
 
-from BaseFrame import MyBaseFrame
 from Countdown import Countdown
 from PlayerEntry import PlayerEntry
 from SplashSceen import SplashScreen
@@ -40,15 +39,39 @@ class Container(Tk):
 
         # Layout
         # - Set the first frame
-        self.switch_frame(SplashScreen)
+        self.to_SplashScreen()
 
-    def switch_frame(self, frame_class: MyBaseFrame):
-        """Destroys current frame and replaces it with a new one."
-
-        Args:
-            frame_class (MyBaseFrame): [description]
+    def to_SplashScreen(self):
+        """Destroys current frame and replaces it with SplashScreen.
         """
-        new_frame = frame_class(self)
+        new_frame = SplashScreen(self)
+        if self._frame is not None:
+            self._frame.destroy()
+        self._frame = new_frame
+        self._frame.pack(fill="both", expand=True)
+
+    def to_PlayerEntry(self):
+        """Destroys current frame and replaces it with PlayerEntry.
+        """
+        new_frame = PlayerEntry(self)
+        if self._frame is not None:
+            self._frame.destroy()
+        self._frame = new_frame
+        self._frame.pack(fill="both", expand=True)
+
+    def to_Countdown(self):
+        """Destroys current frame and replaces it with Countdown.
+        """
+        new_frame = Countdown(self)
+        if self._frame is not None:
+            self._frame.destroy()
+        self._frame = new_frame
+        self._frame.pack(fill="both", expand=True)
+
+    def to_PlayerAction(self):
+        """Destroys current frame and replaces it with PlayerAction.
+        """
+        new_frame = PlayerAction(self)
         if self._frame is not None:
             self._frame.destroy()
         self._frame = new_frame

@@ -1,7 +1,5 @@
 
 from BaseFrame import *
-# TODO: Figure out if this import is required here?
-from PlayerEntry import PlayerEntry
 
 
 class SplashScreen(MyBaseFrame):
@@ -24,19 +22,15 @@ class SplashScreen(MyBaseFrame):
         # Populate
         splash = Canvas(self, bg='black')
         splash.create_image(SCREEN_WIDTH/2,
-                          SCREEN_HEIGHT/2, anchor=CENTER, image=self.image)
+                            SCREEN_HEIGHT/2, anchor=CENTER, image=self.image)
 
         # Layout
         splash.grid(row=0, column=0, rowspan=3, columnspan=3, sticky='NSEW')
-        
+
         # Countdown Begin
         self.set_timer()
 
     def set_timer(self):
         # Switches the screen after x seconds - denoted in main.py config
         self.after(SPLASHSCREEN_LENGTH *
-                   1000, lambda: self.master.switch_frame(PlayerEntry))
-
-
-
-
+                   1000, lambda: self.master.to_PlayerEntry())

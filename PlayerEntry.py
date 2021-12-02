@@ -1,6 +1,5 @@
 
 from BaseFrame import *
-from Countdown import Countdown
 import dbconnect
 import json
 
@@ -94,7 +93,7 @@ class PlayerEntry(MyBaseFrame):
         with open('greenID.txt', 'w') as file:
             file.write(json.dumps(greenID))
 
-        self.master.switch_frame(Countdown)
+        self.master.to_Countdown()
 
 
 class MasterWidget(Frame):
@@ -136,7 +135,7 @@ class MasterWidget(Frame):
         pull_data_btn = Button(right_button_frame, text="<Return>\nGet Names", font=SUBHEADER_FONT,
                                width=20, bd='3', command=lambda: self.master.pull_names())
         start_game_btn = Button(right_button_frame, text="<F5>\nStart Game", font=SUBHEADER_FONT,
-                                width=20, bd='3', command=lambda: self.master.master.switch_frame(Countdown))
+                                width=20, bd='3', command=lambda: self.master.master.to_Countdown())
 
         # Layout
         red_ids_label.grid(row=0, column=0, sticky='NSEW')

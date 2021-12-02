@@ -5,7 +5,6 @@ import datetime
 import json
 import UDPClient
 import random
-import time
 
 
 class PlayerAction(MyBaseFrame):
@@ -29,6 +28,7 @@ class PlayerAction(MyBaseFrame):
         self.green_ids = []
         self.red_scores = []
         self.green_scores = []
+
 
         with open('redTeam.txt', 'r') as file:
             p = json.load(file)
@@ -58,6 +58,7 @@ class PlayerAction(MyBaseFrame):
 
         self.red_scores = [0] * len(self.red_names)
         self.green_scores = [0] * len(self.green_names)
+        
         # Populate
         header = Header(self, self.header_text, self.subheader_text)
         master_widget = MasterWidget(
@@ -66,8 +67,10 @@ class PlayerAction(MyBaseFrame):
         # Layout
         header.grid(row=0, column=1, sticky='NSEW')
         master_widget.grid(row=1, column=1, sticky='NSEW')
-
-        # TODO: make an update function that updates the MasterWidget and red/green information screens
+        
+        # Binding F1 to go back to Player Entry
+        self.bind_all("<KeyPress-F1>",
+                      lambda event=NONE: self.master.to_PlayerEntry())
 
         # Debug
         # print(self.red_team)
@@ -136,7 +139,7 @@ class MyTimer(Label):
 
     def update_timer(self):
         if self.time_seconds < 0:
-            # TODO: make this call another screen
+            # Pause
             return
         tmp = str(datetime.timedelta(seconds=self.time_seconds))
         self.time_mmss.set(tmp[2:])
@@ -169,7 +172,6 @@ class RedInformation(Frame):
                           text=self.master.master.red_scores[index], font=SUBHEADER_FONT)
             score.grid(row=index, column=1, sticky='NSE')
 
-            # TODO: make UDP thing update this guy
             self.master.master.red_team[value] = score
 
             self.total = Label(self, bg='black', fg='red',
@@ -205,7 +207,6 @@ class GreenInformation(Frame):
                           text=self.master.master.green_scores[index], font=SUBHEADER_FONT)
             score.grid(row=index, column=1, sticky='NSE')
 
-            # TODO: make UDP thing update this guy
             self.master.master.green_team[value] = score
 
         self.total = Label(self, bg='black', fg='green',
