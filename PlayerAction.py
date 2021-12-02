@@ -34,36 +34,42 @@ class PlayerAction(MyBaseFrame):
             p = json.load(file)
             for i in p:
                 self.red_names.append(i)
+                self.red_scores.append(StringVar())
+
         self.red_team = {key: None for key in self.red_names}
 
         with open('greenTeam.txt', 'r') as file:
             p = json.load(file)
             for i in p:
                 self.green_names.append(i)
+                self.green_scores.append(StringVar())
+
         self.green_team = {key: None for key in self.green_names}
 
         with open('redID.txt', 'r') as file:
-            p =json.load(file)
-            for i in p:
-                self.red_ids.append(i)
+            p = json.load(file)
+            for index, value in enumerate(p):
+                self.red_ids.append(value)
 
         with open('greenID.txt', 'r') as file:
             p = json.load(file)
-            for i in p:
-                self.green_ids.append(i)
+            for index, value in enumerate(p):
+                self.green_ids.append(value)
 
         # Populate
         header = Header(self, self.header_text, self.subheader_text)
-        master_widget = MasterWidget(self, self.red_names, self.green_names, self.red_ids, self.green_ids)
+        master_widget = MasterWidget(
+            self, self.red_names, self.green_names, self.red_ids, self.green_ids)
 
         # Layout
         header.grid(row=0, column=1, sticky='NSEW')
         master_widget.grid(row=1, column=1, sticky='NSEW')
-        
+
         # TODO: make an update function that updates the MasterWidget and red/green information screens
 
         # Debug
-        #print(self.red_team)
+        # print(self.red_team)
+
 
 class MasterWidget(Frame):
     def __init__(self, master: MyBaseFrame, red_team: list, green_team: list, redID: list, greenID: list):
@@ -91,18 +97,18 @@ class MasterWidget(Frame):
         red_team_label = TableHeaderLabel(self, "RED TEAM", 'red')
         green_team_label = TableHeaderLabel(self, "GREEN TEAM", 'green')
         timer = MyTimer(self, self.master.time_seconds)
-        red_info = RedInformation(self, self.red_names)
-        green_info = GreenInformation(self, self.green_names)
+        self.red_info = RedInformation(self, self.red_names)
+        self.green_info = GreenInformation(self, self.green_names)
         action_screen = ActionScreen(self, self.red_ids, self.green_ids, self.red_names,
-        self.green_names)
+                                     self.green_names)
 
         # Layout
         red_team_label.grid(row=0, column=0, sticky='NSEW')
         green_team_label.grid(row=0, column=2, sticky='NSEW')
         timer.grid(row=4, column=2, columnspan=2, sticky='SE')
-        red_info.grid(row=1, column=0, sticky='NSEW')
-        green_info.grid(row=1, column=2, sticky='NSEW')
-        action_screen.grid(row=2,column=0, columnspan=3, sticky='NSEW')
+        self.red_info.grid(row=1, column=0, sticky='NSEW')
+        self.green_info.grid(row=1, column=2, sticky='NSEW')
+        action_screen.grid(row=2, column=0, columnspan=3, sticky='NSEW')
 
 
 class MyTimer(Label):
@@ -152,20 +158,22 @@ class RedInformation(Frame):
 
         for index, value in enumerate(players):
             tmp = 0
+            self.master.master.red_scores[index] = 0
             name = Label(self, bg='black', fg='red',
                          text=value, font=SUBHEADER_FONT)
             name.grid(row=index, column=0, sticky='NSW')
 
             score = Label(self, bg='black', fg='red',
-                          text=tmp, font=SUBHEADER_FONT)
+                          text=self.master.master.red_scores[index], font=SUBHEADER_FONT)
             score.grid(row=index, column=1, sticky='NSE')
 
             # TODO: make UDP thing update this guy
             self.master.master.red_team[value] = score
 
             total = name = Label(self, bg='black', fg='red',
-                         text=0, font=SUBHEADER_FONT)
-            total.grid(row=15,column=1,sticky='NSE')
+                                 text=0, font=SUBHEADER_FONT)
+            total.grid(row=15, column=1, sticky='NSE')
+
 
 class GreenInformation(Frame):
     def __init__(self, master: Frame, players: list):
@@ -182,20 +190,22 @@ class GreenInformation(Frame):
 
         for index, value in enumerate(players):
             tmp = 0
+            self.master.master.green_scores[index] = 0
             name = Label(self, bg='black', fg='green',
                          text=value, font=SUBHEADER_FONT)
             name.grid(row=index, column=0, sticky='NSW')
 
             score = Label(self, bg='black', fg='green',
-                          text=tmp, font=SUBHEADER_FONT)
+                          text=self.master.master.green_scores[index], font=SUBHEADER_FONT)
             score.grid(row=index, column=1, sticky='NSE')
 
             # TODO: make UDP thing update this guy
             self.master.master.green_team[value] = score
 
         total = name = Label(self, bg='black', fg='green',
-                         text=0, font=SUBHEADER_FONT)
-        total.grid(row=15,column=1,sticky='NSE')
+                             text=0, font=SUBHEADER_FONT)
+        total.grid(row=15, column=1, sticky='NSE')
+
 
 class ActionScreen(Frame):
     def __init__(self, master: Frame, redID: list, greenID: list, redName: list, greenName: list):
@@ -215,9 +225,10 @@ class ActionScreen(Frame):
         self.red_ids = redID
         self.green_ids = greenID
         self.counter = 0
-
-
-
+        self.attacker = 0
+        self.attacker_team = ""
+        self.victim = 0
+        self.victim_team = ""
 
         # Configure
         self.config(bg='grey')
@@ -225,21 +236,21 @@ class ActionScreen(Frame):
         # creating and placing scrollbar
         self.canvas = Canvas(self, borderwidth=0, background="#ffffff")
         self.frame = Frame(self.canvas, background="#ffffff")
-        self.vsb = Scrollbar(self, orient="vertical", command=self.canvas.yview)
+        self.vsb = Scrollbar(self, orient="vertical",
+                             command=self.canvas.yview)
         self.canvas.configure(yscrollcommand=self.vsb.set)
 
         self.vsb.pack(side="right", fill="y")
         self.canvas.pack(side="left", fill="both", expand=True)
-        self.canvas.create_window((4,4), window=self.frame, anchor="nw",
+        self.canvas.create_window((4, 4), window=self.frame, anchor="nw",
                                   tags="self.frame")
 
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
 
-
         # binding scrollbar with other widget (Text, Listbox, Frame, etc)
 
-        #self.config(yscrollcommand=sb.set)
-        #sb.config(command=self.yview)
+        # self.config(yscrollcommand=sb.set)
+        # sb.config(command=self.yview)
         #self.rowconfigure(tuple(range(5)), weight=1)
         #self.columnconfigure(0, weight=1)
 
@@ -247,45 +258,56 @@ class ActionScreen(Frame):
         self.action()
 
     def action(self):
-        # TODO: should this be tied to the timer?    (Unsure, could be)
         # Catching ending up front
         if self.counter > 20:
             return
+        
 
-        # TODO: Should UDPClient.UDPconnect return both red and green ids?   (No, it shouldn't. It returns the tagger and tagged players, which is the requirement)
         message = UDPClient.UDPconnect(self.red_ids, self.green_ids)
 
         # BINGBONG
         ids = message.split(':')
-        
+
         # Green guy id = 1 hits red guy id = [1]
-        
+
         #self.master.master.green_scores[1] += 100
-        
+
         #self.master.master.red_scores[1] += 100
 
         if ids[0] in self.red_ids:
             index1 = self.red_ids.index(ids[0])
+            self.attacker = index1
+            self.attacker_team = 'r'
             player1 = self.red_names[index1]
             print(player1)
             if ids[1] in self.green_ids:
                 index2 = self.green_ids.index(ids[1])
+                self.victim = index2
+                self.victim_team = 'g'
                 player2 = self.green_names[index2]
                 print(player2)
             elif ids[1] in self.red_ids:
                 index2 = self.red_ids.index(ids[1])
+                self.victim = index2
+                self.victim_team = 'r'
                 player2 = self.red_names[index2]
                 print(player2)
         elif ids[0] in self.green_ids:
             index1 = self.green_ids.index(ids[0])
+            self.attacker = index1
+            self.attacker_team = 'g'
             player1 = self.green_names[index1]
             print(player1)
             if ids[1] in self.green_ids:
                 index2 = self.green_ids.index(ids[1])
+                self.victim = index2
+                self.victim_team = 'g'
                 player2 = self.green_names[index2]
                 print(player2)
             elif ids[1] in self.red_ids:
                 index2 = self.red_ids.index(ids[1])
+                self.victim = index2
+                self.victim_team = 'r'
                 player2 = self.red_names[index2]
                 print(player2)
 
@@ -304,6 +326,31 @@ class ActionScreen(Frame):
 
         # Allows Randomization for events      ***DO NOT REMOVE***
         t = random.randint(1, 3) * 1000
-        
+
+        # Updates the screen with the correct scores
+        self.update_scores()
+
         # Recursive
         self.after(t, self.action)
+
+    def update_scores(self):
+        if self.attacker_team == 'r':
+            self.master.master.red_scores[self.attacker] += 100
+        elif self.attacker_team == 'g':
+            self.master.master.green_scores[self.attacker] += 100
+
+        if self.victim_team == 'r':
+            self.master.master.red_scores[self.victim] -= 100
+        elif self.victim_team == 'g':
+            self.master.master.green_scores[self.victim] -= 100
+        
+        print (self.master.master.red_scores)
+        print (self.master.master.green_scores)
+        for i, value in enumerate(self.master.master.green_team):
+            i.configure(text = self.master.master.green_scores[i])
+            
+        for i, value in enumerate(self.master.master.red_team):
+            i.configure(text = self.master.master.red_scores[i])
+        #self.master.red_info.update()
+        #self.master.master.red_team.configure(text += 100)
+        #self.master.green_info.update()

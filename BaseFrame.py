@@ -30,7 +30,7 @@ class MyBaseFrame(Frame):
         # Testing
         # self.screen_setup_TESTING()
 
-    # TODO: Remove before submission
+    # DEBUG Function
     def screen_setup_TESTING(self):
         """Layout testing function"""
         label1 = Label(self, bg='red',)
