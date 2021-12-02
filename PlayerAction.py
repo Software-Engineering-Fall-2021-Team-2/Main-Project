@@ -263,7 +263,6 @@ class ActionScreen(Frame):
         # Sets number of events
         if self.counter > 20:
             return
-        
 
         # Returns id:id, handles connection         ***DO NOT TOUCH, WILL BREAK SOFTWARE***
         message = UDPClient.UDPconnect(self.red_ids, self.green_ids)
@@ -277,8 +276,8 @@ class ActionScreen(Frame):
 
         #self.master.master.red_scores[1] += 100
 
-        #Finds names and also updates scores
-        #FRIEDNLY FIRE ON (-100 for both players)
+        # Finds names and also updates scores
+        # FRIEDNLY FIRE ON (-100 for both players)
         if ids[0] in self.red_ids:
             index1 = self.red_ids.index(ids[0])
             self.attacker = index1
@@ -289,15 +288,13 @@ class ActionScreen(Frame):
                 self.victim = index2
                 self.victim_team = 'g'
                 player2 = self.green_names[index2]
-                self.master.master.red_scores[index1] += 100
-                self.master.master.green_scores[index2] -= 100
+                
             elif ids[1] in self.red_ids:
                 index2 = self.red_ids.index(ids[1])
                 self.victim = index2
                 self.victim_team = 'r'
                 player2 = self.red_names[index2]
-                self.master.master.red_scores[index1] -= 100
-                self.master.master.red_scores[index2] -= 100
+                
         elif ids[0] in self.green_ids:
             index1 = self.green_ids.index(ids[0])
             self.attacker = index1
@@ -308,15 +305,13 @@ class ActionScreen(Frame):
                 self.victim = index2
                 self.victim_team = 'g'
                 player2 = self.green_names[index2]
-                self.master.master.green_scores[index1] -= 100
-                self.master.master.green_scores[index2] -= 100
+                
             elif ids[1] in self.red_ids:
                 index2 = self.red_ids.index(ids[1])
                 self.victim = index2
                 self.victim_team = 'r'
                 player2 = self.red_names[index2]
-                self.master.master.green_scores[index1] += 100
-                self.master.master.red_scores[index2] -= 100
+                
 
         # TODO: Make this update the correct widget in the class - I think it should add a label and pack it in      (Do what you need to do, it just needs to say this)
         displayMessage = str(player1) + ' hit ' + str(player2)
@@ -352,23 +347,20 @@ class ActionScreen(Frame):
             self.master.master.red_scores[self.victim] -= 100
         elif self.victim_team == 'g':
             self.master.master.green_scores[self.victim] -= 100
-        
+
         print(self.victim)
-        print (self.master.master.red_scores)
-        print (self.master.master.green_scores)
-        
+        print(self.master.master.red_scores)
+        print(self.master.master.green_scores)
+
         print(self.master.master.green_team)
         print(self.master.master.red_team)
-        
-        
+
         for i, value in enumerate(self.master.master.green_team):
             tmp = StringVar()
             tmp = self.master.master.green_scores[i]
-            self.master.master.green_team[value].configure(text = tmp)
-          
+            self.master.master.green_team[value].configure(text=tmp)
+
         for i, value in enumerate(self.master.master.red_team):
             tmp = StringVar()
             tmp = self.master.master.red_scores[i]
-            self.master.master.red_team[value].configure(text = tmp)  
-            
-        
+            self.master.master.red_team[value].configure(text=tmp)
