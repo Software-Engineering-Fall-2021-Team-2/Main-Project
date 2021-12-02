@@ -1,6 +1,6 @@
 
-from tkinter import font
 from BaseFrame import *
+
 import datetime
 import json
 import UDPClient
@@ -13,8 +13,7 @@ class PlayerAction(MyBaseFrame):
     subheader_text = "Game Action"
 
     def __init__(self, master: Tk):
-        """PlayerAction screen - updates with feed of whatever
-        # TODO: Change the description of the PlayerAction screen
+        """PlayerAction screen - updates with action feed and shows scores
 
         Args:
             master (Tk): Widget that is directly resposible for owning this widget (Container)
@@ -28,7 +27,6 @@ class PlayerAction(MyBaseFrame):
         self.green_ids = []
         self.red_scores = []
         self.green_scores = []
-
 
         with open('redTeam.txt', 'r') as file:
             p = json.load(file)
@@ -58,7 +56,7 @@ class PlayerAction(MyBaseFrame):
 
         self.red_scores = [0] * len(self.red_names)
         self.green_scores = [0] * len(self.green_names)
-        
+
         # Populate
         header = Header(self, self.header_text, self.subheader_text)
         master_widget = MasterWidget(
@@ -67,7 +65,7 @@ class PlayerAction(MyBaseFrame):
         # Layout
         header.grid(row=0, column=1, sticky='NSEW')
         master_widget.grid(row=1, column=1, sticky='NSEW')
-        
+
         # Binding F1 to go back to Player Entry
         self.bind_all("<KeyPress-F1>",
                       lambda event=NONE: self.master.to_PlayerEntry())
@@ -177,9 +175,9 @@ class RedInformation(Frame):
             self.total = Label(self, bg='black', fg='red',
                                text=0, font=SUBHEADER_FONT)
             self.total.grid(row=15, column=1, sticky='NSE')
-            
+
             self.total_name = Label(self, bg='black', fg='red',
-                               text="Red Total Score", font=SUBHEADER_FONT)
+                                    text="Red Total Score", font=SUBHEADER_FONT)
             self.total_name.grid(row=15, column=0, sticky='NSE')
 
 
@@ -212,10 +210,11 @@ class GreenInformation(Frame):
         self.total = Label(self, bg='black', fg='green',
                            text=0, font=SUBHEADER_FONT)
         self.total.grid(row=15, column=1, sticky='NSE')
-        
+
         self.total_name = Label(self, bg='black', fg='green',
-                               text="Green Total Score", font=SUBHEADER_FONT)
+                                text="Green Total Score", font=SUBHEADER_FONT)
         self.total_name.grid(row=15, column=0, sticky='NSE')
+
 
 class ActionScreen(Frame):
     def __init__(self, master: Frame, redID: list, greenID: list, redName: list, greenName: list):

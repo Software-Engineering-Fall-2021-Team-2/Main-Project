@@ -1,6 +1,5 @@
 
 from BaseFrame import *
-from PlayerAction import PlayerAction
 
 
 class Countdown(MyBaseFrame):
@@ -11,20 +10,21 @@ class Countdown(MyBaseFrame):
         self.master = master
         self._time_seconds = COUNTDOWN_LENGTH
         self._sec = StringVar()
-        
-        # Populate 
+
+        # Populate
         self._timer = Label(self, textvariable=self._sec,
-                           font='Times 300', fg='Purple', bg='Black')
-        
+                            font='Times 300', fg='Purple', bg='Black')
+
         # Layout
-        self._timer.grid(row=0, column=0, rowspan=3, columnspan=3, sticky="NSEW" )
+        self._timer.grid(row=0, column=0, rowspan=3,
+                         columnspan=3, sticky="NSEW")
 
         # Update
         self._update_clock()
 
     def _update_clock(self):
         if self._time_seconds < 1:
-            self.master.switch_frame(PlayerAction)
+            self.master.to_PlayerAction()
             return
         # Set the sec var to contain the correct time
         self._sec.set(self._time_seconds)
