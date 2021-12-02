@@ -110,7 +110,7 @@ class MasterWidget(Frame):
         timer.grid(row=4, column=2, columnspan=2, sticky='SE')
         self.red_info.grid(row=1, column=0, sticky='NSEW')
         self.green_info.grid(row=1, column=2, sticky='NSEW')
-        action_screen.grid(row=2, column=0, columnspan=3, sticky='NSEW')
+        action_screen.grid(row=2, column=0, columnspan=3, sticky='EW')
 
 
 class MyTimer(Label):
@@ -135,7 +135,7 @@ class MyTimer(Label):
         self.update_timer()
 
     def update_timer(self):
-        if self.time_seconds < 1:
+        if self.time_seconds < 0:
             # TODO: make this call another screen
             return
         tmp = str(datetime.timedelta(seconds=self.time_seconds))
@@ -172,9 +172,13 @@ class RedInformation(Frame):
             # TODO: make UDP thing update this guy
             self.master.master.red_team[value] = score
 
-            total = name = Label(self, bg='black', fg='red',
-                                 text=0, font=SUBHEADER_FONT)
-            total.grid(row=15, column=1, sticky='NSE')
+            self.total = Label(self, bg='black', fg='red',
+                               text=0, font=SUBHEADER_FONT)
+            self.total.grid(row=15, column=1, sticky='NSE')
+            
+            self.total_name = Label(self, bg='black', fg='red',
+                               text="Red Total Score", font=SUBHEADER_FONT)
+            self.total_name.grid(row=15, column=0, sticky='NSE')
 
 
 class GreenInformation(Frame):
@@ -204,10 +208,13 @@ class GreenInformation(Frame):
             # TODO: make UDP thing update this guy
             self.master.master.green_team[value] = score
 
-        total = name = Label(self, bg='black', fg='green',
-                             text=0, font=SUBHEADER_FONT)
-        total.grid(row=15, column=1, sticky='NSE')
-
+        self.total = Label(self, bg='black', fg='green',
+                           text=0, font=SUBHEADER_FONT)
+        self.total.grid(row=15, column=1, sticky='NSE')
+        
+        self.total_name = Label(self, bg='black', fg='green',
+                               text="Green Total Score", font=SUBHEADER_FONT)
+        self.total_name.grid(row=15, column=0, sticky='NSE')
 
 class ActionScreen(Frame):
     def __init__(self, master: Frame, redID: list, greenID: list, redName: list, greenName: list):
@@ -232,8 +239,11 @@ class ActionScreen(Frame):
         self.victim = 0
         self.victim_team = ""
 
+        self.red_running_total = 0
+        self.green_running_total = 0
+
         # Configure
-        self.config(bg='grey')
+        self.config(bg='black', height=300)
 
         # Execute Game Action
         self.action()
@@ -287,7 +297,7 @@ class ActionScreen(Frame):
 
         displayMessage = str(player1) + ' hit ' + str(player2)
 
-        name = Label(self, bg='gray', fg='black',
+        name = Label(self, bg='black', fg='grey',
                      text=displayMessage, font=SUBHEADER_FONT)
         name.pack(anchor='nw')
 
@@ -303,7 +313,7 @@ class ActionScreen(Frame):
         # Updates the screen with the correct scores
         self.update_scores()
 
-        # Recursive call 
+        # Recursive call
         self.after(t, self.action)
 
     def update_scores(self):
@@ -325,12 +335,20 @@ class ActionScreen(Frame):
         print(self.master.master.green_team)
         print(self.master.master.red_team)"""
 
+        self.green_running_total = 0
+        self.red_running_total = 0
+
         for i, value in enumerate(self.master.master.green_team):
             tmp = StringVar()
             tmp = self.master.master.green_scores[i]
+            self.green_running_total += tmp
             self.master.master.green_team[value].configure(text=tmp)
 
         for i, value in enumerate(self.master.master.red_team):
             tmp = StringVar()
             tmp = self.master.master.red_scores[i]
+            self.red_running_total += tmp
             self.master.master.red_team[value].configure(text=tmp)
+
+        self.master.green_info.total.configure(text=self.green_running_total)
+        self.master.red_info.total.configure(text=self.red_running_total)
