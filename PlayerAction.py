@@ -56,6 +56,8 @@ class PlayerAction(MyBaseFrame):
             for index, value in enumerate(p):
                 self.green_ids.append(value)
 
+        self.red_scores = [0] * len(self.red_names)
+        self.green_scores = [0] * len(self.green_names)
         # Populate
         header = Header(self, self.header_text, self.subheader_text)
         master_widget = MasterWidget(
@@ -244,7 +246,6 @@ class ActionScreen(Frame):
         self.canvas.pack(side="left", fill="both", expand=True)
         self.canvas.create_window((4, 4), window=self.frame, anchor="nw",
                                   tags="self.frame")
-
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
 
         # binding scrollbar with other widget (Text, Listbox, Frame, etc)
@@ -259,10 +260,12 @@ class ActionScreen(Frame):
 
     def action(self):
         # Catching ending up front
+        # Sets number of events
         if self.counter > 20:
             return
         
 
+        # Returns id:id, handles connection         ***DO NOT TOUCH, WILL BREAK SOFTWARE***
         message = UDPClient.UDPconnect(self.red_ids, self.green_ids)
 
         # BINGBONG
@@ -274,46 +277,49 @@ class ActionScreen(Frame):
 
         #self.master.master.red_scores[1] += 100
 
+        #Finds names and also updates scores
+        #FRIEDNLY FIRE ON (-100 for both players)
         if ids[0] in self.red_ids:
             index1 = self.red_ids.index(ids[0])
             self.attacker = index1
             self.attacker_team = 'r'
             player1 = self.red_names[index1]
-            print(player1)
             if ids[1] in self.green_ids:
                 index2 = self.green_ids.index(ids[1])
                 self.victim = index2
                 self.victim_team = 'g'
                 player2 = self.green_names[index2]
-                print(player2)
+                self.master.master.red_scores[index1] += 100
+                self.master.master.green_scores[index2] -= 100
             elif ids[1] in self.red_ids:
                 index2 = self.red_ids.index(ids[1])
                 self.victim = index2
                 self.victim_team = 'r'
                 player2 = self.red_names[index2]
-                print(player2)
+                self.master.master.red_scores[index1] -= 100
+                self.master.master.red_scores[index2] -= 100
         elif ids[0] in self.green_ids:
             index1 = self.green_ids.index(ids[0])
             self.attacker = index1
             self.attacker_team = 'g'
             player1 = self.green_names[index1]
-            print(player1)
             if ids[1] in self.green_ids:
                 index2 = self.green_ids.index(ids[1])
                 self.victim = index2
                 self.victim_team = 'g'
                 player2 = self.green_names[index2]
-                print(player2)
+                self.master.master.green_scores[index1] -= 100
+                self.master.master.green_scores[index2] -= 100
             elif ids[1] in self.red_ids:
                 index2 = self.red_ids.index(ids[1])
                 self.victim = index2
                 self.victim_team = 'r'
                 player2 = self.red_names[index2]
-                print(player2)
+                self.master.master.green_scores[index1] += 100
+                self.master.master.red_scores[index2] -= 100
 
         # TODO: Make this update the correct widget in the class - I think it should add a label and pack it in      (Do what you need to do, it just needs to say this)
         displayMessage = str(player1) + ' hit ' + str(player2)
-        print(displayMessage)
 
         # Does this work? (Yes, but was guessing lol)
         name = Label(self, bg='gray', fg='black',
@@ -323,6 +329,9 @@ class ActionScreen(Frame):
 
         self.update()
         self.counter += 1
+
+        print('red_scores: ' + str(self.master.master.red_scores))
+        print('green_scores: ' + str(self.master.master.green_scores))
 
         # Allows Randomization for events      ***DO NOT REMOVE***
         t = random.randint(1, 3) * 1000
