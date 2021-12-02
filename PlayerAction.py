@@ -26,6 +26,8 @@ class PlayerAction(MyBaseFrame):
         self.green_names = []
         self.red_ids = []
         self.green_ids = []
+        self.red_scores = []
+        self.green_scores = []
 
         with open('redTeam.txt', 'r') as file:
             p = json.load(file)
@@ -57,6 +59,8 @@ class PlayerAction(MyBaseFrame):
         # Layout
         header.grid(row=0, column=1, sticky='NSEW')
         master_widget.grid(row=1, column=1, sticky='NSEW')
+        
+        # TODO: make an update function that updates the MasterWidget and red/green information screens
 
         # Debug
         # print(self.red_team)
@@ -264,7 +268,14 @@ class ActionScreen(Frame):
         # TODO: Should UDPClient.UDPconnect return both red and green ids?   (No, it shouldn't. It returns the tagger and tagged players, which is the requirement)
         message = UDPClient.UDPconnect(self.red_ids, self.green_ids)
 
+        # BINGBONG
         ids = message.split(':')
+        
+        # Green guy id = 1 hits red guy id = [1]
+        
+        #self.master.master.green_scores[1] += 100
+        
+        #self.master.master.red_scores[1] += 100
 
         if ids[0] in self.red_ids:
             index1 = self.red_ids.index(ids[0])
@@ -295,13 +306,8 @@ class ActionScreen(Frame):
         displayMessage = str(player1) + ' hit ' + str(player2)
         print(displayMessage)
 
-<<<<<<< HEAD
-        # Does this work?
-        name = Label(self.frame, bg='gray', fg='black',
-=======
         # Does this work? (Yes, but was guessing lol)
         name = Label(self, bg='gray', fg='black',
->>>>>>> 9f95ff22d0dbd47d22044c6c96a31fe02f4de9f7
                      text=displayMessage, font=SUBHEADER_FONT)
         name.pack(anchor='nw')
         #name.grid(row=self.counter, column=0, sticky='NSW')
