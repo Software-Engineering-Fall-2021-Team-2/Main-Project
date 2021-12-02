@@ -52,6 +52,8 @@ class PlayerAction(MyBaseFrame):
             for i in p:
                 self.green_ids.append(i)
 
+        self.red_scores = [0] * len(self.red_names)
+        self.green_scores = [0] * len(self.green_names)
         # Populate
         header = Header(self, self.header_text, self.subheader_text)
         master_widget = MasterWidget(self, self.red_names, self.green_names, self.red_ids, self.green_ids)
@@ -59,11 +61,9 @@ class PlayerAction(MyBaseFrame):
         # Layout
         header.grid(row=0, column=1, sticky='NSEW')
         master_widget.grid(row=1, column=1, sticky='NSEW')
-        
+
         # TODO: make an update function that updates the MasterWidget and red/green information screens
 
-        # Debug
-        #print(self.red_team)
 
 class MasterWidget(Frame):
     def __init__(self, master: MyBaseFrame, red_team: list, green_team: list, redID: list, greenID: list):
@@ -216,9 +216,6 @@ class ActionScreen(Frame):
         self.green_ids = greenID
         self.counter = 0
 
-
-
-
         # Configure
         self.config(bg='grey')
         # TODO: make scrollable
@@ -232,9 +229,7 @@ class ActionScreen(Frame):
         self.canvas.pack(side="left", fill="both", expand=True)
         self.canvas.create_window((4,4), window=self.frame, anchor="nw",
                                   tags="self.frame")
-
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
-
 
         # binding scrollbar with other widget (Text, Listbox, Frame, etc)
 
@@ -247,51 +242,44 @@ class ActionScreen(Frame):
         self.action()
 
     def action(self):
-        # TODO: should this be tied to the timer?    (Unsure, could be)
-        # Catching ending up front
+        # Sets number of events
         if self.counter > 20:
             return
 
-        # TODO: Should UDPClient.UDPconnect return both red and green ids?   (No, it shouldn't. It returns the tagger and tagged players, which is the requirement)
+        # Returns id:id, handles connection         ***DO NOT TOUCH, WILL BREAK SOFTWARE***
         message = UDPClient.UDPconnect(self.red_ids, self.green_ids)
 
         # BINGBONG
         ids = message.split(':')
-        
-        # Green guy id = 1 hits red guy id = [1]
-        
-        #self.master.master.green_scores[1] += 100
-        
-        #self.master.master.red_scores[1] += 100
 
+        #Finds names and also updates scores (If friendly fire, -100 points to person who got hit, no points lost for tagger)
         if ids[0] in self.red_ids:
             index1 = self.red_ids.index(ids[0])
             player1 = self.red_names[index1]
-            print(player1)
             if ids[1] in self.green_ids:
                 index2 = self.green_ids.index(ids[1])
                 player2 = self.green_names[index2]
-                print(player2)
+                self.master.master.red_scores[index1] += 100
+                self.master.master.green_scores[index2] -= 100
             elif ids[1] in self.red_ids:
                 index2 = self.red_ids.index(ids[1])
                 player2 = self.red_names[index2]
-                print(player2)
+                self.master.master.red_scores[index2] -= 100
         elif ids[0] in self.green_ids:
             index1 = self.green_ids.index(ids[0])
             player1 = self.green_names[index1]
-            print(player1)
             if ids[1] in self.green_ids:
                 index2 = self.green_ids.index(ids[1])
                 player2 = self.green_names[index2]
-                print(player2)
+                self.master.master.green_scores[index2] -= 100
             elif ids[1] in self.red_ids:
                 index2 = self.red_ids.index(ids[1])
                 player2 = self.red_names[index2]
-                print(player2)
+                self.master.master.green_scores[index1] += 100
+                self.master.master.red_scores[index2] -= 100
 
         # TODO: Make this update the correct widget in the class - I think it should add a label and pack it in      (Do what you need to do, it just needs to say this)
         displayMessage = str(player1) + ' hit ' + str(player2)
-        print(displayMessage)
 
         # Does this work? (Yes, but was guessing lol)
         name = Label(self, bg='gray', fg='black',
@@ -304,6 +292,6 @@ class ActionScreen(Frame):
 
         # Allows Randomization for events      ***DO NOT REMOVE***
         t = random.randint(1, 3) * 1000
-        
+
         # Recursive
         self.after(t, self.action)
