@@ -14,10 +14,11 @@ class PlayerAction(MyBaseFrame):
     subheader_text = "Game Action"
 
     def __init__(self, master: Tk):
-        """PlayerAction screen - contains team scores and feed of who hits who.
+        """PlayerAction screen - updates with feed of whatever
+        # TODO: Change the description of the PlayerAction screen
 
         Args:
-            master (Tk): Widget that is directly resposible for owning this widget (Container).
+            master (Tk): Widget that is directly resposible for owning this widget (Container)
         """
         # Set Object Attributes
         super().__init__(master)
@@ -42,7 +43,7 @@ class PlayerAction(MyBaseFrame):
         self.green_team = {key: None for key in self.green_names}
 
         with open('redID.txt', 'r') as file:
-            p = json.load(file)
+            p =json.load(file)
             for i in p:
                 self.red_ids.append(i)
 
@@ -53,8 +54,7 @@ class PlayerAction(MyBaseFrame):
 
         # Populate
         header = Header(self, self.header_text, self.subheader_text)
-        master_widget = MasterWidget(
-            self, self.red_names, self.green_names, self.red_ids, self.green_ids)
+        master_widget = MasterWidget(self, self.red_names, self.green_names, self.red_ids, self.green_ids)
 
         # Layout
         header.grid(row=0, column=1, sticky='NSEW')
@@ -63,15 +63,14 @@ class PlayerAction(MyBaseFrame):
         # TODO: make an update function that updates the MasterWidget and red/green information screens
 
         # Debug
-        # print(self.red_team)
-
+        #print(self.red_team)
 
 class MasterWidget(Frame):
     def __init__(self, master: MyBaseFrame, red_team: list, green_team: list, redID: list, greenID: list):
-        """MasterWidget - displays team information, game action, and time.
+        """MasterWidget - displays team information, game action, and time
 
         Args:
-            master (Tk): Widget that is directly resposible for owning this widget (Container).
+            master (MyBaseFrame): [description]
         """
         # Set Object Attributes
         super().__init__(master)
@@ -95,7 +94,7 @@ class MasterWidget(Frame):
         red_info = RedInformation(self, self.red_names)
         green_info = GreenInformation(self, self.green_names)
         action_screen = ActionScreen(self, self.red_ids, self.green_ids, self.red_names,
-                                     self.green_names)
+        self.green_names)
 
         # Layout
         red_team_label.grid(row=0, column=0, sticky='NSEW')
@@ -103,7 +102,7 @@ class MasterWidget(Frame):
         timer.grid(row=4, column=2, columnspan=2, sticky='SE')
         red_info.grid(row=1, column=0, sticky='NSEW')
         green_info.grid(row=1, column=2, sticky='NSEW')
-        action_screen.grid(row=2, column=0, columnspan=3, sticky='NSEW')
+        action_screen.grid(row=2,column=0, columnspan=3, sticky='NSEW')
 
 
 class MyTimer(Label):
@@ -112,8 +111,8 @@ class MyTimer(Label):
         """MM:SS style timer.
 
         Args:
-            master (MyBaseFrame): Frame that is directly resposible for owning this widget.
-            time (int): Time in seconds - derrived from main.py config method.
+            master (MyBaseFrame): Frame that is directly resposible for owning this widget
+            time (int): Time in seconds - derrived from main.py config method
         """
         # Set Object Attributes
         super().__init__(master)
@@ -140,12 +139,7 @@ class MyTimer(Label):
 
 class RedInformation(Frame):
     def __init__(self, master: Frame, players: list):
-        """[summary]
 
-        Args:
-            master (Frame): Frame that is directly resposible for owning this widget (Container).
-            players (list): List of Red team players.
-        """
         # Set Object Attributes
         super().__init__(master)
         self.players = players
@@ -170,18 +164,12 @@ class RedInformation(Frame):
             self.master.master.red_team[value] = score
 
             total = name = Label(self, bg='black', fg='red',
-                                 text=0, font=SUBHEADER_FONT)
-            total.grid(row=15, column=1, sticky='NSE')
-
+                         text=0, font=SUBHEADER_FONT)
+            total.grid(row=15,column=1,sticky='NSE')
 
 class GreenInformation(Frame):
     def __init__(self, master: Frame, players: list):
-        """[summary]
 
-        Args:
-            master (Frame): Frame that is directly resposible for owning this widget (Container).
-            players (list): List of Green team players.
-        """
         # Set Object Attributes
         super().__init__(master)
         self.players = players
@@ -206,9 +194,8 @@ class GreenInformation(Frame):
             self.master.master.green_team[value] = score
 
         total = name = Label(self, bg='black', fg='green',
-                             text=0, font=SUBHEADER_FONT)
-        total.grid(row=15, column=1, sticky='NSE')
-
+                         text=0, font=SUBHEADER_FONT)
+        total.grid(row=15,column=1,sticky='NSE')
 
 class ActionScreen(Frame):
     def __init__(self, master: Frame, redID: list, greenID: list, redName: list, greenName: list):
