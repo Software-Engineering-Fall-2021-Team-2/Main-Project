@@ -234,26 +234,6 @@ class ActionScreen(Frame):
 
         # Configure
         self.config(bg='grey')
-        # TODO: make scrollable
-        # creating and placing scrollbar
-        self.canvas = Canvas(self, borderwidth=0, background="#ffffff")
-        self.frame = Frame(self.canvas, background="#ffffff")
-        self.vsb = Scrollbar(self, orient="vertical",
-                             command=self.canvas.yview)
-        self.canvas.configure(yscrollcommand=self.vsb.set)
-
-        self.vsb.pack(side="right", fill="y")
-        self.canvas.pack(side="left", fill="both", expand=True)
-        self.canvas.create_window((4, 4), window=self.frame, anchor="nw",
-                                  tags="self.frame")
-        self.canvas.configure(scrollregion=self.canvas.bbox("all"))
-
-        # binding scrollbar with other widget (Text, Listbox, Frame, etc)
-
-        # self.config(yscrollcommand=sb.set)
-        # sb.config(command=self.yview)
-        #self.rowconfigure(tuple(range(5)), weight=1)
-        #self.columnconfigure(0, weight=1)
 
         # Execute Game Action
         self.action()
@@ -267,14 +247,7 @@ class ActionScreen(Frame):
         # Returns id:id, handles connection         ***DO NOT TOUCH, WILL BREAK SOFTWARE***
         message = UDPClient.UDPconnect(self.red_ids, self.green_ids)
 
-        # BINGBONG
         ids = message.split(':')
-
-        # Green guy id = 1 hits red guy id = [1]
-
-        #self.master.master.green_scores[1] += 100
-
-        #self.master.master.red_scores[1] += 100
 
         # Finds names and also updates scores
         # FRIEDNLY FIRE ON (-100 for both players)
@@ -288,13 +261,13 @@ class ActionScreen(Frame):
                 self.victim = index2
                 self.victim_team = 'g'
                 player2 = self.green_names[index2]
-                
+
             elif ids[1] in self.red_ids:
                 index2 = self.red_ids.index(ids[1])
                 self.victim = index2
                 self.victim_team = 'r'
                 player2 = self.red_names[index2]
-                
+
         elif ids[0] in self.green_ids:
             index1 = self.green_ids.index(ids[0])
             self.attacker = index1
@@ -305,22 +278,18 @@ class ActionScreen(Frame):
                 self.victim = index2
                 self.victim_team = 'g'
                 player2 = self.green_names[index2]
-                
+
             elif ids[1] in self.red_ids:
                 index2 = self.red_ids.index(ids[1])
                 self.victim = index2
                 self.victim_team = 'r'
                 player2 = self.red_names[index2]
-                
 
-        # TODO: Make this update the correct widget in the class - I think it should add a label and pack it in      (Do what you need to do, it just needs to say this)
         displayMessage = str(player1) + ' hit ' + str(player2)
 
-        # Does this work? (Yes, but was guessing lol)
         name = Label(self, bg='gray', fg='black',
                      text=displayMessage, font=SUBHEADER_FONT)
         name.pack(anchor='nw')
-        #name.grid(row=self.counter, column=0, sticky='NSW')
 
         self.update()
         self.counter += 1
@@ -334,7 +303,7 @@ class ActionScreen(Frame):
         # Updates the screen with the correct scores
         self.update_scores()
 
-        # Recursive
+        # Recursive call 
         self.after(t, self.action)
 
     def update_scores(self):
@@ -348,12 +317,13 @@ class ActionScreen(Frame):
         elif self.victim_team == 'g':
             self.master.master.green_scores[self.victim] -= 100
 
-        print(self.victim)
+        # DEBUG
+        """print(self.victim)
         print(self.master.master.red_scores)
         print(self.master.master.green_scores)
 
         print(self.master.master.green_team)
-        print(self.master.master.red_team)
+        print(self.master.master.red_team)"""
 
         for i, value in enumerate(self.master.master.green_team):
             tmp = StringVar()
