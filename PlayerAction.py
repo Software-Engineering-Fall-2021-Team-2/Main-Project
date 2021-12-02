@@ -353,13 +353,22 @@ class ActionScreen(Frame):
         elif self.victim_team == 'g':
             self.master.master.green_scores[self.victim] -= 100
         
+        print(self.victim)
         print (self.master.master.red_scores)
         print (self.master.master.green_scores)
+        
+        print(self.master.master.green_team)
+        print(self.master.master.red_team)
+        
+        
         for i, value in enumerate(self.master.master.green_team):
-            i.configure(text = self.master.master.green_scores[i])
-            
+            tmp = StringVar()
+            tmp = self.master.master.green_scores[i]
+            self.master.master.green_team[value].configure(text = tmp)
+          
         for i, value in enumerate(self.master.master.red_team):
-            i.configure(text = self.master.master.red_scores[i])
-        #self.master.red_info.update()
-        #self.master.master.red_team.configure(text += 100)
-        #self.master.green_info.update()
+            tmp = StringVar()
+            tmp = self.master.master.red_scores[i]
+            self.master.master.red_team[value].configure(text = tmp)  
+            
+        
