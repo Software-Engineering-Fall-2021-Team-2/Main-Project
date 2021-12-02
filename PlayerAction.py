@@ -252,7 +252,8 @@ class ActionScreen(Frame):
         # BINGBONG
         ids = message.split(':')
 
-        #Finds names and also updates scores (If friendly fire, -100 points to person who got hit, no points lost for tagger)
+        #Finds names and also updates scores
+        #FRIEDNLY FIRE ON (-100 for both players)
         if ids[0] in self.red_ids:
             index1 = self.red_ids.index(ids[0])
             player1 = self.red_names[index1]
@@ -264,6 +265,7 @@ class ActionScreen(Frame):
             elif ids[1] in self.red_ids:
                 index2 = self.red_ids.index(ids[1])
                 player2 = self.red_names[index2]
+                self.master.master.red_scores[index1] -= 100
                 self.master.master.red_scores[index2] -= 100
         elif ids[0] in self.green_ids:
             index1 = self.green_ids.index(ids[0])
@@ -271,6 +273,7 @@ class ActionScreen(Frame):
             if ids[1] in self.green_ids:
                 index2 = self.green_ids.index(ids[1])
                 player2 = self.green_names[index2]
+                self.master.master.green_scores[index1] -= 100
                 self.master.master.green_scores[index2] -= 100
             elif ids[1] in self.red_ids:
                 index2 = self.red_ids.index(ids[1])
@@ -289,6 +292,9 @@ class ActionScreen(Frame):
 
         self.update()
         self.counter += 1
+
+        print('red_scores: ' + str(self.master.master.red_scores))
+        print('green_scores: ' + str(self.master.master.green_scores))
 
         # Allows Randomization for events      ***DO NOT REMOVE***
         t = random.randint(1, 3) * 1000
