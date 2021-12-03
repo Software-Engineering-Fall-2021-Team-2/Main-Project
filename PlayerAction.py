@@ -197,7 +197,7 @@ class GreenInformation(Frame):
         for index, value in enumerate(players):
             # Set all of the scores to 0
             self.master.master.green_scores[index] = 0
-            
+
             # Place the team name labels
             name = Label(self, bg='black', fg='green',
                          text=value, font=SUBHEADER_FONT)
@@ -214,7 +214,7 @@ class GreenInformation(Frame):
         self.total_name = Label(self, bg='black', fg='green',
                                 text="Green Total Score", font=SUBHEADER_FONT)
         self.total_name.grid(row=15, column=0, sticky='NSE')
-        
+
         # Place the total score
         self.total = Label(self, bg='black', fg='green',
                            text=0, font=SUBHEADER_FONT)
@@ -325,14 +325,20 @@ class ActionScreen(Frame):
 
     def update_scores(self):
         if self.attacker_team == 'r':
-            self.master.master.red_scores[self.attacker] += 100
+            if self.victim_team == 'r':
+                self.master.master.red_scores[self.attacker] -= 100
+                self.master.master.red_scores[self.victim] -= 100
+            elif self.victim_team == 'g':
+                self.master.master.red_scores[self.attacker] += 100
+                self.master.master.green_scores[self.victim] -= 100
         elif self.attacker_team == 'g':
-            self.master.master.green_scores[self.attacker] += 100
+            if self.victim_team == 'g':
+                self.master.master.green_scores[self.attacker] -= 100
+                self.master.master.green_scores[self.victim] -= 100
+            elif self.victim_team == 'r':
+                self.master.master.green_scores[self.attacker] += 100
+                self.master.master.red_scores[self.victim] -= 100
 
-        if self.victim_team == 'r':
-            self.master.master.red_scores[self.victim] -= 100
-        elif self.victim_team == 'g':
-            self.master.master.green_scores[self.victim] -= 100
 
         # DEBUG
         """print(self.victim)

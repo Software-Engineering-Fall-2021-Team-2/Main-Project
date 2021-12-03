@@ -28,7 +28,7 @@ class Container(Tk):
         self.grid_columnconfigure(0, weight=1)
 
         # - Close Keystroke
-        self.bind('<a>', lambda event=None: self.destroy())
+        self.bind('<:>', lambda event=None: self.destroy())
 
         # - Exit Entry Box Keystroke
         self.bind("<Escape>", lambda event=None: self.focus_set())
