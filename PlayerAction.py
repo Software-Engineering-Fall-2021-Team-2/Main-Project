@@ -241,6 +241,8 @@ class ActionScreen(Frame):
         self.red_ids = redID
         self.green_ids = greenID
         self.counter = 0
+        self.newY = 0
+        self.newX = 0.0
         self.attacker = 0
         self.attacker_team = ""
         self.victim = 0
@@ -250,7 +252,7 @@ class ActionScreen(Frame):
         self.green_running_total = 0
 
         # Configure
-        self.config(bg='black', height=300)
+        self.config(bg='black', height=500)
 
         # Execute Game Action
         self.action()
@@ -258,7 +260,7 @@ class ActionScreen(Frame):
     def action(self):
         # Catching ending up front
         # Sets number of events
-        if self.counter > 20:
+        if self.counter > NUM_EVENTS:
             return
 
         # Returns id:id, handles connection         ***DO NOT TOUCH, WILL BREAK SOFTWARE***
@@ -306,10 +308,18 @@ class ActionScreen(Frame):
 
         name = Label(self, bg='black', fg='grey',
                      text=displayMessage, font=SUBHEADER_FONT)
-        name.pack(anchor='nw')
+        name.place(relx=self.newX, y=self.newY)
 
         self.update()
         self.counter += 1
+        if self.newY < 500:
+            self.newY += 20
+        else:
+            self.newY = 0
+            if self.newX < 0.8:
+                self.newX += 0.2
+            else:
+                self.newX = 0.0
 
         print('red_scores: ' + str(self.master.master.red_scores))
         print('green_scores: ' + str(self.master.master.green_scores))
@@ -323,18 +333,17 @@ class ActionScreen(Frame):
         # Recursive call
         self.after(t, self.action)
 
+    #Friendly Fire ON - Minus 10 points if you hit your own teammate
     def update_scores(self):
         if self.attacker_team == 'r':
             if self.victim_team == 'r':
-                self.master.master.red_scores[self.attacker] -= 100
-                self.master.master.red_scores[self.victim] -= 100
+                self.master.master.red_scores[self.attacker] -= 10
             elif self.victim_team == 'g':
                 self.master.master.red_scores[self.attacker] += 100
                 self.master.master.green_scores[self.victim] -= 100
         elif self.attacker_team == 'g':
             if self.victim_team == 'g':
-                self.master.master.green_scores[self.attacker] -= 100
-                self.master.master.green_scores[self.victim] -= 100
+                self.master.master.green_scores[self.attacker] -= 10
             elif self.victim_team == 'r':
                 self.master.master.green_scores[self.attacker] += 100
                 self.master.master.red_scores[self.victim] -= 100

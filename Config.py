@@ -16,4 +16,4 @@ SUBHEADER_FONT = ('Verdana', 12, 'bold')
 
 # Misc.
 NUM_PLAYERS: int = 15
-
+NUM_EVENTS: int = 125
